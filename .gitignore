@@ -1,0 +1,9 @@
+coverage/
+.idea/
+*.gem
+target/
+.bundle/
+.DS_Store
+rdoc/
+.sass-cache/
+Gemfile.lock
