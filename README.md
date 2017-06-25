@@ -1,14 +1,14 @@
-<img src="http://www.threecopies.com/images/logo.png" width="64px" height="64px"/>
+<!-- <img src="http://www.threecopies.com/images/logo.png" width="64px" height="64px"/> -->
 
 [![DevOps By Rultor.com](http://www.rultor.com/b/yegor256/threecopies)](http://www.rultor.com/p/yegor256/threecopies)
 
-[![Availability at SixNines](http://www.sixnines.io/b/)](http://www.sixnines.io/h/)
+<!-- [![Availability at SixNines](http://www.sixnines.io/b/)](http://www.sixnines.io/h/) -->
 
 [![Build Status](https://travis-ci.org/yegor256/threecopies.svg)](https://travis-ci.org/yegor256/threecopies)
 [![PDD status](http://www.0pdd.com/svg?name=yegor256/threecopies)](http://www.0pdd.com/p?name=yegor256/threecopies)
 [![Dependency Status](https://gemnasium.com/yegor256/threecopies.svg)](https://gemnasium.com/yegor256/threecopies)
 [![Code Climate](http://img.shields.io/codeclimate/github/yegor256/threecopies.svg)](https://codeclimate.com/github/yegor256/threecopies)
-[![Coverage Status](https://img.shields.io/coveralls/yegor256/threecopies.svg)](https://coveralls.io/r/yegor256/threecopies)
+[![Test Coverage](https://img.shields.io/codecov/c/github/yegor256/threecopies.svg)](https://codecov.io/github/yegor256/threecopies?branch=master)
 
 ## What does it do?
 
