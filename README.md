@@ -16,6 +16,9 @@
 regularly archives your server-side resources. We create three
 copies: hourly, daily and weekly.
 
+What's interesting is that the entire product is written in [EO](http://www.eolang.org),
+a truly object-orented programming language.
+
 ## How to contribute?
 
 Just submit a pull request. Make sure `mvn` passes.
