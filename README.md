@@ -2,7 +2,7 @@
 
 [![DevOps By Rultor.com](http://www.rultor.com/b/yegor256/threecopies)](http://www.rultor.com/p/yegor256/threecopies)
 
-<!-- [![Availability at SixNines](http://www.sixnines.io/b/)](http://www.sixnines.io/h/) -->
+[![Availability at SixNines](http://www.sixnines.io/b/9d56)](http://www.sixnines.io/h/9d56)
 
 [![Build Status](https://travis-ci.org/yegor256/threecopies.svg)](https://travis-ci.org/yegor256/threecopies)
 [![PDD status](http://www.0pdd.com/svg?name=yegor256/threecopies)](http://www.0pdd.com/p?name=yegor256/threecopies)
