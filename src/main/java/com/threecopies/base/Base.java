@@ -20,39 +20,32 @@
  * in connection with the software or  the  use  or other dealings in the
  * software.
  */
-package com.threecopies;
+package com.threecopies.base;
 
-import com.jcabi.manifests.Manifests;
-import io.sentry.Sentry;
 import java.io.IOException;
-import org.takes.http.Exit;
-import org.takes.http.FtCli;
-import org.takes.tk.TkText;
 
 /**
- * Command line entry.
+ * Base.
  *
  * @author Yegor Bugayenko (yegor256@gmail.com)
  * @version $Id$
  * @since 1.0
  */
-public final class Entrance {
+public interface Base {
 
     /**
-     * Ctor.
-     */
-    private Entrance() {
-        // utility class
-    }
-
-    /**
-     * Main entry point.
-     * @param args Arguments
+     * Get user.
+     * @param login GitHub login
+     * @return User
      * @throws IOException If fails
      */
-    public static void main(final String... args) throws IOException {
-        Sentry.init(Manifests.read("ThreeCopies-SentryDsn"));
-        new FtCli(new TkText("Hello, world!"), args).start(Exit.NEVER);
-    }
+    User user(String login) throws IOException;
+
+    /**
+     * Get all scripts, of all users.
+     * @return All scripts
+     * @throws IOException If fails
+     */
+    Iterable<Script> scripts() throws IOException;
 
 }

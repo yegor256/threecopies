@@ -27,12 +27,38 @@ software.
   <xsl:include href="/xsl/layout.xsl"/>
   <xsl:template match="page" mode="head">
     <title>
-      <xsl:text>ThreeCopies</xsl:text>
+      <xsl:text>scripts</xsl:text>
     </title>
   </xsl:template>
   <xsl:template match="page" mode="body">
     <p>
-      <xsl:text>We help you backup your server-side data.</xsl:text>
+      <a href="/u">Create new script</a>
+      <xsl:text>.</xsl:text>
     </p>
+    <xsl:apply-templates select="scripts"/>
+  </xsl:template>
+  <xsl:template match="scripts[not(script)]">
+    <p>
+      <xsl:text>You don't have any scripts yet.</xsl:text>
+    </p>
+  </xsl:template>
+  <xsl:template match="scripts[script]">
+    <p>
+      <xsl:text>There are </xsl:text>
+      <xsl:value-of select="count(script)"/>
+      <xsl:text> scripts:</xsl:text>
+    </p>
+    <ul>
+      <xsl:apply-templates select="script"/>
+    </ul>
+  </xsl:template>
+  <xsl:template match="script">
+    <li>
+      <xsl:value-of select="name"/>
+      <xsl:text> | </xsl:text>
+      <a href="{links/link[@rel='edit']/@href}">
+        <xsl:text>Edit</xsl:text>
+      </a>
+    </li>
   </xsl:template>
 </xsl:stylesheet>

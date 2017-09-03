@@ -20,39 +20,46 @@
  * in connection with the software or  the  use  or other dealings in the
  * software.
  */
-package com.threecopies;
+package com.threecopies.tk;
 
-import com.jcabi.manifests.Manifests;
-import io.sentry.Sentry;
+import com.threecopies.base.Base;
 import java.io.IOException;
-import org.takes.http.Exit;
-import org.takes.http.FtCli;
-import org.takes.tk.TkText;
+import org.cactoos.list.StickyList;
+import org.takes.Request;
+import org.takes.Response;
+import org.takes.Take;
+import org.takes.rs.xe.XeDirectives;
 
 /**
- * Command line entry.
+ * Logs.
  *
  * @author Yegor Bugayenko (yegor256@gmail.com)
  * @version $Id$
  * @since 1.0
  */
-public final class Entrance {
+final class TkLogs implements Take {
+
+    /**
+     * Base.
+     */
+    private final Base base;
 
     /**
      * Ctor.
+     * @param bse Base
      */
-    private Entrance() {
-        // utility class
+    TkLogs(final Base bse) {
+        this.base = bse;
     }
 
-    /**
-     * Main entry point.
-     * @param args Arguments
-     * @throws IOException If fails
-     */
-    public static void main(final String... args) throws IOException {
-        Sentry.init(Manifests.read("ThreeCopies-SentryDsn"));
-        new FtCli(new TkText("Hello, world!"), args).start(Exit.NEVER);
+    @Override
+    public Response act(final Request request) throws IOException {
+        return new RsPage(
+            "/xsl/logs.xsl",
+            request,
+            () -> new StickyList<>(
+                new XeDirectives(new RqUser(this.base, request).logs())
+            )
+        );
     }
-
 }

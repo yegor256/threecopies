@@ -20,39 +20,51 @@
  * in connection with the software or  the  use  or other dealings in the
  * software.
  */
-package com.threecopies;
+package com.threecopies.tk;
 
-import com.jcabi.manifests.Manifests;
-import io.sentry.Sentry;
+import com.threecopies.base.Base;
+import com.threecopies.base.User;
 import java.io.IOException;
-import org.takes.http.Exit;
-import org.takes.http.FtCli;
-import org.takes.tk.TkText;
+import org.takes.Request;
+import org.takes.Response;
+import org.takes.Take;
+import org.takes.facets.flash.RsFlash;
+import org.takes.facets.forward.RsForward;
+import org.takes.rq.RqGreedy;
+import org.takes.rq.form.RqFormSmart;
 
 /**
- * Command line entry.
+ * Save.
  *
  * @author Yegor Bugayenko (yegor256@gmail.com)
  * @version $Id$
  * @since 1.0
  */
-public final class Entrance {
+final class TkSave implements Take {
+
+    /**
+     * Base.
+     */
+    private final Base base;
 
     /**
      * Ctor.
+     * @param bse Base
      */
-    private Entrance() {
-        // utility class
+    TkSave(final Base bse) {
+        this.base = bse;
     }
 
-    /**
-     * Main entry point.
-     * @param args Arguments
-     * @throws IOException If fails
-     */
-    public static void main(final String... args) throws IOException {
-        Sentry.init(Manifests.read("ThreeCopies-SentryDsn"));
-        new FtCli(new TkText("Hello, world!"), args).start(Exit.NEVER);
+    @Override
+    public Response act(final Request request) throws IOException {
+        final User user = new RqUser(this.base, request);
+        final RqFormSmart form = new RqFormSmart(new RqGreedy(request));
+        final String name = form.single("name");
+        user.script(name).update(form.single("body"));
+        return new RsForward(
+            new RsFlash(
+                String.format("Script %s updated/saved.", name)
+            )
+        );
     }
-
 }

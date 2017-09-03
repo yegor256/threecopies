@@ -22,10 +22,10 @@ in connection with the software or  the  use  or other dealings in the
 software.
 -->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="http://www.w3.org/1999/xhtml" version="1.0">
-  <xsl:include href="http://cdn.rawgit.com/yegor256/takes/master/src/main/resources/org/takes/rs/xe/sla.xsl"/>
-  <xsl:include href="http://cdn.rawgit.com/yegor256/takes/master/src/main/resources/org/takes/rs/xe/memory.xsl"/>
-  <xsl:include href="http://cdn.rawgit.com/yegor256/takes/master/src/main/resources/org/takes/rs/xe/millis.xsl"/>
-  <xsl:include href="http://cdn.rawgit.com/yegor256/takes/master/src/main/resources/org/takes/facets/flash/flash.xsl"/>
+  <xsl:include href="/org/takes/rs/xe/sla.xsl"/>
+  <xsl:include href="/org/takes/rs/xe/memory.xsl"/>
+  <xsl:include href="/org/takes/rs/xe/millis.xsl"/>
+  <xsl:include href="/org/takes/facets/flash/flash.xsl"/>
   <xsl:template match="/page">
     <html lang="en">
       <head>
@@ -33,6 +33,7 @@ software.
         <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1"/>
         <link rel="shortcut icon" href="/images/logo.png"/>
         <link rel="stylesheet" href="/css/main.css"/>
+        <link rel="stylesheet" href="http://yegor256.github.io/tacit/tacit.min.css"/>
         <xsl:apply-templates select="." mode="head"/>
       </head>
       <body>
@@ -62,15 +63,20 @@ software.
                 </li>
                 <xsl:if test="identity">
                   <li>
-                    <a href="{links/link[@rel='domains']/@href}">
-                      <xsl:text>domains</xsl:text>
+                    <a href="{links/link[@rel='scripts']/@href}">
+                      <xsl:text>Scripts</xsl:text>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="{links/link[@rel='logs']/@href}">
+                      <xsl:text>Logs</xsl:text>
                     </a>
                   </li>
                 </xsl:if>
                 <xsl:if test="identity">
                   <li>
                     <a href="{links/link[@rel='takes:logout']/@href}">
-                      <xsl:text>exit</xsl:text>
+                      <xsl:text>Exit</xsl:text>
                     </a>
                   </li>
                 </xsl:if>
@@ -90,17 +96,17 @@ software.
                   <xsl:text>v</xsl:text>
                   <xsl:value-of select="version/name"/>
                 </li>
-                <li title="Server time to generate this page">
+                <li>
                   <xsl:call-template name="takes_millis">
                     <xsl:with-param name="millis" select="millis"/>
                   </xsl:call-template>
                 </li>
-                <li title="Load average of the server">
+                <li>
                   <xsl:call-template name="takes_sla">
                     <xsl:with-param name="sla" select="@sla"/>
                   </xsl:call-template>
                 </li>
-                <li title="Free/total memory in Mb">
+                <li>
                   <xsl:call-template name="takes_memory">
                     <xsl:with-param name="millis" select="memory"/>
                   </xsl:call-template>

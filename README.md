@@ -44,6 +44,7 @@ fields:
   ip: IP address of the server with Docker
   container: Docker container name
   log: S3 object name for the log
+  exit: Bash exit code (error if not zero)
   ttl: Epoch in seconds when the record has to be deleted (by DynamoDB)
 ```
 

@@ -27,12 +27,34 @@ software.
   <xsl:include href="/xsl/layout.xsl"/>
   <xsl:template match="page" mode="head">
     <title>
-      <xsl:text>ThreeCopies</xsl:text>
+      <xsl:text>logs</xsl:text>
     </title>
   </xsl:template>
   <xsl:template match="page" mode="body">
+    <xsl:apply-templates select="logs"/>
+  </xsl:template>
+  <xsl:template match="logs[not(log)]">
     <p>
-      <xsl:text>We help you backup your server-side data.</xsl:text>
+      <xsl:text>You don't have any logs yet.</xsl:text>
     </p>
+  </xsl:template>
+  <xsl:template match="logs[log]">
+    <p>
+      <xsl:text>There are your logs:</xsl:text>
+    </p>
+    <ul>
+      <xsl:apply-templates select="log"/>
+    </ul>
+  </xsl:template>
+  <xsl:template match="log">
+    <li>
+      <xsl:value-of select="id"/>
+      <xsl:text> | </xsl:text>
+      <xsl:value-of select="finished_utc"/>
+      <xsl:text> | </xsl:text>
+      <a href="{links/link[@rel='view']/@href}">
+        <xsl:text>View</xsl:text>
+      </a>
+    </li>
   </xsl:template>
 </xsl:stylesheet>

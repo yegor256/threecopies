@@ -1,6 +1,7 @@
 ThreeCopies-Revision: a1b2c3e
 ThreeCopies-Version: 1.0
 ThreeCopies-Date: ${timestamp}
+ThreeCopies-SentryDsn: test
 ThreeCopies-DynamoKey: ${failsafe.dynamo.key}
 ThreeCopies-DynamoSecret: ${failsafe.dynamo.secret}
 ThreeCopies-GithubId: ${failsafe.github.id}

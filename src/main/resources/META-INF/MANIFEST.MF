@@ -1,6 +1,7 @@
 ThreeCopies-Revision: BUILD
 ThreeCopies-Version: ${project.version}
 ThreeCopies-Date: ${timestamp}
+ThreeCopies-SentryDsn: ${sentry.dsn}
 ThreeCopies-DynamoKey: ${dynamo.key}
 ThreeCopies-DynamoSecret: ${dynamo.secret}
 ThreeCopies-GithubId: ${github.id}
