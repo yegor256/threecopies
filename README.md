@@ -22,6 +22,31 @@ a truly object-orented programming language.
 The logo is made by [Freepik](http://www.freepik.com) from [flaticon.com](http://www.flaticon.com)
 is licensed by [CC 3.0 BY](http://creativecommons.org/licenses/by/3.0/).
 
+## DynamoDB Schema
+
+The `tc-scripts` table contains all registered scripts:
+
+```
+fields:
+  login/H: GitHub login of the owner
+  name/R: Unique name of the script
+  bash: Bash script
+```
+
+The `tc-logs` table contains all recent logs:
+
+```
+fields:
+  id/H: Concatenated GitHub login and script name, e.g. "yegor256/test"
+  finish/R: Epoch time in millis of the script finish (or MAX_LONG if still running)
+  marker: Unique marker of the copy, which is ISO-8601 date/time, e.g. "HOUR/2017-09-03T12:00"
+  start: Epoch time of the start
+  ip: IP address of the server with Docker
+  container: Docker container name
+  log: S3 object name for the log
+  ttl: Epoch in seconds when the record has to be deleted (by DynamoDB)
+```
+
 ## How to contribute?
 
 Just submit a pull request. Make sure `mvn` passes.

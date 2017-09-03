@@ -4,6 +4,7 @@ assets:
   id_rsa.pub: zerocracy/home#assets/heroku-key.pub
 release:
   script: |-
+    [[ "${tag}" =~ ^[0-9]+(\.[0-9]+)*$ ]] || exit -1
     bundle install
     rake
     cp ../config.yml config.yml

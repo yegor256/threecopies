@@ -1,0 +1,8 @@
+main:
+  invoke:
+    @FtCli:
+      @TkText:
+        "Hello, world!"
+        org.eolang.cli.args
+      "start"
+      @Exit.NEVER
