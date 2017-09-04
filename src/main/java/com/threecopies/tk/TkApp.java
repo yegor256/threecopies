@@ -29,9 +29,22 @@ import io.sentry.Sentry;
 import java.io.File;
 import java.io.IOException;
 import java.net.HttpURLConnection;
+import java.util.regex.Pattern;
 import org.cactoos.text.TextOf;
 import org.takes.Response;
 import org.takes.Take;
+import org.takes.facets.auth.PsByFlag;
+import org.takes.facets.auth.PsChain;
+import org.takes.facets.auth.PsCookie;
+import org.takes.facets.auth.PsFake;
+import org.takes.facets.auth.PsLogout;
+import org.takes.facets.auth.TkAuth;
+import org.takes.facets.auth.codecs.CcCompact;
+import org.takes.facets.auth.codecs.CcHex;
+import org.takes.facets.auth.codecs.CcSafe;
+import org.takes.facets.auth.codecs.CcSalted;
+import org.takes.facets.auth.codecs.CcXor;
+import org.takes.facets.auth.social.PsGithub;
 import org.takes.facets.fallback.FbChain;
 import org.takes.facets.fallback.FbStatus;
 import org.takes.facets.fallback.RqFallback;
@@ -39,6 +52,7 @@ import org.takes.facets.fallback.TkFallback;
 import org.takes.facets.flash.TkFlash;
 import org.takes.facets.fork.FkFixed;
 import org.takes.facets.fork.FkHitRefresh;
+import org.takes.facets.fork.FkParams;
 import org.takes.facets.fork.FkRegex;
 import org.takes.facets.fork.TkFork;
 import org.takes.facets.forward.TkForward;
@@ -52,6 +66,7 @@ import org.takes.tk.TkClasspath;
 import org.takes.tk.TkFiles;
 import org.takes.tk.TkGzip;
 import org.takes.tk.TkMeasured;
+import org.takes.tk.TkRedirect;
 import org.takes.tk.TkVersioned;
 import org.takes.tk.TkWithHeaders;
 import org.takes.tk.TkWithType;
@@ -102,54 +117,56 @@ public final class TkApp extends TkWrap {
             new TkVersioned(
                 new TkMeasured(
                     new TkFlash(
-                        TkApp.safe(
-                            new TkForward(
-                                new TkGzip(
-                                    new TkFork(
-                                        new FkRegex("/robots.txt", ""),
-                                        new FkRegex(
-                                            "/org/takes/.+\\.xsl",
-                                            new TkClasspath()
-                                        ),
-                                        new FkRegex(
-                                            "/xsl/[a-z\\-]+\\.xsl",
-                                            new TkWithType(
-                                                TkApp.refresh("./src/main/xsl"),
-                                                "text/xsl"
-                                            )
-                                        ),
-                                        new FkRegex(
-                                            "/css/[a-z]+\\.css",
-                                            new TkWithType(
-                                                TkApp.refresh("./src/main/scss"),
-                                                "text/css"
-                                            )
-                                        ),
-                                        new FkRegex(
-                                            "/images/[a-z]+\\.svg",
-                                            new TkWithType(
-                                                TkApp.refresh("./src/main/resources"),
-                                                "image/svg+xml"
-                                            )
-                                        ),
-                                        new FkRegex(
-                                            "/images/[a-z]+\\.png",
-                                            new TkWithType(
-                                                TkApp.refresh("./src/main/resources"),
-                                                "image/png"
-                                            )
-                                        ),
-                                        new FkRegex(
-                                            "/",
-                                            (Take) request -> new RsPage(
-                                                "/xsl/index.xsl",
-                                                request
-                                            )
-                                        ),
-                                        new FkRegex("/s", new TkScripts(base)),
-                                        new FkRegex("/save", new TkSave(base)),
-                                        new FkRegex("/g", new TkLogs(base)),
-                                        new FkRegex("/log", new TkLog(base))
+                        TkApp.auth(
+                            TkApp.safe(
+                                new TkForward(
+                                    new TkGzip(
+                                        new TkFork(
+                                            new FkRegex("/robots.txt", ""),
+                                            new FkRegex(
+                                                "/org/takes/.+\\.xsl",
+                                                new TkClasspath()
+                                            ),
+                                            new FkRegex(
+                                                "/xsl/[a-z\\-]+\\.xsl",
+                                                new TkWithType(
+                                                    TkApp.refresh("./src/main/xsl"),
+                                                    "text/xsl"
+                                                )
+                                            ),
+                                            new FkRegex(
+                                                "/css/[a-z]+\\.css",
+                                                new TkWithType(
+                                                    TkApp.refresh("./src/main/scss"),
+                                                    "text/css"
+                                                )
+                                            ),
+                                            new FkRegex(
+                                                "/images/[a-z]+\\.svg",
+                                                new TkWithType(
+                                                    TkApp.refresh("./src/main/resources"),
+                                                    "image/svg+xml"
+                                                )
+                                            ),
+                                            new FkRegex(
+                                                "/images/[a-z]+\\.png",
+                                                new TkWithType(
+                                                    TkApp.refresh("./src/main/resources"),
+                                                    "image/png"
+                                                )
+                                            ),
+                                            new FkRegex(
+                                                "/",
+                                                (Take) request -> new RsPage(
+                                                    "/xsl/index.xsl",
+                                                    request
+                                                )
+                                            ),
+                                            new FkRegex("/s", new TkScripts(base)),
+                                            new FkRegex("/save", new TkSave(base)),
+                                            new FkRegex("/g", new TkLogs(base)),
+                                            new FkRegex("/log", new TkLog(base))
+                                        )
                                     )
                                 )
                             )
@@ -163,9 +180,55 @@ public final class TkApp extends TkWrap {
     }
 
     /**
-     * With fallback.
+     * Auth.
      * @param take Takes
      * @return Authenticated takes
+     */
+    private static Take auth(final Take take) {
+        return new TkAuth(
+            new TkFork(
+                new FkParams(
+                    PsByFlag.class.getSimpleName(),
+                    Pattern.compile(".+"),
+                    new TkRedirect()
+                ),
+                new FkFixed(take)
+            ),
+            new PsChain(
+                new PsFake(
+                    Manifests.read("ThreeCopies-DynamoKey").startsWith("AAAA")
+                ),
+                new PsByFlag(
+                    new PsByFlag.Pair(
+                        PsGithub.class.getSimpleName(),
+                        new PsGithub(
+                            Manifests.read("ThreeCopies-GithubId"),
+                            Manifests.read("ThreeCopies-GithubSecret")
+                        )
+                    ),
+                    new PsByFlag.Pair(
+                        PsLogout.class.getSimpleName(),
+                        new PsLogout()
+                    )
+                ),
+                new PsCookie(
+                    new CcSafe(
+                        new CcHex(
+                            new CcXor(
+                                new CcSalted(new CcCompact()),
+                                Manifests.read("ThreeCopies-SecurityKey")
+                            )
+                        )
+                    )
+                )
+            )
+        );
+    }
+
+    /**
+     * With fallback.
+     * @param take Takes
+     * @return Safe takes
      */
     private static Take safe(final Take take) {
         return new TkFallback(
