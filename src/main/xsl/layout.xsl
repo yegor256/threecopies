@@ -96,11 +96,6 @@ software.
                   <xsl:text>v</xsl:text>
                   <xsl:value-of select="version/name"/>
                 </li>
-                <li>
-                  <xsl:call-template name="takes_memory">
-                    <xsl:with-param name="millis" select="memory"/>
-                  </xsl:call-template>
-                </li>
                 <li title="Current date/time">
                   <xsl:value-of select="@date"/>
                 </li>
