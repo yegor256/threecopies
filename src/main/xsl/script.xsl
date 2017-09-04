@@ -48,7 +48,7 @@ software.
         </label>
         <textarea name="body">
           <xsl:if test="script">
-            <xsl:value-of select="script/body"/>
+            <xsl:value-of select="script/bash"/>
           </xsl:if>
           <xsl:if test="not(script)">
             <xsl:text>#!/bin/bash</xsl:text>

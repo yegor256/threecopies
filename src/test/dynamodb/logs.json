@@ -2,7 +2,7 @@
   "TableName": "logs",
   "AttributeDefinitions": [
     {
-      "AttributeName": "id",
+      "AttributeName": "group",
       "AttributeType": "S"
     },
     {
@@ -16,7 +16,7 @@
   ],
   "KeySchema": [
     {
-      "AttributeName": "id",
+      "AttributeName": "group",
       "KeyType": "HASH"
     },
     {
