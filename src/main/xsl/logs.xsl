@@ -48,13 +48,15 @@ software.
   </xsl:template>
   <xsl:template match="log">
     <li>
-      <xsl:value-of select="id"/>
+      <xsl:value-of select="period"/>
       <xsl:text> | </xsl:text>
-      <xsl:value-of select="finished_utc"/>
-      <xsl:text> | </xsl:text>
-      <a href="{links/link[@rel='view']/@href}">
-        <xsl:text>View</xsl:text>
-      </a>
+      <xsl:value-of select="finish"/>
+      <xsl:if test="finish != 9223372036854775807">
+        <xsl:text> | </xsl:text>
+        <a href="/log?name={ocket}">
+          <xsl:text>View</xsl:text>
+        </a>
+      </xsl:if>
     </li>
   </xsl:template>
 </xsl:stylesheet>
