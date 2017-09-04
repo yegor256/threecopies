@@ -36,6 +36,7 @@ import com.jcabi.dynamo.Region;
 import com.jcabi.dynamo.Table;
 import java.io.IOException;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.concurrent.TimeUnit;
 import org.xembly.Directive;
@@ -49,7 +50,7 @@ import org.xembly.Directives;
  * @since 1.0
  */
 @SuppressWarnings("PMD.AvoidDuplicateLiterals")
-public final class DyScript implements Script {
+final class DyScript implements Script {
 
     /**
      * DynamoDB region.
@@ -217,10 +218,11 @@ public final class DyScript implements Script {
     /**
      * Script item.
      * @return Item
+     * @throws IOException If fails
      */
-    private Item item() {
-        return this.region.table("scripts")
-            .frame()
+    private Item item() throws IOException {
+        final Table table = this.region.table("scripts");
+        final Iterator<Item> items = table.frame()
             .through(
                 new QueryValve()
                     .withLimit(1)
@@ -228,8 +230,19 @@ public final class DyScript implements Script {
             )
             .where("login", this.login)
             .where("name", this.name)
-            .iterator()
-            .next();
+            .iterator();
+        final Item item;
+        if (items.hasNext()) {
+            item = items.next();
+        } else {
+            item = table.put(
+                new Attributes()
+                    .with("login", this.login)
+                    .with("name", this.name)
+                    .with("bash", "echo 'Hello, worl!'")
+            );
+        }
+        return item;
     }
 
 }
