@@ -91,6 +91,22 @@ software.
           </article>
           <footer>
             <nav>
+              <ul style="color:gray;" class="bottom">
+                <li title="Currently deployed version">
+                  <xsl:text>v</xsl:text>
+                  <xsl:value-of select="version/name"/>
+                </li>
+                <li>
+                  <xsl:call-template name="takes_memory">
+                    <xsl:with-param name="millis" select="memory"/>
+                  </xsl:call-template>
+                </li>
+                <li title="Current date/time">
+                  <xsl:value-of select="@date"/>
+                </li>
+              </ul>
+            </nav>
+            <nav>
               <ul>
                 <li>
                   <a href="https://github.com/yegor256/threecopies/stargazers">
