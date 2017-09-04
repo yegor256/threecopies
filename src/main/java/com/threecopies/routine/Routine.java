@@ -183,10 +183,10 @@ public final class Routine implements Proc<Void> {
             stdout,
             new DeadOutput().stream()
         );
-        if (stdout.size() > 0) {
-            final String[] parts = new String(
-                stdout.toByteArray(), StandardCharsets.UTF_8
-            ).split("\n", 2);
+        final String[] parts = new String(
+            stdout.toByteArray(), StandardCharsets.UTF_8
+        ).split("\n", 2);
+        if (parts.length > 1) {
             new Ocket.Text(
                 this.bucket.ocket(log.get("ocket").getS())
             ).write(parts[1]);
