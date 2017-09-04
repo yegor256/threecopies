@@ -27,6 +27,7 @@ import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.services.dynamodbv2.model.AttributeValueUpdate;
 import com.jcabi.dynamo.AttributeUpdates;
 import com.jcabi.dynamo.Item;
+import com.jcabi.log.Logger;
 import com.jcabi.log.VerboseThreads;
 import com.jcabi.s3.Bucket;
 import com.jcabi.s3.Ocket;
@@ -160,6 +161,7 @@ public final class Routine implements Proc<Void> {
                 .withValue(new AttributeValue().withS(container))
                 .withAction(AttributeAction.PUT)
         );
+        Logger.info(this, "Started %s for %s", container, login);
     }
 
     /**
@@ -188,6 +190,7 @@ public final class Routine implements Proc<Void> {
             new Ocket.Text(
                 this.bucket.ocket(log.get("ocket").getS())
             ).write(parts[1]);
+            final int exit = Integer.parseInt(parts[0].trim());
             log.put(
                 new AttributeUpdates()
                     .with(
@@ -201,9 +204,13 @@ public final class Routine implements Proc<Void> {
                     .with(
                         "exit",
                         new AttributeValueUpdate().withValue(
-                            new AttributeValue().withN(parts[0].trim())
+                            new AttributeValue().withN(Integer.toString(exit))
                         ).withAction(AttributeAction.PUT)
                     )
+            );
+            Logger.info(
+                this, "Finished %s with %s and %d log bytes",
+                container, exit, parts[1].length()
             );
         }
     }
