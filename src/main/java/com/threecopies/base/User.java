@@ -23,6 +23,7 @@
 package com.threecopies.base;
 
 import java.io.IOException;
+import java.util.regex.Pattern;
 import org.cactoos.Input;
 import org.xembly.Directive;
 
@@ -34,6 +35,11 @@ import org.xembly.Directive;
  * @since 1.0
  */
 public interface User {
+
+    /**
+     * Script regex.
+     */
+    Pattern SCRIPT_NAME = Pattern.compile("[a-z0-9A-Z-]{4,32}");
 
     /**
      * Get all scripts.
@@ -59,10 +65,10 @@ public interface User {
 
     /**
      * Get one single full log.
-     * @param name The unique name of the log
+     * @param ocket The unique name of the log
      * @return The log content
      * @throws IOException If fails
      */
-    Input log(String name) throws IOException;
+    Input log(String ocket) throws IOException;
 
 }

@@ -4,6 +4,8 @@ ThreeCopies-Date: ${timestamp}
 ThreeCopies-SentryDsn: ${sentry.dsn}
 ThreeCopies-DynamoKey: ${dynamo.key}
 ThreeCopies-DynamoSecret: ${dynamo.secret}
+ThreeCopies-S3Key: ${s3.key}
+ThreeCopies-S3Secret: ${s3.secret}
 ThreeCopies-GithubId: ${github.id}
 ThreeCopies-GithubSecret: ${github.secret}
 ThreeCopies-SecurityKey: ${security.key}

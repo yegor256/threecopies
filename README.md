@@ -31,21 +31,27 @@ fields:
   login/H: GitHub login of the owner
   name/R: Unique name of the script
   bash: Bash script
+  hour: Epoch-sec when it recent hourly log was scheduled
+  day: Epoch-sec when it recent daily log was scheduled
+  week: Epoch-sec when it recent weekly log was scheduled
 ```
 
 The `tc-logs` table contains all recent logs:
 
 ```
 fields:
-  id/H: Concatenated GitHub login and script name, e.g. "yegor256/test"
-  finish/R: Epoch time in millis of the script finish (or MAX_LONG if still running)
-  marker: Unique marker of the copy, which is ISO-8601 date/time, e.g. "HOUR/2017-09-03T12:00"
-  start: Epoch time of the start
-  ip: IP address of the server with Docker
+  group/H: Concatenated GitHub login and script name, e.g. "yegor256/test"
+  finish/R: Epoch-msec of the script finish (or MAX_LONG if still running)
+  login: GitHub login of the owner
+  period: Either "hour", "day", or "week"
+  ocket: S3 object name for the log
+  ttl: Epoch-sec when the record has to be deleted (by DynamoDB)
+  start: Epoch-msec time of the start
   container: Docker container name
-  log: S3 object name for the log
   exit: Bash exit code (error if not zero)
-  ttl: Epoch in seconds when the record has to be deleted (by DynamoDB)
+mine (index):
+  login/H
+  finish/R
 ```
 
 ## How to contribute?

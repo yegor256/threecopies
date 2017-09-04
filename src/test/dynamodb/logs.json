@@ -8,6 +8,10 @@
     {
       "AttributeName": "finish",
       "AttributeType": "N"
+    },
+    {
+      "AttributeName": "login",
+      "AttributeType": "S"
     }
   ],
   "KeySchema": [
@@ -23,5 +27,27 @@
   "ProvisionedThroughput": {
     "ReadCapacityUnits": "1",
     "WriteCapacityUnits": "1"
-  }
+  },
+  "GlobalSecondaryIndexes": [
+    {
+      "IndexName": "mine",
+      "KeySchema": [
+        {
+          "AttributeName": "login",
+          "KeyType": "HASH"
+        },
+        {
+          "AttributeName": "finish",
+          "KeyType": "RANGE"
+        }
+      ],
+      "Projection": {
+        "ProjectionType": "ALL"
+      },
+      "ProvisionedThroughput": {
+        "ReadCapacityUnits": "1",
+        "WriteCapacityUnits": "1"
+      }
+    }
+  ]
 }

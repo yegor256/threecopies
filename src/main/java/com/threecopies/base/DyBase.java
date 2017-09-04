@@ -22,36 +22,63 @@
  */
 package com.threecopies.base;
 
-import java.io.IOException;
-import java.util.regex.Pattern;
+import com.jcabi.dynamo.Region;
+import com.jcabi.dynamo.Table;
+import org.cactoos.iterable.Mapped;
 
 /**
- * Base.
+ * DynamoDB base.
  *
  * @author Yegor Bugayenko (yegor256@gmail.com)
  * @version $Id$
  * @since 1.0
  */
-public interface Base {
+public final class DyBase implements Base {
 
     /**
-     * Script regex.
+     * DynamoDB region.
      */
-    Pattern USER_NAME = Pattern.compile("[a-z0-9-]+");
+    private final Region region;
 
     /**
-     * Get user.
-     * @param login GitHub login
-     * @return User
-     * @throws IOException If fails
+     * Ctor.
+     * @param rgn The region
      */
-    User user(String login) throws IOException;
+    public DyBase(final Region rgn) {
+        this.region = rgn;
+    }
+
+    @Override
+    public User user(final String login) {
+        if (!Base.USER_NAME.matcher(login).matches()) {
+            throw new IllegalArgumentException(
+                String.format(
+                    "Invalid user name \"%s\", must match \"%s\" regexp",
+                    login, Base.USER_NAME
+                )
+            );
+        }
+        return new DyUser(this.region, login);
+    }
+
+    @Override
+    public Iterable<Script> scripts() {
+        return new Mapped<>(
+            this.table().frame(),
+            item -> new DyScript(
+                this.region,
+                item.get("login").getS(),
+                item.get("name").getS()
+            )
+        );
+    }
 
     /**
-     * Get all scripts, of all users.
-     * @return All scripts
-     * @throws IOException If fails
+     * Table to work with.
+     * @return Table
      */
-    Iterable<Script> scripts() throws IOException;
+    private Table table() {
+        return this.region.table("scripts");
+    }
 
 }

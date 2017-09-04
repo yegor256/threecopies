@@ -22,6 +22,7 @@
  */
 package com.threecopies.base;
 
+import com.jcabi.dynamo.Item;
 import java.io.IOException;
 import org.xembly.Directive;
 
@@ -49,9 +50,10 @@ public interface Script {
     void update(String bash) throws IOException;
 
     /**
-     * Push it one step forward.
+     * Log items which are currently open (usually either one or none).
+     * @return The log items that require attention
      * @throws IOException If fails
      */
-    void push() throws IOException;
+    Iterable<Item> open() throws IOException;
 
 }

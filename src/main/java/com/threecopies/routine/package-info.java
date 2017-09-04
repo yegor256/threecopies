@@ -20,38 +20,13 @@
  * in connection with the software or  the  use  or other dealings in the
  * software.
  */
-package com.threecopies.base;
-
-import java.io.IOException;
-import java.util.regex.Pattern;
 
 /**
- * Base.
+ * ThreeCopies.
  *
  * @author Yegor Bugayenko (yegor256@gmail.com)
  * @version $Id$
- * @since 1.0
+ * @since 0.1
  */
-public interface Base {
+package com.threecopies.routine;
 
-    /**
-     * Script regex.
-     */
-    Pattern USER_NAME = Pattern.compile("[a-z0-9-]+");
-
-    /**
-     * Get user.
-     * @param login GitHub login
-     * @return User
-     * @throws IOException If fails
-     */
-    User user(String login) throws IOException;
-
-    /**
-     * Get all scripts, of all users.
-     * @return All scripts
-     * @throws IOException If fails
-     */
-    Iterable<Script> scripts() throws IOException;
-
-}

@@ -23,11 +23,20 @@
 package com.threecopies;
 
 import com.jcabi.manifests.Manifests;
+import com.jcabi.s3.Region;
+import com.jcabi.ssh.SSH;
+import com.jcabi.ssh.Shell;
+import com.threecopies.base.Base;
+import com.threecopies.base.DyBase;
+import com.threecopies.base.Dynamo;
+import com.threecopies.routine.Routine;
+import com.threecopies.tk.TkApp;
 import io.sentry.Sentry;
 import java.io.IOException;
+import org.cactoos.io.ResourceOf;
+import org.cactoos.text.TextOf;
 import org.takes.http.Exit;
 import org.takes.http.FtCli;
-import org.takes.tk.TkText;
 
 /**
  * Command line entry.
@@ -35,6 +44,7 @@ import org.takes.tk.TkText;
  * @author Yegor Bugayenko (yegor256@gmail.com)
  * @version $Id$
  * @since 1.0
+ * @checkstyle ClassDataAbstractionCouplingCheck (500 lines)
  */
 public final class Entrance {
 
@@ -52,7 +62,26 @@ public final class Entrance {
      */
     public static void main(final String... args) throws IOException {
         Sentry.init(Manifests.read("ThreeCopies-SentryDsn"));
-        new FtCli(new TkText("Hello, world!"), args).start(Exit.NEVER);
+        final Base base = new DyBase(new Dynamo());
+        new Routine(
+            base,
+            new Shell.Safe(
+                new SSH(
+                    "d1.threecopies.com",
+                    // @checkstyle MagicNumber (1 line)
+                    22,
+                    "threecopies",
+                    new TextOf(
+                        new ResourceOf("com/threecopies/routine/ssh.key")
+                    ).asString()
+                )
+            ),
+            new Region.Simple(
+                Manifests.read("ThreeCopies-S3Key"),
+                Manifests.read("ThreeCopies-S3Secret")
+            ).bucket("logs.threecopies.com")
+        ).start();
+        new FtCli(new TkApp(base), args).start(Exit.NEVER);
     }
 
 }

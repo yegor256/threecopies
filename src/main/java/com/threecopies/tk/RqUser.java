@@ -79,8 +79,8 @@ final class RqUser implements User {
     }
 
     @Override
-    public Input log(final String name) throws IOException {
-        return this.base.user(this.name()).log(name);
+    public Input log(final String ocket) throws IOException {
+        return this.base.user(this.name()).log(ocket);
     }
 
     /**
