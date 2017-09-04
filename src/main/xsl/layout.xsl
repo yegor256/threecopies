@@ -50,6 +50,36 @@ software.
             </nav>
             <nav>
               <ul class="menu">
+                <li>
+                  <xsl:if test="identity">
+                    <xsl:text>@</xsl:text>
+                    <xsl:value-of select="identity/login"/>
+                  </xsl:if>
+                  <xsl:if test="not(identity)">
+                    <a href="{links/link[@rel='takes:github']/@href}">
+                      <xsl:text>login</xsl:text>
+                    </a>
+                  </xsl:if>
+                </li>
+                <xsl:if test="identity">
+                  <li>
+                    <a href="{links/link[@rel='scripts']/@href}">
+                      <xsl:text>Scripts</xsl:text>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="{links/link[@rel='logs']/@href}">
+                      <xsl:text>Logs</xsl:text>
+                    </a>
+                  </li>
+                </xsl:if>
+                <xsl:if test="identity">
+                  <li>
+                    <a href="{links/link[@rel='takes:logout']/@href}">
+                      <xsl:text>Exit</xsl:text>
+                    </a>
+                  </li>
+                </xsl:if>
               </ul>
             </nav>
             <xsl:call-template name="takes_flash">
@@ -60,32 +90,6 @@ software.
             <xsl:apply-templates select="." mode="body"/>
           </article>
           <footer>
-            <nav>
-              <ul style="color:gray;" class="bottom">
-                <li title="Currently deployed version">
-                  <xsl:text>v</xsl:text>
-                  <xsl:value-of select="version/name"/>
-                </li>
-                <li>
-                  <xsl:call-template name="takes_millis">
-                    <xsl:with-param name="millis" select="millis"/>
-                  </xsl:call-template>
-                </li>
-                <li>
-                  <xsl:call-template name="takes_sla">
-                    <xsl:with-param name="sla" select="@sla"/>
-                  </xsl:call-template>
-                </li>
-                <li>
-                  <xsl:call-template name="takes_memory">
-                    <xsl:with-param name="millis" select="memory"/>
-                  </xsl:call-template>
-                </li>
-                <li title="Current date/time">
-                  <xsl:value-of select="@date"/>
-                </li>
-              </ul>
-            </nav>
             <nav>
               <ul>
                 <li>
