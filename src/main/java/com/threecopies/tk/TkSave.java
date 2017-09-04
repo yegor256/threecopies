@@ -64,7 +64,8 @@ final class TkSave implements Take {
         return new RsForward(
             new RsFlash(
                 String.format("Script %s updated/saved.", name)
-            )
+            ),
+            "/scripts"
         );
     }
 }

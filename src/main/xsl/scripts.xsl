@@ -56,7 +56,7 @@ software.
     <li>
       <xsl:value-of select="name"/>
       <xsl:text> | </xsl:text>
-      <a href="{links/link[@rel='edit']/@href}">
+      <a href="/script?name={name}">
         <xsl:text>Edit</xsl:text>
       </a>
     </li>

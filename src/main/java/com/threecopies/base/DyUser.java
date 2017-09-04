@@ -99,6 +99,7 @@ final class DyUser implements User {
                                 .withIndexName("mine")
                                 // @checkstyle MagicNumber (1 line)
                                 .withLimit(20)
+                                .withConsistentRead(false)
                                 .withScanIndexForward(false)
                                 .withSelect(Select.ALL_ATTRIBUTES)
                         )
