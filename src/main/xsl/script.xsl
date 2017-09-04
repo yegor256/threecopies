@@ -32,30 +32,32 @@ software.
   </xsl:template>
   <xsl:template match="page" mode="body">
     <form action="/save" method="post">
-      <label>
-        <xsl:text>Name:</xsl:text>
-      </label>
-      <input name="name" type="text" size="45" maxlength="32">
-        <xsl:if test="script">
-          <xsl:attribute name="value">
-            <xsl:value-of select="script/name"/>
-          </xsl:attribute>
-        </xsl:if>
-      </input>
-      <label>
-        <xsl:text>Bash:</xsl:text>
-      </label>
-      <textarea name="body">
-        <xsl:if test="script">
-          <xsl:value-of select="script/body"/>
-        </xsl:if>
-        <xsl:if test="not(script)">
-          <xsl:text>#!/bin/bash</xsl:text>
-        </xsl:if>
-      </textarea>
-      <input type="submit">
-        <xsl:text>Save</xsl:text>
-      </input>
+      <fieldset>
+        <label>
+          <xsl:text>Name:</xsl:text>
+        </label>
+        <input name="name" type="text" size="45" maxlength="32">
+          <xsl:if test="script">
+            <xsl:attribute name="value">
+              <xsl:value-of select="script/name"/>
+            </xsl:attribute>
+          </xsl:if>
+        </input>
+        <label>
+          <xsl:text>Bash:</xsl:text>
+        </label>
+        <textarea name="body">
+          <xsl:if test="script">
+            <xsl:value-of select="script/body"/>
+          </xsl:if>
+          <xsl:if test="not(script)">
+            <xsl:text>#!/bin/bash</xsl:text>
+          </xsl:if>
+        </textarea>
+        <input type="submit">
+          <xsl:text>Save</xsl:text>
+        </input>
+      </fieldset>
     </form>
   </xsl:template>
 </xsl:stylesheet>
