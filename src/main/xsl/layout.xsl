@@ -63,12 +63,12 @@ software.
                 </li>
                 <xsl:if test="identity">
                   <li>
-                    <a href="{links/link[@rel='scripts']/@href}">
+                    <a href="/scripts">
                       <xsl:text>Scripts</xsl:text>
                     </a>
                   </li>
                   <li>
-                    <a href="{links/link[@rel='logs']/@href}">
+                    <a href="/logs">
                       <xsl:text>Logs</xsl:text>
                     </a>
                   </li>

@@ -27,38 +27,35 @@ software.
   <xsl:include href="/xsl/layout.xsl"/>
   <xsl:template match="page" mode="head">
     <title>
-      <xsl:text>scripts</xsl:text>
+      <xsl:text>script</xsl:text>
     </title>
   </xsl:template>
   <xsl:template match="page" mode="body">
-    <p>
-      <a href="/script">Create new script</a>
-      <xsl:text>.</xsl:text>
-    </p>
-    <xsl:apply-templates select="scripts"/>
-  </xsl:template>
-  <xsl:template match="scripts[not(script)]">
-    <p>
-      <xsl:text>You don't have any scripts yet.</xsl:text>
-    </p>
-  </xsl:template>
-  <xsl:template match="scripts[script]">
-    <p>
-      <xsl:text>There are </xsl:text>
-      <xsl:value-of select="count(script)"/>
-      <xsl:text> scripts:</xsl:text>
-    </p>
-    <ul>
-      <xsl:apply-templates select="script"/>
-    </ul>
-  </xsl:template>
-  <xsl:template match="script">
-    <li>
-      <xsl:value-of select="name"/>
-      <xsl:text> | </xsl:text>
-      <a href="{links/link[@rel='edit']/@href}">
-        <xsl:text>Edit</xsl:text>
-      </a>
-    </li>
+    <form action="/save" method="post">
+      <label>
+        <xsl:text>Name:</xsl:text>
+      </label>
+      <input name="name" type="text" size="45" maxlength="32">
+        <xsl:if test="script">
+          <xsl:attribute name="value">
+            <xsl:value-of select="script/name"/>
+          </xsl:attribute>
+        </xsl:if>
+      </input>
+      <label>
+        <xsl:text>Bash:</xsl:text>
+      </label>
+      <textarea name="body">
+        <xsl:if test="script">
+          <xsl:value-of select="script/body"/>
+        </xsl:if>
+        <xsl:if test="not(script)">
+          <xsl:text>#!/bin/bash</xsl:text>
+        </xsl:if>
+      </textarea>
+      <input type="submit">
+        <xsl:text>Save</xsl:text>
+      </input>
+    </form>
   </xsl:template>
 </xsl:stylesheet>
