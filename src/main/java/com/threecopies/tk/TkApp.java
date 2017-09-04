@@ -273,7 +273,7 @@ public final class TkApp extends TkWrap {
                         "err",
                         new TextOf(req.throwable()).asString()
                     ),
-                    new RsVelocity.Pair("rev", Manifests.read("Rehttp-Revision"))
+                    new RsVelocity.Pair("rev", TkApp.REV)
                 )
             ),
             HttpURLConnection.HTTP_INTERNAL_ERROR
