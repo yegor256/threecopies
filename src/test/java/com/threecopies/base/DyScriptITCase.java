@@ -24,6 +24,7 @@ package com.threecopies.base;
 
 import com.jcabi.matchers.XhtmlMatchers;
 import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.xembly.Xembler;
 
@@ -47,6 +48,15 @@ public final class DyScriptITCase {
                 "/script[name='test']",
                 "/script/bash"
             )
+        );
+    }
+
+    @Test
+    public void createsOpenLog() throws Exception {
+        final Script script = new DyScript(new Dynamo(), "jeff", "test1");
+        MatcherAssert.assertThat(
+            script.open(),
+            Matchers.not(Matchers.emptyIterable())
         );
     }
 

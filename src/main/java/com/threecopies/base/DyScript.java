@@ -174,7 +174,7 @@ final class DyScript implements Script {
                         .with("period", new AttributeValue().withS(period))
                         .with(
                             "finish",
-                            new AttributeValue().withS(
+                            new AttributeValue().withN(
                                 Long.toString(Long.MAX_VALUE)
                             )
                         )
