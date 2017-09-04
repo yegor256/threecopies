@@ -5,7 +5,7 @@ period=$2
 
 cd "${container}"
 chmod a+x script.sh
-docker run -t --rm -name "${container}" \
+docker run -t --rm --name "${container}" \
     -v "$(pwd):/main" \
     --hostname=docker --privileged \
     --memory=6g --memory-swap=16g --oom-kill-disable \
