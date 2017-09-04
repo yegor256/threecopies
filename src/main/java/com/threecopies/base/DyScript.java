@@ -178,6 +178,15 @@ final class DyScript implements Script {
                                 Long.toString(Long.MAX_VALUE)
                             )
                         )
+                        .with(
+                            "ocket",
+                            new AttributeValue().withS(
+                                String.format(
+                                    "%s-%d", this.login,
+                                    System.currentTimeMillis()
+                                )
+                            )
+                        )
                 )
             );
         }

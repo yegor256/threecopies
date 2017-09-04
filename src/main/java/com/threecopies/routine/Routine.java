@@ -184,7 +184,9 @@ public final class Routine implements Proc<Void> {
             final String[] parts = new String(
                 stdout.toByteArray(), StandardCharsets.UTF_8
             ).split("\n", 2);
-            new Ocket.Text(this.bucket.ocket(container)).write(parts[1]);
+            new Ocket.Text(
+                this.bucket.ocket(log.get("ocket").getS())
+            ).write(parts[1]);
             log.put(
                 new AttributeUpdates()
                     .with(
@@ -193,12 +195,6 @@ public final class Routine implements Proc<Void> {
                             new AttributeValue().withN(
                                 Long.toString(System.currentTimeMillis())
                             )
-                        ).withAction(AttributeAction.PUT)
-                    )
-                    .with(
-                        "ocket",
-                        new AttributeValueUpdate().withValue(
-                            new AttributeValue().withS(container)
                         ).withAction(AttributeAction.PUT)
                     )
                     .with(

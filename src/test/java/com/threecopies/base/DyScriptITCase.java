@@ -53,9 +53,14 @@ public final class DyScriptITCase {
 
     @Test
     public void createsOpenLog() throws Exception {
-        final Script script = new DyScript(new Dynamo(), "jeff", "test1");
+        final User user = new DyUser(new Dynamo(), "jeff");
+        final Script script = user.script("test1");
         MatcherAssert.assertThat(
             script.open(),
+            Matchers.not(Matchers.emptyIterable())
+        );
+        MatcherAssert.assertThat(
+            user.logs(),
             Matchers.not(Matchers.emptyIterable())
         );
     }
