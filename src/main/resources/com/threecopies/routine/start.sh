@@ -3,8 +3,8 @@
 container=$1
 period=$2
 
-mkdir -p "${container}"
 cd "${container}"
+chmod a+x script.sh
 docker run -t --rm -name "${container}" \
     -v "$(pwd):/main" \
     --hostname=docker --privileged \

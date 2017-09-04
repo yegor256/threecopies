@@ -142,10 +142,11 @@ public final class Routine implements Proc<Void> {
             String.join(
                 " && ",
                 String.format("cd %s", Routine.DIR),
-                String.format("c=%s", container),
-                "cat > $c-script.sh",
+                String.format("mkdir %s", container),
+                String.format("cat > %s/script.sh", container),
                 String.format(
-                    "./start.sh $c %s &",
+                    "./start.sh %s %s &",
+                    container,
                     log.get("period").getS()
                 )
             ),
@@ -217,7 +218,8 @@ public final class Routine implements Proc<Void> {
             String.join(
                 " && ",
                 String.format("mkdir -p %s", Routine.DIR),
-                String.format("cat > %s/%s", Routine.DIR, res)
+                String.format("cat > %s/%s", Routine.DIR, res),
+                String.format("chmod a+x %s/%s", Routine.DIR, res)
             ),
             new ResourceOf(
                 String.format(
