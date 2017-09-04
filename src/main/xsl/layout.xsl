@@ -37,6 +37,66 @@ software.
         <xsl:apply-templates select="." mode="head"/>
       </head>
       <body>
+        <section>
+          <header>
+            <nav>
+              <ul>
+                <li>
+                  <a href="{links/link[@rel='home']/@href}">
+                    <img src="/images/logo.svg" class="logo"/>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+            <nav>
+              <ul class="menu">
+              </ul>
+            </nav>
+            <xsl:call-template name="takes_flash">
+              <xsl:with-param name="flash" select="flash"/>
+            </xsl:call-template>
+          </header>
+          <article>
+            <xsl:apply-templates select="." mode="body"/>
+          </article>
+          <footer>
+            <nav>
+              <ul style="color:gray;" class="bottom">
+                <li title="Currently deployed version">
+                  <xsl:text>v</xsl:text>
+                  <xsl:value-of select="version/name"/>
+                </li>
+                <li>
+                  <xsl:call-template name="takes_millis">
+                    <xsl:with-param name="millis" select="millis"/>
+                  </xsl:call-template>
+                </li>
+                <li>
+                  <xsl:call-template name="takes_sla">
+                    <xsl:with-param name="sla" select="@sla"/>
+                  </xsl:call-template>
+                </li>
+                <li>
+                  <xsl:call-template name="takes_memory">
+                    <xsl:with-param name="millis" select="memory"/>
+                  </xsl:call-template>
+                </li>
+                <li title="Current date/time">
+                  <xsl:value-of select="@date"/>
+                </li>
+              </ul>
+            </nav>
+            <nav>
+              <ul>
+                <li>
+                  <a href="https://github.com/yegor256/threecopies/stargazers">
+                    <img src="https://img.shields.io/github/stars/yegor256/threecopies.svg?style=flat-square" alt="github stars"/>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </footer>
+        </section>
       </body>
     </html>
   </xsl:template>
