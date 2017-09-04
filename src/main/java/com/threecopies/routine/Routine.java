@@ -28,6 +28,7 @@ import com.amazonaws.services.dynamodbv2.model.AttributeValueUpdate;
 import com.jcabi.dynamo.AttributeUpdates;
 import com.jcabi.dynamo.Item;
 import com.jcabi.log.Logger;
+import com.jcabi.log.VerboseRunnable;
 import com.jcabi.log.VerboseThreads;
 import com.jcabi.s3.Bucket;
 import com.jcabi.s3.Ocket;
@@ -106,7 +107,8 @@ public final class Routine implements Proc<Void> {
      */
     public void start() {
         this.service.scheduleWithFixedDelay(
-            new RunnableOf<>(this), 1L, 1L, TimeUnit.MINUTES
+            new VerboseRunnable(new RunnableOf<>(this), true, true),
+            1L, 1L, TimeUnit.MINUTES
         );
     }
 
