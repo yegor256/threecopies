@@ -156,10 +156,21 @@ public final class Routine implements Proc<Void> {
             new DeadOutput().stream()
         );
         log.put(
-            "container",
-            new AttributeValueUpdate()
-                .withValue(new AttributeValue().withS(container))
-                .withAction(AttributeAction.PUT)
+            new AttributeUpdates()
+                .with(
+                    "start",
+                    new AttributeValueUpdate().withValue(
+                        new AttributeValue().withN(
+                            Long.toString(System.currentTimeMillis())
+                        )
+                    ).withAction(AttributeAction.PUT)
+                )
+                .with(
+                    "container",
+                    new AttributeValueUpdate()
+                        .withValue(new AttributeValue().withS(container))
+                        .withAction(AttributeAction.PUT)
+                )
         );
         Logger.info(this, "Started %s for %s", container, login);
     }
@@ -211,6 +222,11 @@ public final class Routine implements Proc<Void> {
             Logger.info(
                 this, "Finished %s with %s and %d log bytes",
                 container, exit, parts[1].length()
+            );
+        } else {
+            Logger.info(
+                this, "Still running %s: %s",
+                container, parts[0]
             );
         }
     }
