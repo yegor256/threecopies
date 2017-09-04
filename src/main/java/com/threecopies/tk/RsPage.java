@@ -23,10 +23,16 @@
 package com.threecopies.tk;
 
 import com.jcabi.manifests.Manifests;
+import java.io.IOException;
 import java.util.Collections;
 import org.takes.Request;
 import org.takes.Response;
 import org.takes.Scalar;
+import org.takes.facets.auth.Identity;
+import org.takes.facets.auth.RqAuth;
+import org.takes.facets.auth.XeIdentity;
+import org.takes.facets.auth.XeLogoutLink;
+import org.takes.facets.auth.social.XeGithubLink;
 import org.takes.facets.flash.XeFlash;
 import org.takes.facets.fork.FkTypes;
 import org.takes.facets.fork.RsFork;
@@ -38,6 +44,7 @@ import org.takes.rs.xe.RsXembly;
 import org.takes.rs.xe.XeAppend;
 import org.takes.rs.xe.XeChain;
 import org.takes.rs.xe.XeDate;
+import org.takes.rs.xe.XeLink;
 import org.takes.rs.xe.XeLinkHome;
 import org.takes.rs.xe.XeLinkSelf;
 import org.takes.rs.xe.XeLocalhost;
@@ -46,6 +53,7 @@ import org.takes.rs.xe.XeMillis;
 import org.takes.rs.xe.XeSla;
 import org.takes.rs.xe.XeSource;
 import org.takes.rs.xe.XeStylesheet;
+import org.takes.rs.xe.XeWhen;
 
 /**
  * Index resource, front page of the website.
@@ -62,8 +70,9 @@ final class RsPage extends RsWrap {
      * Ctor.
      * @param xsl XSL
      * @param req Request
+     * @throws IOException If fails
      */
-    RsPage(final String xsl, final Request req) {
+    RsPage(final String xsl, final Request req) throws IOException {
         super(RsPage.make(xsl, req, Collections::emptyList));
     }
 
@@ -72,9 +81,10 @@ final class RsPage extends RsWrap {
      * @param xsl XSL
      * @param req Request
      * @param src Source
+     * @throws IOException If fails
      */
     RsPage(final String xsl, final Request req,
-        final Scalar<Iterable<XeSource>> src) {
+        final Scalar<Iterable<XeSource>> src) throws IOException {
         super(RsPage.make(xsl, req, src));
     }
 
@@ -84,9 +94,10 @@ final class RsPage extends RsWrap {
      * @param req Request
      * @param src Source
      * @return Response
+     * @throws IOException If fails
      */
     private static Response make(final String xsl, final Request req,
-        final Scalar<Iterable<XeSource>> src) {
+        final Scalar<Iterable<XeSource>> src) throws IOException {
         final Response raw = new RsXembly(
             new XeStylesheet(xsl),
             new XeAppend(
@@ -101,6 +112,23 @@ final class RsPage extends RsWrap {
                 new XeSla(),
                 new XeLocalhost(),
                 new XeFlash(req),
+                new XeWhen(
+                    new RqAuth(req).identity().equals(Identity.ANONYMOUS),
+                    new XeChain(
+                        new XeGithubLink(
+                            req, Manifests.read("ThreeCopies-GithubId")
+                        )
+                    )
+                ),
+                new XeWhen(
+                    !new RqAuth(req).identity().equals(Identity.ANONYMOUS),
+                    new XeChain(
+                        new XeIdentity(req),
+                        new XeLogoutLink(req),
+                        new XeLink("scripts", "/s"),
+                        new XeLink("logs", "/g")
+                    )
+                ),
                 new XeAppend(
                     "version",
                     new XeAppend("name", Manifests.read("ThreeCopies-Version")),
