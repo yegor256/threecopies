@@ -45,8 +45,8 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import org.cactoos.Func;
 import org.cactoos.func.RunnableOf;
-import org.cactoos.io.DeadInput;
-import org.cactoos.io.DeadOutput;
+import org.cactoos.io.DeadInputStream;
+import org.cactoos.io.DeadOutputStream;
 import org.cactoos.io.InputOf;
 import org.cactoos.io.ResourceOf;
 import org.xembly.Xembler;
@@ -147,15 +147,20 @@ public final class Routine implements Func<Void, Integer> {
             String.join(
                 " && ",
                 String.format("mkdir %s/%s", Routine.DIR, container),
-                String.format("cat > %s/%s/script.sh", Routine.DIR, container),
-                String.format(
-                    "%s/start.sh %s %s &",
-                    Routine.DIR, container, period
-                )
+                String.format("cat > %s/%s/script.sh", Routine.DIR, container)
             ),
             new InputOf(xml.xpath("/script/bash/text()").get(0)).stream(),
-            new DeadOutput().stream(),
-            new DeadOutput().stream()
+            new DeadOutputStream(),
+            new DeadOutputStream()
+        );
+        this.shell.exec(
+            String.format(
+                "%s/start.sh %s %s &",
+                Routine.DIR, container, period
+            ),
+            new DeadInputStream(),
+            new DeadOutputStream(),
+            new DeadOutputStream()
         );
         log.put(
             new AttributeUpdates()
@@ -184,9 +189,9 @@ public final class Routine implements Func<Void, Integer> {
                 String.format("cd %s", Routine.DIR),
                 String.format("./finish.sh %s", container)
             ),
-            new DeadInput().stream(),
+            new DeadInputStream(),
             stdout,
-            new DeadOutput().stream()
+            new DeadOutputStream()
         );
         final String[] parts = new String(
             stdout.toByteArray(), StandardCharsets.UTF_8
@@ -243,8 +248,8 @@ public final class Routine implements Func<Void, Integer> {
                     "com/threecopies/routine/%s", res
                 )
             ).stream(),
-            new DeadOutput().stream(),
-            new DeadOutput().stream()
+            new DeadOutputStream(),
+            new DeadOutputStream()
         );
     }
 
