@@ -57,7 +57,7 @@ software.
                   </xsl:if>
                   <xsl:if test="not(identity)">
                     <a href="{links/link[@rel='takes:github']/@href}">
-                      <xsl:text>login</xsl:text>
+                      <xsl:text>Login</xsl:text>
                     </a>
                   </xsl:if>
                 </li>
