@@ -29,7 +29,7 @@ software.
     <version>0.49.1</version>
   </parent>
   <groupId>com.threecopies</groupId>
-  <artifactId>web</artifactId>
+  <artifactId>threecopies</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>threecopies</name>
