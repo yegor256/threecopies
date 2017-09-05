@@ -65,7 +65,7 @@ public final class RoutineITCase {
             new Ocket.Text(
                 bucket.ocket(
                     String.format(
-                        "jeff+test-week-%tF-%1$tH-%1$tM",
+                        "jeff_test-week-%tF-%1$tH-%1$tM",
                         new Date()
                     )
                 )
