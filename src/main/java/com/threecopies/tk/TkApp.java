@@ -166,7 +166,7 @@ public final class TkApp extends TkWrap {
                                             new FkRegex("/script", new TkScript(base)),
                                             new FkRegex("/save", new TkSave(base)),
                                             new FkRegex("/logs", new TkLogs(base)),
-                                            new FkRegex("/log", new TkLog(base))
+                                            new FkRegex("/log", new TkLog())
                                         )
                                     )
                                 )

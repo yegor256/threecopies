@@ -27,8 +27,6 @@ import com.jcabi.dynamo.Item;
 import com.jcabi.dynamo.QueryValve;
 import com.jcabi.dynamo.Region;
 import java.io.IOException;
-import org.cactoos.Input;
-import org.cactoos.io.InputOf;
 import org.cactoos.iterable.Joined;
 import org.cactoos.iterable.Mapped;
 import org.xembly.Directive;
@@ -127,11 +125,6 @@ final class DyUser implements User {
             );
         }
         return new DyScript(this.region, this.login, name);
-    }
-
-    @Override
-    public Input log(final String ocket) throws IOException {
-        return new InputOf("not implemented yet...");
     }
 
 }

@@ -22,8 +22,6 @@
  */
 package com.threecopies.base;
 
-import org.cactoos.Input;
-import org.cactoos.io.InputOf;
 import org.xembly.Directive;
 import org.xembly.Directives;
 
@@ -51,8 +49,4 @@ public final class FkUser implements User {
         return new FkScript();
     }
 
-    @Override
-    public Input log(final String ocket) {
-        return new InputOf("some text here...");
-    }
 }

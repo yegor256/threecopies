@@ -26,7 +26,6 @@ import com.threecopies.base.Base;
 import com.threecopies.base.Script;
 import com.threecopies.base.User;
 import java.io.IOException;
-import org.cactoos.Input;
 import org.takes.Request;
 import org.takes.facets.auth.Identity;
 import org.takes.facets.auth.RqAuth;
@@ -76,11 +75,6 @@ final class RqUser implements User {
     @Override
     public Script script(final String name) throws IOException {
         return this.base.user(this.name()).script(name);
-    }
-
-    @Override
-    public Input log(final String ocket) throws IOException {
-        return this.base.user(this.name()).log(ocket);
     }
 
     /**

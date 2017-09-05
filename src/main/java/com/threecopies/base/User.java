@@ -24,7 +24,6 @@ package com.threecopies.base;
 
 import java.io.IOException;
 import java.util.regex.Pattern;
-import org.cactoos.Input;
 import org.xembly.Directive;
 
 /**
@@ -62,13 +61,5 @@ public interface User {
      * @throws IOException If fails
      */
     Script script(String name) throws IOException;
-
-    /**
-     * Get one single full log.
-     * @param ocket The unique name of the log
-     * @return The log content
-     * @throws IOException If fails
-     */
-    Input log(String ocket) throws IOException;
 
 }

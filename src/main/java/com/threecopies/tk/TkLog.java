@@ -22,14 +22,20 @@
  */
 package com.threecopies.tk;
 
-import com.threecopies.base.Base;
-import com.threecopies.base.User;
+import com.jcabi.manifests.Manifests;
+import com.jcabi.s3.Bucket;
+import com.jcabi.s3.Region;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import org.takes.Request;
 import org.takes.Response;
 import org.takes.Take;
+import org.takes.facets.auth.Identity;
+import org.takes.facets.auth.RqAuth;
+import org.takes.facets.flash.RsFlash;
+import org.takes.facets.forward.RsForward;
 import org.takes.rq.RqHref;
-import org.takes.rs.RsWithBody;
+import org.takes.rs.RsText;
 
 /**
  * One log.
@@ -41,22 +47,51 @@ import org.takes.rs.RsWithBody;
 final class TkLog implements Take {
 
     /**
-     * Base.
+     * Bucket.
      */
-    private final Base base;
+    private final Bucket bucket;
 
     /**
      * Ctor.
-     * @param bse Base
      */
-    TkLog(final Base bse) {
-        this.base = bse;
+    TkLog() {
+        this(
+            new Region.Simple(
+                Manifests.read("ThreeCopies-S3Key"),
+                Manifests.read("ThreeCopies-S3Secret")
+            ).bucket("logs.threecopies.com")
+        );
+    }
+
+    /**
+     * Ctor.
+     * @param bkt Bucket
+     */
+    TkLog(final Bucket bkt) {
+        this.bucket = bkt;
     }
 
     @Override
     public Response act(final Request request) throws IOException {
-        final User user = new RqUser(this.base, request);
+        final Identity identity = new RqAuth(request).identity();
+        if (identity.equals(Identity.ANONYMOUS)) {
+            throw new RsForward(
+                new RsFlash("You must be logged in to view logs.")
+            );
+        }
+        final String login = identity.properties().get("login");
         final String name = new RqHref.Smart(request).single("name");
-        return new RsWithBody(user.log(name).stream());
+        if (name.startsWith(String.format("%s_", login))) {
+            throw new RsForward(
+                new RsFlash(
+                    String.format(
+                        "Permission denied: \"%s\".", name
+                    )
+                )
+            );
+        }
+        final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        this.bucket.ocket(name).read(baos);
+        return new RsText(baos.toByteArray());
     }
 }
