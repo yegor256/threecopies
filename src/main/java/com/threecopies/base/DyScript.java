@@ -36,6 +36,7 @@ import com.jcabi.dynamo.Region;
 import com.jcabi.dynamo.Table;
 import java.io.IOException;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.concurrent.TimeUnit;
@@ -48,6 +49,7 @@ import org.xembly.Directives;
  * @author Yegor Bugayenko (yegor256@gmail.com)
  * @version $Id$
  * @since 1.0
+ * @checkstyle ClassDataAbstractionCouplingCheck (500 lines)
  */
 @SuppressWarnings("PMD.AvoidDuplicateLiterals")
 final class DyScript implements Script {
@@ -194,7 +196,8 @@ final class DyScript implements Script {
                             "ocket",
                             new AttributeValue().withS(
                                 String.format(
-                                    "%s-%s-%s", this.login, this.name, period
+                                    "%s-%s-%s-%tF-%4$tH-%4$tM", this.login,
+                                    this.name, period, new Date()
                                 )
                             )
                         )

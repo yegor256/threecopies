@@ -30,6 +30,7 @@ import com.threecopies.base.Base;
 import com.threecopies.base.DyBase;
 import com.threecopies.base.Dynamo;
 import com.threecopies.base.User;
+import java.util.Date;
 import org.cactoos.Func;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
@@ -61,7 +62,14 @@ public final class RoutineITCase {
             );
         }
         MatcherAssert.assertThat(
-            new Ocket.Text(bucket.ocket("jeff-test-week")).read(),
+            new Ocket.Text(
+                bucket.ocket(
+                    String.format(
+                        "jeff-test-week-%tF-%1$tH-%1$tM",
+                        new Date()
+                    )
+                )
+            ).read(),
             Matchers.containsString("works\nwell")
         );
     }
