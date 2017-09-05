@@ -42,23 +42,57 @@ software.
     <p>
       <xsl:text>There are your logs:</xsl:text>
     </p>
-    <ul>
-      <xsl:apply-templates select="log"/>
-    </ul>
+    <table>
+      <thead>
+        <tr>
+          <th>
+            <xsl:text>Group</xsl:text>
+          </th>
+          <th>
+            <xsl:text>Period</xsl:text>
+          </th>
+          <th>
+            <xsl:text>Finished</xsl:text>
+          </th>
+          <th>
+            <xsl:text>Options</xsl:text>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <xsl:apply-templates select="log"/>
+      </tbody>
+    </table>
   </xsl:template>
   <xsl:template match="log">
-    <li>
-      <xsl:value-of select="group"/>
-      <xsl:text> | </xsl:text>
-      <xsl:value-of select="period"/>
-      <xsl:text> | </xsl:text>
-      <xsl:value-of select="finish"/>
-      <xsl:if test="finish != 9223372036854775807">
-        <xsl:text> | </xsl:text>
-        <a href="/log?name={ocket}">
-          <xsl:text>View</xsl:text>
-        </a>
-      </xsl:if>
-    </li>
+    <tr>
+      <td>
+        <xsl:value-of select="group"/>
+      </td>
+      <td>
+        <xsl:value-of select="period"/>
+      </td>
+      <td>
+        <xsl:choose>
+          <xsl:when test="finish = 9223372036854775807">
+            <xsl:text>running...</xsl:text>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:value-of select="finish"/>
+          </xsl:otherwise>
+        </xsl:choose>
+      </td>
+      <td>
+        <xsl:choose>
+          <xsl:when test="finish = 9223372036854775807">
+          </xsl:when>
+          <xsl:otherwise>
+            <a href="/log?name={ocket}">
+              <xsl:text>View</xsl:text>
+            </a>
+          </xsl:otherwise>
+        </xsl:choose>
+      </td>
+    </tr>
   </xsl:template>
 </xsl:stylesheet>
