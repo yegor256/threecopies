@@ -161,14 +161,6 @@ public final class Routine implements Func<Void, Integer> {
         log.put(
             new AttributeUpdates()
                 .with(
-                    "start",
-                    new AttributeValueUpdate().withValue(
-                        new AttributeValue().withN(
-                            Long.toString(System.currentTimeMillis())
-                        )
-                    ).withAction(AttributeAction.PUT)
-                )
-                .with(
                     "container",
                     new AttributeValueUpdate()
                         .withValue(new AttributeValue().withS(container))

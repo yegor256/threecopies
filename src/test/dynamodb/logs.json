@@ -6,6 +6,10 @@
       "AttributeType": "S"
     },
     {
+      "AttributeName": "start",
+      "AttributeType": "N"
+    },
+    {
       "AttributeName": "finish",
       "AttributeType": "N"
     },
@@ -20,7 +24,7 @@
       "KeyType": "HASH"
     },
     {
-      "AttributeName": "finish",
+      "AttributeName": "start",
       "KeyType": "RANGE"
     }
   ],
@@ -29,6 +33,26 @@
     "WriteCapacityUnits": "1"
   },
   "GlobalSecondaryIndexes": [
+    {
+      "IndexName": "open",
+      "KeySchema": [
+        {
+          "AttributeName": "group",
+          "KeyType": "HASH"
+        },
+        {
+          "AttributeName": "finish",
+          "KeyType": "RANGE"
+        }
+      ],
+      "Projection": {
+        "ProjectionType": "ALL"
+      },
+      "ProvisionedThroughput": {
+        "ReadCapacityUnits": "1",
+        "WriteCapacityUnits": "1"
+      }
+    },
     {
       "IndexName": "mine",
       "KeySchema": [

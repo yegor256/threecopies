@@ -106,7 +106,13 @@ final class DyScript implements Script {
         final Collection<Item> open = new LinkedList<>();
         open.addAll(
             table.frame()
-                .through(new QueryValve().withLimit(1))
+                .through(
+                    new QueryValve()
+                        .withLimit(1)
+                        .withIndexName("open")
+                        .withSelect(Select.ALL_ATTRIBUTES)
+                        .withConsistentRead(false)
+                )
                 .where("group", this.group())
                 .where(
                     "finish",
@@ -176,6 +182,12 @@ final class DyScript implements Script {
                             "finish",
                             new AttributeValue().withN(
                                 Long.toString(Long.MAX_VALUE)
+                            )
+                        )
+                        .with(
+                            "start",
+                            new AttributeValue().withN(
+                                Long.toString(System.currentTimeMillis())
                             )
                         )
                         .with(

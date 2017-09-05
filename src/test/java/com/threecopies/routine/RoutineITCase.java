@@ -62,7 +62,7 @@ public final class RoutineITCase {
         }
         MatcherAssert.assertThat(
             new Ocket.Text(bucket.ocket("jeff-test-week")).read(),
-            Matchers.containsString("echo")
+            Matchers.containsString("works\nwell")
         );
     }
 
