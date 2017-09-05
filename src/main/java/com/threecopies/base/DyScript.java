@@ -159,7 +159,7 @@ final class DyScript implements Script {
     private Collection<Item> required(final Item item, final String period)
         throws IOException {
         final Collection<Item> created = new LinkedList<>();
-        if (!item.has("period")
+        if (!item.has(period)
             || DyScript.expired(item.get(period).getN(), period)) {
             item.put(
                 new AttributeUpdates()

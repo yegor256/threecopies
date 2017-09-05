@@ -22,6 +22,10 @@
  */
 package com.threecopies.base;
 
+import com.amazonaws.services.dynamodbv2.model.AttributeAction;
+import com.amazonaws.services.dynamodbv2.model.AttributeValue;
+import com.amazonaws.services.dynamodbv2.model.AttributeValueUpdate;
+import com.jcabi.dynamo.Item;
 import com.jcabi.matchers.XhtmlMatchers;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
@@ -62,6 +66,26 @@ public final class DyScriptITCase {
         MatcherAssert.assertThat(
             user.logs(),
             Matchers.not(Matchers.emptyIterable())
+        );
+    }
+
+    @Test
+    public void createsOnlyThreeOpenLogs() throws Exception {
+        final User user = new DyUser(new Dynamo(), "dmarkov");
+        final Script script = user.script("test5");
+        final AttributeValueUpdate upd = new AttributeValueUpdate().withValue(
+            new AttributeValue().withN(
+                Long.toString(System.currentTimeMillis())
+            )
+        ).withAction(AttributeAction.PUT);
+        // @checkstyle MagicNumber (1 line)
+        for (int idx = 0; idx < 3; ++idx) {
+            final Item item = script.open().iterator().next();
+            item.put("finish", upd);
+        }
+        MatcherAssert.assertThat(
+            script.open(),
+            Matchers.emptyIterable()
         );
     }
 
