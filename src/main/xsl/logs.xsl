@@ -48,6 +48,8 @@ software.
   </xsl:template>
   <xsl:template match="log">
     <li>
+      <xsl:value-of select="group"/>
+      <xsl:text> | </xsl:text>
       <xsl:value-of select="period"/>
       <xsl:text> | </xsl:text>
       <xsl:value-of select="finish"/>

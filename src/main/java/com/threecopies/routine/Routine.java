@@ -47,7 +47,7 @@ import org.cactoos.Func;
 import org.cactoos.func.RunnableOf;
 import org.cactoos.io.DeadInput;
 import org.cactoos.io.DeadOutput;
-import org.cactoos.io.InputStreamOf;
+import org.cactoos.io.InputOf;
 import org.cactoos.io.ResourceOf;
 import org.xembly.Xembler;
 
@@ -153,7 +153,7 @@ public final class Routine implements Func<Void, Integer> {
                     Routine.DIR, container, period
                 )
             ),
-            new InputStreamOf(xml.xpath("/script/bash/text()").get(0)),
+            new InputOf(xml.xpath("/script/bash/text()").get(0)).stream(),
             new DeadOutput().stream(),
             new DeadOutput().stream()
         );
