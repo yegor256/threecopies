@@ -98,12 +98,20 @@ software.
       </td>
       <td>
         <xsl:if test="finish != 9223372036854775807">
-          <xsl:if test="exit != 0">
-            <xsl:attribute name="style">
-              <xsl:text>color:red</xsl:text>
-            </xsl:attribute>
-          </xsl:if>
-          <xsl:value-of select="exit"/>
+          <xsl:choose>
+            <xsl:when test="exit = 0">
+              <xsl:attribute name="style">
+                <xsl:text>color:green</xsl:text>
+              </xsl:attribute>
+              <xsl:text>OK</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:attribute name="style">
+                <xsl:text>color:red</xsl:text>
+              </xsl:attribute>
+              <xsl:value-of select="exit"/>
+            </xsl:otherwise>
+          </xsl:choose>
         </xsl:if>
       </td>
       <td>
