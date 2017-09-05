@@ -3,6 +3,7 @@
 container=$1
 period=$2
 
+cd "$(dirname "$0")"
 cd "${container}"
 chmod a+x script.sh
 docker run -t --rm --name "${container}" \

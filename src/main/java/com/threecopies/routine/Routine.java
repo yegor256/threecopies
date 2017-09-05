@@ -146,12 +146,11 @@ public final class Routine implements Func<Void, Integer> {
         this.shell.exec(
             String.join(
                 " && ",
-                String.format("cd %s", Routine.DIR),
-                String.format("mkdir %s", container),
-                String.format("cat > %s/script.sh", container),
+                String.format("mkdir %s/%s", Routine.DIR, container),
+                String.format("cat > %s/%s/script.sh", Routine.DIR, container),
                 String.format(
-                    "./start.sh %s %s &",
-                    container, period
+                    "%s/start.sh %s %s &",
+                    Routine.DIR, container, period
                 )
             ),
             new InputStreamOf(xml.xpath("/script/bash/text()").get(0)),
