@@ -196,7 +196,7 @@ final class DyScript implements Script {
                             "ocket",
                             new AttributeValue().withS(
                                 String.format(
-                                    "%s-%s-%s-%tF-%4$tH-%4$tM", this.login,
+                                    "%s+%s-%s-%tF-%4$tH-%4$tM", this.login,
                                     this.name, period, new Date()
                                 )
                             )
