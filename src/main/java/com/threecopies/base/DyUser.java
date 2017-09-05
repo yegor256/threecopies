@@ -23,6 +23,7 @@
 package com.threecopies.base;
 
 import com.amazonaws.services.dynamodbv2.model.Select;
+import com.jcabi.dynamo.Attributes;
 import com.jcabi.dynamo.Item;
 import com.jcabi.dynamo.QueryValve;
 import com.jcabi.dynamo.Region;
@@ -109,6 +110,7 @@ final class DyUser implements User {
                         .add("finish").set(item.get("finish").getN()).up()
                         .add("period").set(item.get("period").getS()).up()
                         .add("ocket").set(item.get("ocket").getS()).up()
+                        .add("exit").set(item.get("exit").getN()).up()
                         .up()
                 )
             )
@@ -126,6 +128,15 @@ final class DyUser implements User {
             );
         }
         return new DyScript(this.region, this.login, name);
+    }
+
+    @Override
+    public void delete(final String name) throws IOException {
+        this.region.table("scripts").delete(
+            new Attributes()
+                .with("login", this.login)
+                .with("name", name)
+        );
     }
 
 }

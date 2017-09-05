@@ -20,53 +20,50 @@
  * in connection with the software or  the  use  or other dealings in the
  * software.
  */
-package com.threecopies.base;
+package com.threecopies.tk;
 
+import com.threecopies.base.Base;
+import com.threecopies.base.User;
 import java.io.IOException;
-import java.util.regex.Pattern;
-import org.xembly.Directive;
+import org.takes.Request;
+import org.takes.Response;
+import org.takes.Take;
+import org.takes.facets.flash.RsFlash;
+import org.takes.facets.forward.RsForward;
+import org.takes.rq.RqHref;
 
 /**
- * User.
+ * Delete a script.
  *
  * @author Yegor Bugayenko (yegor256@gmail.com)
  * @version $Id$
  * @since 1.0
  */
-public interface User {
+final class TkDelete implements Take {
 
     /**
-     * Script regex.
+     * Base.
      */
-    Pattern SCRIPT_NAME = Pattern.compile("[a-z0-9A-Z-]{4,32}");
+    private final Base base;
 
     /**
-     * Get all scripts.
-     * @return All scripts
-     * @throws IOException If fails
+     * Ctor.
+     * @param bse Base
      */
-    Iterable<Directive> scripts() throws IOException;
+    TkDelete(final Base bse) {
+        this.base = bse;
+    }
 
-    /**
-     * Get all recent logs.
-     * @return All scripts
-     * @throws IOException If fails
-     */
-    Iterable<Directive> logs() throws IOException;
-
-    /**
-     * Get script by name.
-     * @param name Script name
-     * @return The script
-     * @throws IOException If fails
-     */
-    Script script(String name) throws IOException;
-
-    /**
-     * Delete this script.
-     * @param name Script name
-     * @throws IOException If fails
-     */
-    void delete(String name) throws IOException;
-
+    @Override
+    public Response act(final Request request) throws IOException {
+        final User user = new RqUser(this.base, request);
+        final String name = new RqHref.Smart(request).single("name");
+        user.delete(name);
+        return new RsForward(
+            new RsFlash(
+                String.format("Script %s deleted.", name)
+            ),
+            "/scripts"
+        );
+    }
 }

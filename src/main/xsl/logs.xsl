@@ -55,6 +55,9 @@ software.
             <xsl:text>Finished</xsl:text>
           </th>
           <th>
+            <xsl:text>Exit</xsl:text>
+          </th>
+          <th>
             <xsl:text>Options</xsl:text>
           </th>
         </tr>
@@ -81,6 +84,11 @@ software.
             <xsl:value-of select="finish"/>
           </xsl:otherwise>
         </xsl:choose>
+      </td>
+      <td>
+        <xsl:if test="finish != 9223372036854775807">
+          <xsl:value-of select="exit"/>
+        </xsl:if>
       </td>
       <td>
         <xsl:choose>

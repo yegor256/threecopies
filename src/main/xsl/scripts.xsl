@@ -48,17 +48,34 @@ software.
       <xsl:value-of select="count(script)"/>
       <xsl:text> scripts:</xsl:text>
     </p>
-    <ul>
-      <xsl:apply-templates select="script"/>
-    </ul>
+    <table>
+      <tbody>
+        <tr>
+          <th>
+            <xsl:text>Name</xsl:text>
+          </th>
+          <th>
+            <xsl:text>Options</xsl:text>
+          </th>
+        </tr>
+      </tbody>
+      <thead>
+        <xsl:apply-templates select="script"/>
+      </thead>
+    </table>
   </xsl:template>
   <xsl:template match="script">
-    <li>
-      <xsl:value-of select="name"/>
-      <xsl:text> | </xsl:text>
-      <a href="/script?name={name}">
-        <xsl:text>Edit</xsl:text>
-      </a>
-    </li>
+    <tr>
+      <td>
+        <a href="/script?name={name}">
+          <xsl:value-of select="name"/>
+        </a>
+      </td>
+      <td>
+        <a href="/delete?name={name}">
+          <xsl:text>Delete</xsl:text>
+        </a>
+      </td>
+    </tr>
   </xsl:template>
 </xsl:stylesheet>

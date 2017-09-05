@@ -193,6 +193,7 @@ final class DyScript implements Script {
                         .with("group", new AttributeValue().withS(this.group()))
                         .with("login", new AttributeValue().withS(this.login))
                         .with("period", new AttributeValue().withS(period))
+                        .with("exit", new AttributeValue().withN("0"))
                         .with(
                             "finish",
                             new AttributeValue().withN(

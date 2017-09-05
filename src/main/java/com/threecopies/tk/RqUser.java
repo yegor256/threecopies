@@ -77,6 +77,11 @@ final class RqUser implements User {
         return this.base.user(this.name()).script(name);
     }
 
+    @Override
+    public void delete(final String name) throws IOException {
+        this.base.user(this.name()).delete(name);
+    }
+
     /**
      * Get user name (GitHub handle).
      * @return Name
