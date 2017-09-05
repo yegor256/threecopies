@@ -80,6 +80,7 @@ final class DyUser implements User {
                         .add("script")
                         .add("name").set(item.get("name").getS()).up()
                         .add("bash").set(item.get("bash").getS()).up()
+                        .up()
                 )
             )
         );
