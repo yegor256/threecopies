@@ -40,6 +40,8 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.concurrent.TimeUnit;
+import org.takes.facets.flash.RsFlash;
+import org.takes.facets.forward.RsForward;
 import org.xembly.Directive;
 import org.xembly.Directives;
 
@@ -94,6 +96,17 @@ final class DyScript implements Script {
 
     @Override
     public void update(final String bash) throws IOException {
+        if (!"yegor256".equals(this.login)) {
+            throw new RsForward(
+                new RsFlash(
+                    String.join(
+                        " ",
+                        "You're not allowed to use this system yet.",
+                        "Please, contact yegor@threecopies.com for permission."
+                    )
+                )
+            );
+        }
         this.item().put(
             "bash",
             new AttributeValueUpdate()

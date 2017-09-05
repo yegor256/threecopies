@@ -127,6 +127,25 @@ software.
                 </li>
               </ul>
             </nav>
+            <nav>
+              <ul>
+                <li>
+                  <xsl:text>The logo is made by </xsl:text>
+                  <a href="http://www.freepik.com/">
+                    <xsl:text>Freepik</xsl:text>
+                  </a>
+                  <xsl:text> from </xsl:text>
+                  <a href="http://www.flaticon.com/">
+                    <xsl:text>flaticon.com</xsl:text>
+                  </a>
+                  <xsl:text>, licensed by </xsl:text>
+                  <a href="http://creativecommons.org/licenses/by/3.0/">
+                    <xsl:text>CC 3.0 BY</xsl:text>
+                  </a>
+                  <xsl:text>.</xsl:text>
+                </li>
+              </ul>
+            </nav>
           </footer>
         </section>
       </body>

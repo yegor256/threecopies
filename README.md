@@ -19,8 +19,8 @@ copies: hourly, daily and weekly.
 What's interesting is that the entire product is written in [EO](http://www.eolang.org),
 a truly object-orented programming language.
 
-The logo is made by [Freepik](http://www.freepik.com) from [flaticon.com](http://www.flaticon.com)
-is licensed by [CC 3.0 BY](http://creativecommons.org/licenses/by/3.0/).
+The logo is made by [Freepik](http://www.freepik.com) from [flaticon.com](http://www.flaticon.com),
+licensed by [CC 3.0 BY](http://creativecommons.org/licenses/by/3.0/).
 
 ## DynamoDB Schema
 

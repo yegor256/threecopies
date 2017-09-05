@@ -40,11 +40,12 @@ import org.xembly.Xembler;
  * @checkstyle ClassDataAbstractionCouplingCheck (500 lines)
  * @checkstyle JavadocMethodCheck (500 lines)
  */
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public final class DyScriptITCase {
 
     @Test
     public void savesBashScript() throws Exception {
-        final Script script = new DyScript(new Dynamo(), "jeffrey", "test");
+        final Script script = new DyScript(new Dynamo(), "yegor256", "test");
         script.update("echo 'hello'");
         MatcherAssert.assertThat(
             new Xembler(script.toXembly()).xml(),
@@ -57,7 +58,7 @@ public final class DyScriptITCase {
 
     @Test
     public void createsOpenLog() throws Exception {
-        final User user = new DyUser(new Dynamo(), "jeff");
+        final User user = new DyUser(new Dynamo(), "yegor256");
         final Script script = user.script("test1");
         MatcherAssert.assertThat(
             script.open(),
@@ -71,7 +72,7 @@ public final class DyScriptITCase {
 
     @Test
     public void createsOnlyThreeOpenLogs() throws Exception {
-        final User user = new DyUser(new Dynamo(), "dmarkov");
+        final User user = new DyUser(new Dynamo(), "yegor256");
         final Script script = user.script("test5");
         final AttributeValueUpdate upd = new AttributeValueUpdate().withValue(
             new AttributeValue().withN(

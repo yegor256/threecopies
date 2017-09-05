@@ -49,7 +49,7 @@ public final class RoutineITCase {
     @Test
     public void startsAndFinishes() throws Exception {
         final Base base = new DyBase(new Dynamo());
-        final User user = base.user("jeff");
+        final User user = base.user("yegor256");
         user.script("test").update("echo 1");
         final Bucket bucket = new FkBucket();
         final Func<Void, Integer> routine = new Routine(
@@ -65,7 +65,7 @@ public final class RoutineITCase {
             new Ocket.Text(
                 bucket.ocket(
                     String.format(
-                        "jeff_test-week-%tF-%1$tH-%1$tM",
+                        "yegor256_test-week-%tF-%1$tH-%1$tM",
                         new Date()
                     )
                 )
