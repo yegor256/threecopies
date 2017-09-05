@@ -81,7 +81,7 @@ final class TkLog implements Take {
         }
         final String login = identity.properties().get("login");
         final String name = new RqHref.Smart(request).single("name");
-        if (name.startsWith(String.format("%s_", login))) {
+        if (!name.startsWith(String.format("%s_", login))) {
             throw new RsForward(
                 new RsFlash(
                     String.format(
