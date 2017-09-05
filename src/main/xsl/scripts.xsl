@@ -49,7 +49,7 @@ software.
       <xsl:text> scripts:</xsl:text>
     </p>
     <table>
-      <tbody>
+      <thead>
         <tr>
           <th>
             <xsl:text>Name</xsl:text>
@@ -58,10 +58,10 @@ software.
             <xsl:text>Options</xsl:text>
           </th>
         </tr>
-      </tbody>
-      <thead>
-        <xsl:apply-templates select="script"/>
       </thead>
+      <tbody>
+        <xsl:apply-templates select="script"/>
+      </tbody>
     </table>
   </xsl:template>
   <xsl:template match="script">

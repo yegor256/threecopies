@@ -63,7 +63,7 @@ final class TkSave implements Take {
         user.script(name).update(form.single("body"));
         return new RsForward(
             new RsFlash(
-                String.format("Script %s updated/saved.", name)
+                String.format("Script \"%s\" updated/saved.", name)
             ),
             "/scripts"
         );

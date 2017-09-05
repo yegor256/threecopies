@@ -61,7 +61,7 @@ final class TkDelete implements Take {
         user.delete(name);
         return new RsForward(
             new RsFlash(
-                String.format("Script %s deleted.", name)
+                String.format("Script \"%s\" deleted.", name)
             ),
             "/scripts"
         );
