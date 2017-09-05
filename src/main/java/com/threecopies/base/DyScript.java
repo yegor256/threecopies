@@ -182,8 +182,7 @@ final class DyScript implements Script {
                             "ocket",
                             new AttributeValue().withS(
                                 String.format(
-                                    "%s-%d", this.login,
-                                    System.currentTimeMillis()
+                                    "%s-%s-%s", this.login, this.name, period
                                 )
                             )
                         )
@@ -248,7 +247,7 @@ final class DyScript implements Script {
                 new Attributes()
                     .with("login", this.login)
                     .with("name", this.name)
-                    .with("bash", "echo 'Hello, worl!'")
+                    .with("bash", "echo 'Hello, world!'")
             );
         }
         return item;

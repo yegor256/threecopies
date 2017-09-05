@@ -99,6 +99,7 @@ software.
     <dependency>
       <groupId>com.jcabi</groupId>
       <artifactId>jcabi-ssh</artifactId>
+      <version>1.6</version>
     </dependency>
     <dependency>
       <groupId>com.jcabi</groupId>
@@ -107,7 +108,7 @@ software.
     <dependency>
       <groupId>com.jcabi</groupId>
       <artifactId>jcabi-s3</artifactId>
-      <version>0.16</version>
+      <version>0.17</version>
     </dependency>
     <dependency>
       <groupId>com.jcabi</groupId>

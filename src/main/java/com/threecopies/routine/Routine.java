@@ -43,7 +43,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-import org.cactoos.Proc;
+import org.cactoos.Func;
 import org.cactoos.func.RunnableOf;
 import org.cactoos.io.DeadInput;
 import org.cactoos.io.DeadOutput;
@@ -60,7 +60,7 @@ import org.xembly.Xembler;
  * @checkstyle ClassDataAbstractionCouplingCheck (500 lines)
  */
 @SuppressWarnings("PMD.AvoidDuplicateLiterals")
-public final class Routine implements Proc<Void> {
+public final class Routine implements Func<Void, Integer> {
 
     /**
      * Dir.
@@ -113,7 +113,8 @@ public final class Routine implements Proc<Void> {
     }
 
     @Override
-    public void exec(final Void none) throws Exception {
+    public Integer apply(final Void none) throws Exception {
+        int total = 0;
         for (final Script script : this.base.scripts()) {
             for (final Item item : script.open()) {
                 if (item.has("container")) {
@@ -121,8 +122,10 @@ public final class Routine implements Proc<Void> {
                 } else {
                     this.start(script, item);
                 }
+                ++total;
             }
         }
+        return total;
     }
 
     /**
@@ -138,9 +141,8 @@ public final class Routine implements Proc<Void> {
             new Xembler(script.toXembly()).xmlQuietly()
         );
         final String login = xml.xpath("/script/login/text()").get(0);
-        final String container = String.format(
-            "%s-%d", login, System.currentTimeMillis()
-        );
+        final String period = log.get("period").getS();
+        final String container = log.get("ocket").getS();
         this.shell.exec(
             String.join(
                 " && ",
@@ -149,8 +151,7 @@ public final class Routine implements Proc<Void> {
                 String.format("cat > %s/script.sh", container),
                 String.format(
                     "./start.sh %s %s &",
-                    container,
-                    log.get("period").getS()
+                    container, period
                 )
             ),
             new InputStreamOf(xml.xpath("/script/bash/text()").get(0)),

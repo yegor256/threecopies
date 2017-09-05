@@ -20,67 +20,50 @@
  * in connection with the software or  the  use  or other dealings in the
  * software.
  */
-package com.threecopies;
+package com.threecopies.routine;
 
-import com.jcabi.manifests.Manifests;
-import com.jcabi.s3.Region;
+import com.jcabi.s3.Bucket;
+import com.jcabi.s3.Ocket;
+import com.jcabi.s3.fake.FkBucket;
 import com.jcabi.ssh.Shell;
-import com.jcabi.ssh.Ssh;
 import com.threecopies.base.Base;
 import com.threecopies.base.DyBase;
 import com.threecopies.base.Dynamo;
-import com.threecopies.routine.Routine;
-import com.threecopies.tk.TkApp;
-import io.sentry.Sentry;
-import java.io.IOException;
-import org.cactoos.io.ResourceOf;
-import org.cactoos.text.TextOf;
-import org.takes.http.Exit;
-import org.takes.http.FtCli;
+import com.threecopies.base.User;
+import org.cactoos.Func;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
+import org.junit.Test;
 
 /**
- * Command line entry.
- *
+ * Integration case for {@link Routine}.
  * @author Yegor Bugayenko (yegor256@gmail.com)
  * @version $Id$
  * @since 1.0
  * @checkstyle ClassDataAbstractionCouplingCheck (500 lines)
+ * @checkstyle JavadocMethodCheck (500 lines)
  */
-public final class Entrance {
+public final class RoutineITCase {
 
-    /**
-     * Ctor.
-     */
-    private Entrance() {
-        // utility class
-    }
-
-    /**
-     * Main entry point.
-     * @param args Arguments
-     * @throws IOException If fails
-     */
-    public static void main(final String... args) throws IOException {
-        Sentry.init(Manifests.read("ThreeCopies-SentryDsn"));
+    @Test
+    public void startsAndFinishes() throws Exception {
         final Base base = new DyBase(new Dynamo());
-        new Routine(
-            base,
-            new Shell.Safe(
-                new Ssh(
-                    "d1.threecopies.com",
-                    Ssh.PORT,
-                    "threecopies",
-                    new TextOf(
-                        new ResourceOf("com/threecopies/routine/ssh.key")
-                    ).asString()
-                )
-            ),
-            new Region.Simple(
-                Manifests.read("ThreeCopies-S3Key"),
-                Manifests.read("ThreeCopies-S3Secret")
-            ).bucket("logs.threecopies.com")
-        ).start();
-        new FtCli(new TkApp(base), args).start(Exit.NEVER);
+        final User user = base.user("jeff");
+        user.script("test").update("echo 1");
+        final Bucket bucket = new FkBucket();
+        final Func<Void, Integer> routine = new Routine(
+            base, new Shell.Fake(0, "0\nworks\nwell", ""), bucket
+        );
+        for (int idx = 0; idx < 2; ++idx) {
+            MatcherAssert.assertThat(
+                routine.apply(null),
+                Matchers.greaterThan(0)
+            );
+        }
+        MatcherAssert.assertThat(
+            new Ocket.Text(bucket.ocket("jeff-test-week")).read(),
+            Matchers.containsString("echo")
+        );
     }
 
 }
