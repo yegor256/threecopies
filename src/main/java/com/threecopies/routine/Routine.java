@@ -149,7 +149,9 @@ public final class Routine implements Func<Void, Integer> {
                 String.format("mkdir %s/%s", Routine.DIR, container),
                 String.format("cat > %s/%s/script.sh", Routine.DIR, container)
             ),
-            new InputOf(xml.xpath("/script/bash/text()").get(0)).stream(),
+            new InputOf(
+                xml.xpath("/script/bash/text()").get(0).replace("\r\n", "\n")
+            ).stream(),
             new DeadOutputStream(),
             new DeadOutputStream()
         );

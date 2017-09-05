@@ -12,5 +12,5 @@ docker run -t --rm --name "${container}" \
     --memory=6g --memory-swap=16g --oom-kill-disable \
     -e="period=${period}" \
     -w="/root" \
-    yegor256/threecopies "/main/script.sh" \
+    yegor256/threecopies script.sh \
     > log 2>&1; echo $? > exit
