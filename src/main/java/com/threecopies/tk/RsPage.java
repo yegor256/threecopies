@@ -108,6 +108,10 @@ final class RsPage extends RsWrap {
                 new XeLinkSelf(req),
                 new XeMillis(true),
                 new XeDate(),
+                new XeAppend(
+                    "epoch",
+                    Long.toString(System.currentTimeMillis())
+                ),
                 new XeSla(),
                 new XeLocalhost(),
                 new XeFlash(req),

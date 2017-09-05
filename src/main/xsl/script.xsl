@@ -36,7 +36,7 @@ software.
         <label>
           <xsl:text>Name:</xsl:text>
         </label>
-        <input name="name" type="text" size="20" maxlength="32">
+        <input name="name" type="text" size="30" maxlength="32">
           <xsl:if test="script">
             <xsl:attribute name="value">
               <xsl:value-of select="script/name"/>
@@ -46,7 +46,7 @@ software.
         <label>
           <xsl:text>Bash:</xsl:text>
         </label>
-        <textarea name="body" style="width:100%;height:8em;font-family:monospace;">
+        <textarea name="body" style="width:100%;height:16em;font-family:monospace;font-size:0.8em;">
           <xsl:if test="script">
             <xsl:value-of select="script/bash"/>
           </xsl:if>
