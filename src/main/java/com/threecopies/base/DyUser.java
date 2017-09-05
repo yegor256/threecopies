@@ -107,6 +107,7 @@ final class DyUser implements User {
                     item -> new Directives()
                         .add("log")
                         .add("group").set(item.get("group").getS()).up()
+                        .add("start").set(item.get("start").getN()).up()
                         .add("finish").set(item.get("finish").getN()).up()
                         .add("period").set(item.get("period").getS()).up()
                         .add("ocket").set(item.get("ocket").getS()).up()

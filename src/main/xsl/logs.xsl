@@ -92,14 +92,19 @@ software.
         </xsl:choose>
       </td>
       <td>
-        <xsl:if test="finish != 9223372036854775807">
-          <xsl:value-of select="exit"/>
-        </xsl:if>
-      </td>
-      <td>
         <xsl:call-template name="sec">
           <xsl:with-param name="sec" select="(finish - start) div 1000"/>
         </xsl:call-template>
+      </td>
+      <td>
+        <xsl:if test="finish != 9223372036854775807">
+          <xsl:if test="exit != 0">
+            <xsl:attribute name="style">
+              <xsl:text>color:red</xsl:text>
+            </xsl:attribute>
+          </xsl:if>
+          <xsl:value-of select="exit"/>
+        </xsl:if>
       </td>
       <td>
         <xsl:choose>
@@ -118,30 +123,30 @@ software.
     <xsl:param name="sec"/>
     <xsl:choose>
       <xsl:when test="$sec = 0">
-        <xsl:text>seconds</xsl:text>
+        <xsl:text>millis</xsl:text>
       </xsl:when>
       <xsl:when test="$sec &lt; 60">
         <span title="{$sec} seconds">
           <xsl:value-of select="$sec"/>
-          <xsl:text> seconds</xsl:text>
+          <xsl:text>s</xsl:text>
         </span>
       </xsl:when>
       <xsl:when test="$sec &lt; 60 * 60">
         <span title="{$sec} minutes ({$sec} seconds)">
           <xsl:value-of select="format-number($sec div 60, '0')"/>
-          <xsl:text> mins</xsl:text>
+          <xsl:text>m</xsl:text>
         </span>
       </xsl:when>
       <xsl:when test="$sec &lt; 24 * 60 * 60">
         <span title="{format-number($sec div (60*60), '0')} hours ({$sec} sec)">
           <xsl:value-of select="format-number($sec div (60*60), '0')"/>
-          <xsl:text> hrs</xsl:text>
+          <xsl:text>h</xsl:text>
         </span>
       </xsl:when>
       <xsl:otherwise>
         <span title="{format-number($sec div (60 * 60 * 24), '0')} days ({$sec} sec)">
           <xsl:value-of select="format-number($sec div (60 * 60 * 24), '0')"/>
-          <xsl:text> days</xsl:text>
+          <xsl:text>d</xsl:text>
         </span>
       </xsl:otherwise>
     </xsl:choose>
