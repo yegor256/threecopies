@@ -35,20 +35,30 @@ software.
       <xsl:text>We help you backup your server-side data.</xsl:text>
     </p>
     <p>
-      <xsl:text>
-        You create a bash script, which grabs your
+      <xsl:text>You create a </xsl:text>
+      <a href="https://en.wikipedia.org/wiki/Bash_(Unix_shell)">
+        <xsl:text>bash script</xsl:text>
+      </a>
+      <xsl:text>, which grabs your
         valuable data from your data sources, packages it,
         and uploads somewhere where it will be safe.
         We start that script every hour, every day, and
-        every week (inside Docker container), record its output and lets you see it.
-        It's nothing more than a good old crontab, but hosted.
-      </xsl:text>
+        every week (inside </xsl:text>
+      <a href="https://github.com/yegor256/threecopies/blob/master/src/docker/Dockerfile">
+        <xsl:text>Docker container</xsl:text>
+      </a>
+      <xsl:text>), record its output and let you see it.
+        It's nothing more than a good old </xsl:text>
+      <a href="https://en.wikipedia.org/wiki/Cron">
+        <xsl:text>Cron</xsl:text>
+      </a>
+      <xsl:text>, but hosted.</xsl:text>
     </p>
     <p>
       <xsl:text>
         How you design your script depends on your specific data,
-        their location, format, etc. Here are our recommendations
-        for the most typical types of data and storages:
+        its location, format, etc. Here are some recommendations
+        for the most typical types of data and storage:
       </xsl:text>
       <a href="https://github.com/yegor256/threecopies#how-to-configure">
         <xsl:text>How to configure?</xsl:text>
