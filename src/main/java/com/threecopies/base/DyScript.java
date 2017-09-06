@@ -92,9 +92,6 @@ final class DyScript implements Script {
             .add("login").set(item.get("login").getS()).up()
             .add("bash").set(item.get("bash").getS()).up()
             .add("name").set(item.get("name").getS()).up()
-            .add("hour").set(item.get("hour").getN()).up()
-            .add("day").set(item.get("day").getN()).up()
-            .add("week").set(item.get("week").getN()).up()
             .up();
     }
 
