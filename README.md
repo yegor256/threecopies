@@ -33,7 +33,7 @@ you store the package somewhere (output).
 
 ### Input
 
-To retrieve the data from MySQL database:
+To retrieve the data from a MySQL database:
 
 ```bash
 mysqldump --lock-tables=false --host=www.example.com \
@@ -41,7 +41,7 @@ mysqldump --lock-tables=false --host=www.example.com \
   --databases dbname > mysql.sql
 ```
 
-To download the entire FTP directory:
+To download an entire FTP directory:
 
 ```bash
 wget --mirror --tries=5 --quiet --output-file=/dev/null \
@@ -57,6 +57,10 @@ To package a directory:
 tgz="${period}-$(date "+%Y-%m-%d-%H-%M").tgz"
 tar czf "${tgz}" some-directory
 ```
+
+We recommend to use exactly that name of your `.tgz` archives. The
+`${period}` environment variable is provided by our server to your
+Docker container, it will either be set to `hour`, `day`, or `week`.
 
 ### Output
 
