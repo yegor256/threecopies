@@ -28,6 +28,7 @@ import org.cactoos.list.StickyList;
 import org.takes.Request;
 import org.takes.Response;
 import org.takes.Take;
+import org.takes.rs.xe.XeAppend;
 import org.takes.rs.xe.XeDirectives;
 
 /**
@@ -58,6 +59,7 @@ final class TkLogs implements Take {
             "/xsl/logs.xsl",
             request,
             () -> new StickyList<>(
+                new XeAppend("menu", "logs"),
                 new XeDirectives(new RqUser(this.base, request).logs())
             )
         );

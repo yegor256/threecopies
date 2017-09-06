@@ -155,13 +155,7 @@ public final class TkApp extends TkWrap {
                                                     "image/png"
                                                 )
                                             ),
-                                            new FkRegex(
-                                                "/",
-                                                (Take) request -> new RsPage(
-                                                    "/xsl/index.xsl",
-                                                    request
-                                                )
-                                            ),
+                                            new FkRegex("/", new TkIndex()),
                                             new FkRegex("/scripts", new TkScripts(base)),
                                             new FkRegex("/script", new TkScript(base)),
                                             new FkRegex("/save", new TkSave(base)),

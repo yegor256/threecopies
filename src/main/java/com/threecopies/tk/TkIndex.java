@@ -22,45 +22,29 @@
  */
 package com.threecopies.tk;
 
-import com.threecopies.base.Base;
 import java.io.IOException;
 import org.cactoos.list.StickyList;
 import org.takes.Request;
 import org.takes.Response;
 import org.takes.Take;
 import org.takes.rs.xe.XeAppend;
-import org.takes.rs.xe.XeDirectives;
 
 /**
- * Scripts.
+ * Index.
  *
  * @author Yegor Bugayenko (yegor256@gmail.com)
  * @version $Id$
  * @since 1.0
  */
-final class TkScripts implements Take {
-
-    /**
-     * Base.
-     */
-    private final Base base;
-
-    /**
-     * Ctor.
-     * @param bse Base
-     */
-    TkScripts(final Base bse) {
-        this.base = bse;
-    }
+final class TkIndex implements Take {
 
     @Override
     public Response act(final Request request) throws IOException {
         return new RsPage(
-            "/xsl/scripts.xsl",
+            "/xsl/index.xsl",
             request,
             () -> new StickyList<>(
-                new XeAppend("menu", "scripts"),
-                new XeDirectives(new RqUser(this.base, request).scripts())
+                new XeAppend("menu", "index")
             )
         );
     }

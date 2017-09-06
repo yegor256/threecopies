@@ -64,11 +64,21 @@ software.
                 <xsl:if test="identity">
                   <li>
                     <a href="/scripts">
+                      <xsl:if test="menu = 'scripts'">
+                        <xsl:attribute name="style">
+                          <xsl:text>font-weight:bold</xsl:text>
+                        </xsl:attribute>
+                      </xsl:if>
                       <xsl:text>Scripts</xsl:text>
                     </a>
                   </li>
                   <li>
                     <a href="/logs">
+                      <xsl:if test="menu = 'logs'">
+                        <xsl:attribute name="style">
+                          <xsl:text>font-weight:bold</xsl:text>
+                        </xsl:attribute>
+                      </xsl:if>
                       <xsl:text>Logs</xsl:text>
                     </a>
                   </li>
