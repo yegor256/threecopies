@@ -31,6 +31,12 @@ input, package, and output. First, you collect some data from your data
 sources (input). Then, you compress and encrypt the data (package). Finally,
 you store the package somewhere (output).
 
+We start your script inside
+[yegor256/threecopies](https://hub.docker.com/r/yegor256/threecopies/)
+Docker container,
+here is the
+[`Dockerfile`](https://github.com/yegor256/threecopies/blob/master/src/docker/Dockerfile).
+
 ### 1. Input
 
 To retrieve the data from a MySQL database:
