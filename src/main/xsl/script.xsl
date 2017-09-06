@@ -46,7 +46,7 @@ software.
         <label>
           <xsl:text>Bash:</xsl:text>
         </label>
-        <textarea name="body" style="width:100%;height:16em;font-family:monospace;font-size:0.8em;">
+        <textarea name="body" style="width:100%;height:24em;font-family:monospace;font-size:0.7em;line-height:1.2em;">
           <xsl:if test="script">
             <xsl:value-of select="script/bash"/>
           </xsl:if>

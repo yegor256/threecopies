@@ -70,6 +70,9 @@ software.
         <xsl:apply-templates select="log"/>
       </tbody>
     </table>
+    <p>
+      <xsl:text>Most probably there is more, but paging is not implemented yet :(</xsl:text>
+    </p>
   </xsl:template>
   <xsl:template match="log">
     <tr>
