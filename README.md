@@ -16,11 +16,58 @@
 regularly archives your server-side resources. We create three
 copies: hourly, daily and weekly.
 
-What's interesting is that the entire product is written in [EO](http://www.eolang.org),
+What's interesting is that the entire product <del>is</del> will be written in [EO](http://www.eolang.org),
 a truly object-orented programming language.
 
 The logo is made by [Freepik](http://www.freepik.com) from [flaticon.com](http://www.flaticon.com),
 licensed by [CC 3.0 BY](http://creativecommons.org/licenses/by/3.0/).
+
+## How to configure?
+
+Each script is a bash scenario, which you design yourself. ThreeCopies
+just starts it regularly and records its output. These are some
+recommendations on how to design the script. There are three parts:
+input, package, and output. First, you collect some data from your data
+sources (input). Then, you compress and encrypt the data (package). Finally,
+you store the package somewhere (output).
+
+### Input
+
+To retrieve the data from MySQL database:
+
+```bash
+mysqldump --lock-tables=false --host=www.example.com \
+  --user=username --password=password \
+  --databases dbname > mysql.sql
+```
+
+To download the entire FTP directory:
+
+```bash
+wget --mirror --tries=5 --quiet --output-file=/dev/null \
+  --ftp-user=username --ftp-password=password \
+  ftp://ftp.example.com/some-directory
+```
+
+### Package
+
+To package a directory:
+
+```bash
+tgz="${period}-$(date "+%Y-%m-%d-%H-%M").tgz"
+tar czf "${tgz}" some-directory
+```
+
+### Output
+
+To upload a file to Amazon S3, using [s3cmd](http://s3tools.org/s3cmd):
+
+```bash
+echo "[default]" > ~/.s3cfg
+echo "access_key=AKIAICJKH*****CVLAFA" >> ~/.s3cfg
+echo "secret_key=yQv3g3ao654Ns**********H1xQSfZlTkseA0haG" >> ~/.s3cfg
+s3cmd --no-progress put "${tgz}" "s3://backup.example.com/${tgz}"
+```
 
 ## DynamoDB Schema
 
