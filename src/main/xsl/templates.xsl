@@ -35,7 +35,7 @@ software.
         </span>
       </xsl:when>
       <xsl:when test="$sec &lt; 60 * 60">
-        <span title="{$sec} minutes ({$sec} seconds)">
+        <span title="{$sec} seconds">
           <xsl:value-of select="format-number($sec div 60, '0')"/>
           <xsl:text>m</xsl:text>
         </span>

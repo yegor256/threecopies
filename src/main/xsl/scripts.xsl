@@ -45,9 +45,18 @@ software.
   </xsl:template>
   <xsl:template match="scripts[script]">
     <p>
-      <xsl:text>There are </xsl:text>
-      <xsl:value-of select="count(script)"/>
-      <xsl:text> scripts:</xsl:text>
+      <xsl:text>There </xsl:text>
+      <xsl:choose>
+        <xsl:when test="count(script) = 1">
+          <xsl:text>is one script</xsl:text>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:text> are </xsl:text>
+          <xsl:value-of select="count(script)"/>
+          <xsl:text> scripts</xsl:text>
+        </xsl:otherwise>
+      </xsl:choose>
+      <xsl:text>:</xsl:text>
     </p>
     <table>
       <thead>
