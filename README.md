@@ -1,4 +1,4 @@
-<!-- <img src="http://www.threecopies.com/images/logo.png" width="64px" height="64px"/> -->
+<img src="http://www.threecopies.com/images/logo.png" width="64px" height="64px"/>
 
 [![DevOps By Rultor.com](http://www.rultor.com/b/yegor256/threecopies)](http://www.rultor.com/p/yegor256/threecopies)
 
