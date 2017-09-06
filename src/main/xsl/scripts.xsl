@@ -112,7 +112,7 @@ software.
           <xsl:text>Flush</xsl:text>
         </a>
         <xsl:text> | </xsl:text>
-        <a href="/delete?name={name}">
+        <a href="/delete?name={name}" onclick="return confirm('Are you sure?');">
           <xsl:text>Del</xsl:text>
         </a>
       </td>

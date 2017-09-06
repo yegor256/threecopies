@@ -139,7 +139,7 @@ software.
               <xsl:text>View</xsl:text>
             </a>
             <xsl:text> | </xsl:text>
-            <a href="/delete-log?group={group}&amp;start={start}">
+            <a href="/delete-log?group={group}&amp;start={start}" onclick="return confirm('Are you sure?');">
               <xsl:text>Del</xsl:text>
             </a>
           </xsl:otherwise>
