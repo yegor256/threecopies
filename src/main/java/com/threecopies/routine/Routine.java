@@ -118,6 +118,7 @@ public final class Routine implements Func<Void, Integer> {
         for (final Script script : this.base.scripts()) {
             for (final Item item : script.open()) {
                 if (item.has("container")) {
+                    this.kill(item);
                     this.finish(item);
                 } else {
                     this.start(script, item);
@@ -175,6 +176,24 @@ public final class Routine implements Func<Void, Integer> {
                 )
         );
         Logger.info(this, "Started %s for %s", container, login);
+    }
+
+    /**
+     * Kill it if it's running for too long.
+     * @param log The log
+     * @throws IOException If fails
+     */
+    private void kill(final Item log) throws IOException {
+        final long mins = (System.currentTimeMillis()
+            - Long.parseLong(log.get("start").getN()))
+            / TimeUnit.MINUTES.toMillis(1L);
+        if (mins > TimeUnit.HOURS.toMinutes(2L)) {
+            this.upload("kill.sh");
+            final String container = log.get("container").getS();
+            new Shell.Plain(this.shell).exec(
+                String.format("%s/kill.sh %s %d", Routine.DIR, container, mins)
+            );
+        }
     }
 
     /**
