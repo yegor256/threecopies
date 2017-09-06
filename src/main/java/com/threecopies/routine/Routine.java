@@ -225,11 +225,6 @@ public final class Routine implements Func<Void, Integer> {
                 this, "Finished %s with %s and %d log bytes",
                 container, exit, parts[1].length()
             );
-        } else {
-            Logger.info(
-                this, "Still running %s: %s",
-                container, parts[0]
-            );
         }
     }
 

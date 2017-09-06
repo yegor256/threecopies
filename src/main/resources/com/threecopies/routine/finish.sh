@@ -8,6 +8,4 @@ if [ -e exit ]; then
     cat log
     cd ..
     rm -rf "${container}"
-else
-    ls -al log
 fi
