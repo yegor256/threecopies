@@ -63,5 +63,8 @@ software.
         </button>
       </fieldset>
     </form>
+    <p>
+      <xsl:text>Remember, if your script takes more than an hour, we kill it.</xsl:text>
+    </p>
   </xsl:template>
 </xsl:stylesheet>

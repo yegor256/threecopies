@@ -187,7 +187,7 @@ public final class Routine implements Func<Void, Integer> {
         final long mins = (System.currentTimeMillis()
             - Long.parseLong(log.get("start").getN()))
             / TimeUnit.MINUTES.toMillis(1L);
-        if (mins > TimeUnit.HOURS.toMinutes(2L)) {
+        if (mins > TimeUnit.HOURS.toMinutes(1L)) {
             this.upload("kill.sh");
             final String container = log.get("container").getS();
             new Shell.Plain(this.shell).exec(
