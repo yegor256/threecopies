@@ -3,6 +3,11 @@
 container=$1
 period=$2
 
+if docker ps | grep --quiet "\s${container}\s*\$"; then
+  echo "Docker container ${container} is still running"
+  exit -1
+fi
+
 cd "$(dirname "$0")"
 cd "${container}"
 chmod a+x script.sh

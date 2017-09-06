@@ -125,6 +125,7 @@ public final class Routine implements Func<Void, Integer> {
                 ++total;
             }
         }
+        Logger.info(this, "%d log items seen", total);
         return total;
     }
 
