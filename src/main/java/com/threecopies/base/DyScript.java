@@ -224,6 +224,16 @@ final class DyScript implements Script {
                             )
                         )
                         .with(
+                            "ttl",
+                            new AttributeValue().withN(
+                                Long.toString(
+                                    // @checkstyle MagicNumber (2 lines)
+                                    System.currentTimeMillis() / 1000L
+                                        + TimeUnit.DAYS.toSeconds(14L)
+                                )
+                            )
+                        )
+                        .with(
                             "start",
                             new AttributeValue().withN(
                                 Long.toString(System.currentTimeMillis())
