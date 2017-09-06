@@ -30,7 +30,7 @@ software.
       </xsl:when>
       <xsl:when test="$sec &lt; 60">
         <span title="{$sec} seconds">
-          <xsl:value-of select="$sec"/>
+          <xsl:value-of select="format-number($sec, '0')"/>
           <xsl:text>s</xsl:text>
         </span>
       </xsl:when>

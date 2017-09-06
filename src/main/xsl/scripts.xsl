@@ -113,7 +113,9 @@ software.
     <xsl:param name="time"/>
     <xsl:choose>
       <xsl:when test="$time = 0">
-        <xsl:text>never</xsl:text>
+        <span style="color:red">
+          <xsl:text>never</xsl:text>
+        </span>
       </xsl:when>
       <xsl:otherwise>
         <xsl:call-template name="sec">

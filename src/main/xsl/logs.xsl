@@ -47,7 +47,7 @@ software.
       <thead>
         <tr>
           <th>
-            <xsl:text>Group</xsl:text>
+            <xsl:text>Name</xsl:text>
           </th>
           <th>
             <xsl:text>Period</xsl:text>
@@ -74,7 +74,7 @@ software.
   <xsl:template match="log">
     <tr>
       <td>
-        <xsl:value-of select="group"/>
+        <xsl:value-of select="substring-after(group, '/')"/>
       </td>
       <td>
         <xsl:value-of select="period"/>
@@ -93,9 +93,11 @@ software.
         </xsl:choose>
       </td>
       <td>
-        <xsl:call-template name="sec">
-          <xsl:with-param name="sec" select="(finish - start) div 1000"/>
-        </xsl:call-template>
+        <xsl:if test="finish != 9223372036854775807">
+          <xsl:call-template name="sec">
+            <xsl:with-param name="sec" select="(finish - start) div 1000"/>
+          </xsl:call-template>
+        </xsl:if>
       </td>
       <td>
         <xsl:if test="finish != 9223372036854775807">
