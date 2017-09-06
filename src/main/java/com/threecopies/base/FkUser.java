@@ -49,9 +49,4 @@ public final class FkUser implements User {
         return new FkScript();
     }
 
-    @Override
-    public void delete(final String name) {
-        // nothing
-    }
-
 }

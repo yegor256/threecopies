@@ -62,11 +62,4 @@ public interface User {
      */
     Script script(String name) throws IOException;
 
-    /**
-     * Delete this script.
-     * @param name Script name
-     * @throws IOException If fails
-     */
-    void delete(String name) throws IOException;
-
 }

@@ -58,7 +58,7 @@ final class TkDelete implements Take {
     public Response act(final Request request) throws IOException {
         final User user = new RqUser(this.base, request);
         final String name = new RqHref.Smart(request).single("name");
-        user.delete(name);
+        user.script(name).delete();
         return new RsForward(
             new RsFlash(
                 String.format("Script \"%s\" deleted.", name)

@@ -116,6 +116,15 @@ final class DyScript implements Script {
     }
 
     @Override
+    public void delete() throws IOException {
+        this.region.table("scripts").delete(
+            new Attributes()
+                .with("login", this.login)
+                .with("name", this.name)
+        );
+    }
+
+    @Override
     public Iterable<Item> open() throws IOException {
         final Table table = this.region.table("logs");
         final Collection<Item> open = new LinkedList<>();

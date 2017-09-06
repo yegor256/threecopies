@@ -43,6 +43,12 @@ public interface Script {
     Iterable<Directive> toXembly() throws IOException;
 
     /**
+     * Delete this script.
+     * @throws IOException If fails
+     */
+    void delete() throws IOException;
+
+    /**
      * Update.
      * @param bash The bash script
      * @throws IOException If fails

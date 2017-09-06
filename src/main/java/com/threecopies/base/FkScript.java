@@ -50,4 +50,10 @@ public final class FkScript implements Script {
     public Iterable<Item> open() {
         return Collections.emptyList();
     }
+
+    @Override
+    public void delete() {
+        // nothing
+    }
+
 }
