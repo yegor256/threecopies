@@ -41,7 +41,7 @@ software.
   </xsl:template>
   <xsl:template match="logs[log]">
     <p>
-      <xsl:text>There are your logs:</xsl:text>
+      <xsl:text>There are your logs (we automatically delete them in 14 days):</xsl:text>
     </p>
     <table>
       <thead>

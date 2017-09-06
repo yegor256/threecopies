@@ -34,5 +34,30 @@ software.
     <p>
       <xsl:text>We help you backup your server-side data.</xsl:text>
     </p>
+    <p>
+      <xsl:text>
+        You create a bash script, which grabs your
+        valuable data from your data sources, packages it,
+        and uploads somewhere where it will be safe.
+        We start that script every hour, every day, and
+        every week (inside Docker container), record its output and lets you see it.
+        It's nothing more than a good old crontab, but hosted.
+      </xsl:text>
+    </p>
+    <p>
+      <xsl:text>
+        How you design your script depends on your specific data,
+        their location, format, etc. Here are our recommendations
+        for the most typical types of data and storages:
+      </xsl:text>
+      <a href="https://github.com/yegor256/threecopies#how-to-configure">
+        <xsl:text>How to configure?</xsl:text>
+      </a>
+    </p>
+    <p>
+      <xsl:text>
+        At the moment the system is free, please don't abuse it.
+      </xsl:text>
+    </p>
   </xsl:template>
 </xsl:stylesheet>
