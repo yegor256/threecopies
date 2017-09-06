@@ -67,6 +67,9 @@ RUN apt-get install -y default-jdk
 # S3cmd for AWS S3 integration
 RUN apt-get install -y s3cmd
 
+# MySQL client
+RUN apt-get install -y mysql-client
+
 # NodeJS
 RUN rm -rf /usr/lib/node_modules
 RUN curl -sL https://deb.nodesource.com/setup_6.x | bash -

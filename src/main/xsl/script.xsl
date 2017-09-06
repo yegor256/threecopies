@@ -44,7 +44,11 @@ software.
           </xsl:if>
         </input>
         <label>
-          <xsl:text>Bash:</xsl:text>
+          <xsl:text>Bash (</xsl:text>
+          <a href="https://github.com/yegor256/threecopies#how-to-configure">
+            <xsl:text>how to?</xsl:text>
+          </a>
+          <xsl:text>):</xsl:text>
         </label>
         <textarea name="body" style="width:100%;height:34em;font-family:monospace;font-size:0.7em;line-height:1.2em;">
           <xsl:if test="script">
