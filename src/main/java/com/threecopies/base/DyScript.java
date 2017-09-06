@@ -40,9 +40,6 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.concurrent.TimeUnit;
-import org.cactoos.list.StickyList;
-import org.takes.facets.flash.RsFlash;
-import org.takes.facets.forward.RsForward;
 import org.xembly.Directive;
 import org.xembly.Directives;
 
@@ -97,20 +94,6 @@ final class DyScript implements Script {
 
     @Override
     public void update(final String bash) throws IOException {
-        final Collection<String> friends = new StickyList<>(
-            "yegor256"
-        );
-        if (!friends.contains(this.login)) {
-            throw new RsForward(
-                new RsFlash(
-                    String.join(
-                        " ",
-                        "You're not allowed to use this system yet.",
-                        "Please contact team@threecopies.com to get access."
-                    )
-                )
-            );
-        }
         this.item().put(
             "bash",
             new AttributeValueUpdate()
