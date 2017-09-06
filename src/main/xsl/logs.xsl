@@ -95,11 +95,19 @@ software.
         </xsl:choose>
       </td>
       <td>
-        <xsl:if test="finish != 9223372036854775807">
-          <xsl:call-template name="sec">
-            <xsl:with-param name="sec" select="(finish - start) div 1000"/>
-          </xsl:call-template>
-        </xsl:if>
+        <xsl:choose>
+          <xsl:when test="finish = 9223372036854775807">
+            <xsl:text>~</xsl:text>
+            <xsl:call-template name="sec">
+              <xsl:with-param name="sec" select="(/page/epoch - start) div 1000"/>
+            </xsl:call-template>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:call-template name="sec">
+              <xsl:with-param name="sec" select="(finish - start) div 1000"/>
+            </xsl:call-template>
+          </xsl:otherwise>
+        </xsl:choose>
       </td>
       <td>
         <xsl:if test="finish != 9223372036854775807">
