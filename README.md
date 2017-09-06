@@ -6,8 +6,6 @@
 
 [![Build Status](https://travis-ci.org/yegor256/threecopies.svg)](https://travis-ci.org/yegor256/threecopies)
 [![PDD status](http://www.0pdd.com/svg?name=yegor256/threecopies)](http://www.0pdd.com/p?name=yegor256/threecopies)
-[![Dependency Status](https://gemnasium.com/yegor256/threecopies.svg)](https://gemnasium.com/yegor256/threecopies)
-[![Code Climate](http://img.shields.io/codeclimate/github/yegor256/threecopies.svg)](https://codeclimate.com/github/yegor256/threecopies)
 [![Test Coverage](https://img.shields.io/codecov/c/github/yegor256/threecopies.svg)](https://codecov.io/github/yegor256/threecopies?branch=master)
 
 ## What does it do?
