@@ -31,7 +31,7 @@ input, package, and output. First, you collect some data from your data
 sources (input). Then, you compress and encrypt the data (package). Finally,
 you store the package somewhere (output).
 
-### Input
+### 1. Input
 
 To retrieve the data from a MySQL database:
 
@@ -49,7 +49,7 @@ wget --mirror --tries=5 --quiet --output-file=/dev/null \
   ftp://ftp.example.com/some-directory
 ```
 
-### Package
+### 2. Package
 
 To package a directory:
 
@@ -62,7 +62,7 @@ We recommend to use exactly that name of your `.tgz` archives. The
 `${period}` environment variable is provided by our server to your
 Docker container, it will either be set to `hour`, `day`, or `week`.
 
-### Output
+### 3. Output
 
 To upload a file to Amazon S3, using [s3cmd](http://s3tools.org/s3cmd):
 
