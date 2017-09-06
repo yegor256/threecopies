@@ -159,6 +159,16 @@ final class DyScript implements Script {
         return open;
     }
 
+    @Override
+    public void flush() throws IOException {
+        this.item().put(
+            "hour",
+            new AttributeValueUpdate().withValue(
+                new AttributeValue().withN("0")
+            ).withAction(AttributeAction.PUT)
+        );
+    }
+
     /**
      * Create the next log.
      * @return Log item

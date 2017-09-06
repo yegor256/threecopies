@@ -99,6 +99,10 @@ software.
           <xsl:text>Edit</xsl:text>
         </a>
         <xsl:text> | </xsl:text>
+        <a href="/flush?name={name}">
+          <xsl:text>Flush</xsl:text>
+        </a>
+        <xsl:text> | </xsl:text>
         <a href="/delete?name={name}">
           <xsl:text>Del</xsl:text>
         </a>

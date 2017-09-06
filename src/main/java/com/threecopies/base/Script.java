@@ -62,4 +62,10 @@ public interface Script {
      */
     Iterable<Item> open() throws IOException;
 
+    /**
+     * Drop the hourly execution, to start right now.
+     * @throws IOException If fails
+     */
+    void flush() throws IOException;
+
 }
