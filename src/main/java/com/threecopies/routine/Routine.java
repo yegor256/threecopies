@@ -68,6 +68,11 @@ public final class Routine implements Func<Void, Integer> {
     private static final String DIR = "/tmp/threecopies";
 
     /**
+     * Max duration in minutes for a script.
+     */
+    private static final long MAX_MINUTES = TimeUnit.HOURS.toMinutes(3L);
+
+    /**
      * Service.
      */
     private final ScheduledExecutorService service;
@@ -187,13 +192,13 @@ public final class Routine implements Func<Void, Integer> {
         final long mins = (System.currentTimeMillis()
             - Long.parseLong(log.get("start").getN()))
             / TimeUnit.MINUTES.toMillis(1L);
-        if (mins > TimeUnit.HOURS.toMinutes(1L)) {
+        if (mins > Routine.MAX_MINUTES) {
             this.upload("kill.sh");
             final String container = log.get("container").getS();
             new Shell.Plain(this.shell).exec(
                 String.format("%s/kill.sh %s %d", Routine.DIR, container, mins)
             );
-            Logger.info(this, "Killed %s, over %d mins", container, mins);
+            Logger.info(this, "Killed %s, over %d minutes", container, mins);
         }
     }
 

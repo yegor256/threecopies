@@ -64,7 +64,11 @@ software.
       </fieldset>
     </form>
     <p>
-      <xsl:text>Remember, if your script takes more than an hour, we kill it.</xsl:text>
+      <xsl:text>Remember, if your script takes more than </xsl:text>
+      <strong>
+        <xsl:text>three hours</xsl:text>
+      </strong>
+      <xsl:text>, we kill it.</xsl:text>
     </p>
   </xsl:template>
 </xsl:stylesheet>
