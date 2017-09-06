@@ -40,6 +40,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.concurrent.TimeUnit;
+import org.cactoos.list.StickyList;
 import org.takes.facets.flash.RsFlash;
 import org.takes.facets.forward.RsForward;
 import org.xembly.Directive;
@@ -91,18 +92,24 @@ final class DyScript implements Script {
             .add("login").set(item.get("login").getS()).up()
             .add("bash").set(item.get("bash").getS()).up()
             .add("name").set(item.get("name").getS()).up()
+            .add("hour").set(item.get("hour").getN()).up()
+            .add("day").set(item.get("day").getN()).up()
+            .add("week").set(item.get("week").getN()).up()
             .up();
     }
 
     @Override
     public void update(final String bash) throws IOException {
-        if (!"yegor256".equals(this.login)) {
+        final Collection<String> friends = new StickyList<>(
+            "yegor256"
+        );
+        if (!friends.contains(this.login)) {
             throw new RsForward(
                 new RsFlash(
                     String.join(
                         " ",
                         "You're not allowed to use this system yet.",
-                        "Please, contact yegor@threecopies.com for permission."
+                        "Please contact team@threecopies.com to get access."
                     )
                 )
             );
@@ -285,6 +292,9 @@ final class DyScript implements Script {
                 new Attributes()
                     .with("login", this.login)
                     .with("name", this.name)
+                    .with("hour", 0L)
+                    .with("day", 0L)
+                    .with("week", 0L)
                     .with("bash", "echo 'Hello, world!'")
             );
         }

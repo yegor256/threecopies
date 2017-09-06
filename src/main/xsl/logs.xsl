@@ -25,6 +25,7 @@ software.
   <xsl:output method="html" doctype-system="about:legacy-compat" encoding="UTF-8" indent="yes"/>
   <xsl:strip-space elements="*"/>
   <xsl:include href="/xsl/layout.xsl"/>
+  <xsl:include href="/xsl/templates.xsl"/>
   <xsl:template match="page" mode="head">
     <title>
       <xsl:text>logs</xsl:text>
@@ -130,37 +131,5 @@ software.
         </xsl:choose>
       </td>
     </tr>
-  </xsl:template>
-  <xsl:template name="sec">
-    <xsl:param name="sec"/>
-    <xsl:choose>
-      <xsl:when test="$sec = 0">
-        <xsl:text>millis</xsl:text>
-      </xsl:when>
-      <xsl:when test="$sec &lt; 60">
-        <span title="{$sec} seconds">
-          <xsl:value-of select="$sec"/>
-          <xsl:text>s</xsl:text>
-        </span>
-      </xsl:when>
-      <xsl:when test="$sec &lt; 60 * 60">
-        <span title="{$sec} minutes ({$sec} seconds)">
-          <xsl:value-of select="format-number($sec div 60, '0')"/>
-          <xsl:text>m</xsl:text>
-        </span>
-      </xsl:when>
-      <xsl:when test="$sec &lt; 24 * 60 * 60">
-        <span title="{format-number($sec div (60*60), '0')} hours ({$sec} sec)">
-          <xsl:value-of select="format-number($sec div (60*60), '0')"/>
-          <xsl:text>h</xsl:text>
-        </span>
-      </xsl:when>
-      <xsl:otherwise>
-        <span title="{format-number($sec div (60 * 60 * 24), '0')} days ({$sec} sec)">
-          <xsl:value-of select="format-number($sec div (60 * 60 * 24), '0')"/>
-          <xsl:text>d</xsl:text>
-        </span>
-      </xsl:otherwise>
-    </xsl:choose>
   </xsl:template>
 </xsl:stylesheet>
