@@ -26,6 +26,7 @@ import com.threecopies.base.Base;
 import com.threecopies.base.Script;
 import com.threecopies.base.User;
 import java.io.IOException;
+import java.util.Locale;
 import org.takes.Request;
 import org.takes.facets.auth.Identity;
 import org.takes.facets.auth.RqAuth;
@@ -95,7 +96,7 @@ final class RqUser implements User {
                 new RsFlash("You must be logged in.")
             );
         }
-        return identity.properties().get("login");
+        return identity.properties().get("login").toLowerCase(Locale.ENGLISH);
     }
 
 }
