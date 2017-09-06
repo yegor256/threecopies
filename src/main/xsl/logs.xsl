@@ -82,7 +82,9 @@ software.
       <td>
         <xsl:choose>
           <xsl:when test="finish = 9223372036854775807">
-            <xsl:text>running...</xsl:text>
+            <span title="In Docker container {ocket}">
+              <xsl:text>running...</xsl:text>
+            </span>
           </xsl:when>
           <xsl:otherwise>
             <xsl:call-template name="sec">

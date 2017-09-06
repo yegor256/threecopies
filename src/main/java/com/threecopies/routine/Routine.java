@@ -146,7 +146,7 @@ public final class Routine implements Func<Void, Integer> {
         this.shell.exec(
             String.join(
                 " && ",
-                String.format("mkdir %s/%s", Routine.DIR, container),
+                String.format("mkdir -p %s/%s", Routine.DIR, container),
                 String.format("cat > %s/%s/script.sh", Routine.DIR, container)
             ),
             new InputOf(
