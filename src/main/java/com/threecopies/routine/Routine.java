@@ -193,6 +193,7 @@ public final class Routine implements Func<Void, Integer> {
             new Shell.Plain(this.shell).exec(
                 String.format("%s/kill.sh %s %d", Routine.DIR, container, mins)
             );
+            Logger.info(this, "Killed %s, over %d mins", container, mins);
         }
     }
 
