@@ -23,79 +23,50 @@
 package com.threecopies.tk;
 
 import com.threecopies.base.Base;
-import com.threecopies.base.Script;
 import com.threecopies.base.User;
 import java.io.IOException;
 import org.takes.Request;
-import org.takes.facets.auth.Identity;
-import org.takes.facets.auth.RqAuth;
+import org.takes.Response;
+import org.takes.Take;
 import org.takes.facets.flash.RsFlash;
 import org.takes.facets.forward.RsForward;
-import org.xembly.Directive;
+import org.takes.rq.RqHref;
 
 /**
- * User in request.
+ * Delete a log.
  *
  * @author Yegor Bugayenko (yegor256@gmail.com)
  * @version $Id$
  * @since 1.0
  */
-final class RqUser implements User {
+final class TkDeleteLog implements Take {
 
     /**
-     * The base.
+     * Base.
      */
     private final Base base;
 
     /**
-     * The request.
-     */
-    private final Request request;
-
-    /**
      * Ctor.
      * @param bse Base
-     * @param req Request
      */
-    RqUser(final Base bse, final Request req) {
+    TkDeleteLog(final Base bse) {
         this.base = bse;
-        this.request = req;
     }
 
     @Override
-    public Iterable<Directive> scripts() throws IOException {
-        return this.base.user(this.name()).scripts();
+    public Response act(final Request request) throws IOException {
+        final User user = new RqUser(this.base, request);
+        final String group = new RqHref.Smart(request).single("group");
+        final long start = Long.parseLong(
+            new RqHref.Smart(request).single("start")
+        );
+        user.delete(group, start);
+        return new RsForward(
+            new RsFlash(
+                String.format("Log \"%s@%d\" deleted.", group, start)
+            ),
+            "/logs"
+        );
     }
-
-    @Override
-    public Iterable<Directive> logs() throws IOException {
-        return this.base.user(this.name()).logs();
-    }
-
-    @Override
-    public Script script(final String name) throws IOException {
-        return this.base.user(this.name()).script(name);
-    }
-
-    @Override
-    public void delete(final String group, final long start)
-        throws IOException {
-        this.base.user(this.name()).delete(group, start);
-    }
-
-    /**
-     * Get user name (GitHub handle).
-     * @return Name
-     * @throws IOException If fails
-     */
-    private String name() throws IOException {
-        final Identity identity = new RqAuth(this.request).identity();
-        if (identity.equals(Identity.ANONYMOUS)) {
-            throw new RsForward(
-                new RsFlash("You must be logged in.")
-            );
-        }
-        return identity.properties().get("login");
-    }
-
 }

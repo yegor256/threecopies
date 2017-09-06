@@ -23,6 +23,7 @@
 package com.threecopies.base;
 
 import com.amazonaws.services.dynamodbv2.model.Select;
+import com.jcabi.dynamo.Attributes;
 import com.jcabi.dynamo.Item;
 import com.jcabi.dynamo.QueryValve;
 import com.jcabi.dynamo.Region;
@@ -128,6 +129,24 @@ final class DyUser implements User {
             );
         }
         return new DyScript(this.region, this.login, name);
+    }
+
+    @Override
+    public void delete(final String group, final long start)
+        throws IOException {
+        if (!group.startsWith(String.format("%s/", this.login))) {
+            throw new IllegalArgumentException(
+                String.format(
+                    "This log is not yours: %s@%s",
+                    group, start
+                )
+            );
+        }
+        this.region.table("logs").delete(
+            new Attributes()
+                .with("group", group)
+                .with("start", start)
+        );
     }
 
 }

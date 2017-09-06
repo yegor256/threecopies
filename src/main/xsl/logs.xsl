@@ -122,6 +122,10 @@ software.
             <a href="/log?name={ocket}">
               <xsl:text>View</xsl:text>
             </a>
+            <xsl:text> | </xsl:text>
+            <a href="/delete-log?group={group}&amp;start={start}">
+              <xsl:text>Del</xsl:text>
+            </a>
           </xsl:otherwise>
         </xsl:choose>
       </td>

@@ -62,4 +62,12 @@ public interface User {
      */
     Script script(String name) throws IOException;
 
+    /**
+     * Delete log.
+     * @param group Group name
+     * @param start Start time epoch
+     * @throws IOException If fails
+     */
+    void delete(String group, long start) throws IOException;
+
 }
