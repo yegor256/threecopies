@@ -37,7 +37,7 @@ here is the
 
 ### 1. Input
 
-To retrieve the data from a MySQL database:
+To retrieve the data from a MySQL database use [mysqldump](https://dev.mysql.com/doc/refman/5.7/en/mysqldump.html):
 
 ```bash
 mysqldump --lock-tables=false --host=www.example.com \
@@ -45,7 +45,7 @@ mysqldump --lock-tables=false --host=www.example.com \
   --databases dbname > mysql.sql
 ```
 
-To download an entire FTP directory:
+To download an entire FTP directory use [wget](https://www.gnu.org/software/wget/):
 
 ```bash
 wget --mirror --tries=5 --quiet --output-file=/dev/null \
@@ -55,7 +55,7 @@ wget --mirror --tries=5 --quiet --output-file=/dev/null \
 
 ### 2. Package
 
-To package a directory:
+To package a directory use [tar](https://help.ubuntu.com/community/BackupYourSystem/TAR):
 
 ```bash
 tgz="${period}-$(date "+%Y-%m-%d-%H-%M").tgz"

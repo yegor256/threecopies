@@ -29,11 +29,13 @@ import com.jcabi.ssh.Shell;
 import com.threecopies.base.Base;
 import com.threecopies.base.DyBase;
 import com.threecopies.base.Dynamo;
+import com.threecopies.base.Script;
 import com.threecopies.base.User;
 import java.util.Date;
 import org.cactoos.Func;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -47,6 +49,7 @@ import org.junit.Test;
 public final class RoutineITCase {
 
     @Test
+    @Ignore
     public void startsAndFinishes() throws Exception {
         final Base base = new DyBase(new Dynamo());
         final User user = base.user("yegor256");
@@ -71,6 +74,31 @@ public final class RoutineITCase {
                 )
             ).read(),
             Matchers.containsString("works\nwell")
+        );
+    }
+
+    @Test
+    public void savesContainerNameIntoLogItem() throws Exception {
+        final Base base = new DyBase(new Dynamo());
+        final User user = base.user("jeff");
+        final Script script = user.script("hello");
+        script.update("echo 123");
+        final Bucket bucket = new FkBucket();
+        final Func<Void, Integer> routine = new Routine(
+            base, new Shell.Fake(0, "0\nworks\nperfectly\nwell", ""), bucket
+        );
+        MatcherAssert.assertThat(
+            routine.apply(null),
+            Matchers.greaterThan(0)
+        );
+        MatcherAssert.assertThat(
+            script.open().iterator().next().get("container").getS(),
+            Matchers.equalTo(
+                String.format(
+                    "jeff_hello-week-%tF-%1$tH-%1$tM",
+                    new Date()
+                )
+            )
         );
     }
 

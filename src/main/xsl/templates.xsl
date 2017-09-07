@@ -41,13 +41,13 @@ software.
         </span>
       </xsl:when>
       <xsl:when test="$sec &lt; 24 * 60 * 60">
-        <span title="{format-number($sec div (60*60), '0')} hours ({$sec} sec)">
+        <span title="{format-number($sec div (60), '0')} minutes ({$sec} sec)">
           <xsl:value-of select="format-number($sec div (60*60), '0')"/>
           <xsl:text>h</xsl:text>
         </span>
       </xsl:when>
       <xsl:otherwise>
-        <span title="{format-number($sec div (60 * 60 * 24), '0')} days ({$sec} sec)">
+        <span title="{format-number($sec div (60 * 60), '0')} hours ({$sec} sec)">
           <xsl:value-of select="format-number($sec div (60 * 60 * 24), '0')"/>
           <xsl:text>d</xsl:text>
         </span>
