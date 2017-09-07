@@ -35,7 +35,6 @@ import java.util.Date;
 import org.cactoos.Func;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -49,7 +48,6 @@ import org.junit.Test;
 public final class RoutineITCase {
 
     @Test
-    @Ignore
     public void startsAndFinishes() throws Exception {
         final Base base = new DyBase(new Dynamo());
         final User user = base.user("yegor256");
@@ -58,12 +56,17 @@ public final class RoutineITCase {
         final Func<Void, Integer> routine = new Routine(
             base, new Shell.Fake(0, "0\nworks\nwell", ""), bucket
         );
-        for (int idx = 0; idx < 2; ++idx) {
+        // @checkstyle MagicNumber (1 line)
+        for (int idx = 0; idx < 6; ++idx) {
             MatcherAssert.assertThat(
                 routine.apply(null),
                 Matchers.greaterThan(0)
             );
         }
+        MatcherAssert.assertThat(
+            routine.apply(null),
+            Matchers.equalTo(0)
+        );
         MatcherAssert.assertThat(
             new Ocket.Text(
                 bucket.ocket(
@@ -85,12 +88,14 @@ public final class RoutineITCase {
         script.update("echo 123");
         final Bucket bucket = new FkBucket();
         final Func<Void, Integer> routine = new Routine(
-            base, new Shell.Fake(0, "0\nworks\nperfectly\nwell", ""), bucket
+            base, new Shell.Fake(0, "", ""), bucket
         );
-        MatcherAssert.assertThat(
-            routine.apply(null),
-            Matchers.greaterThan(0)
-        );
+        for (int idx = 0; idx < 2; ++idx) {
+            MatcherAssert.assertThat(
+                routine.apply(null),
+                Matchers.greaterThan(0)
+            );
+        }
         MatcherAssert.assertThat(
             script.open().iterator().next().get("container").getS(),
             Matchers.equalTo(

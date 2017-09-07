@@ -197,6 +197,12 @@ final class DyScript implements Script {
                 this.region.table("logs").put(
                     new Attributes()
                         .with("group", new AttributeValue().withS(this.group()))
+                        .with(
+                            "start",
+                            new AttributeValue().withN(
+                                Long.toString(System.currentTimeMillis())
+                            )
+                        )
                         .with("login", new AttributeValue().withS(this.login))
                         .with("period", new AttributeValue().withS(period))
                         .with("exit", new AttributeValue().withN("0"))
@@ -214,12 +220,6 @@ final class DyScript implements Script {
                                     System.currentTimeMillis() / 1000L
                                         + TimeUnit.DAYS.toSeconds(14L)
                                 )
-                            )
-                        )
-                        .with(
-                            "start",
-                            new AttributeValue().withN(
-                                Long.toString(System.currentTimeMillis())
                             )
                         )
                         .with(
