@@ -41,27 +41,27 @@ software.
       </a>
       <xsl:text>, which grabs some
         valuable data from the data sources, packages it,
-        and uploads somewhere where it will be safe.
-        We start the script every hour, every day, and
-        every week (inside </xsl:text>
+        and uploads it somewhere where it will be safe.
+        We run the script every hour, every day, and
+        every week (inside a </xsl:text>
       <a href="https://github.com/yegor256/threecopies/blob/master/src/docker/Dockerfile">
         <xsl:text>Docker container</xsl:text>
       </a>
-      <xsl:text>), record its output and let you see it.
+      <xsl:text>). We record its output and let you see it.
         It's nothing more than a good old </xsl:text>
       <a href="https://en.wikipedia.org/wiki/Cron">
         <xsl:text>Cron</xsl:text>
       </a>
-      <xsl:text>, but hosted.</xsl:text>
+      <xsl:text>, but it's hosted.</xsl:text>
     </p>
     <p>
       <xsl:text>
         How you design your script depends on your specific data,
-        its location, format, etc. Here are some recommendations
-        for the most typical types of data and storage:
+        its location, its format, etc. For some recommendations
+        for the most typical types of data and storage, see
       </xsl:text>
       <a href="https://github.com/yegor256/threecopies#how-to-configure">
-        <xsl:text>How to configure?</xsl:text>
+        <xsl:text>How to configure</xsl:text>
       </a>
     </p>
     <p>
@@ -69,15 +69,15 @@ software.
       <strong>
         <xsl:text>$0.01 per hour</xsl:text>
       </strong>
-      <xsl:text>. This is at least five times cheaper than what Amazon EC2 </xsl:text>
+      <xsl:text>. This is at least five times cheaper than Amazon EC2 </xsl:text>
       <a href="https://aws.amazon.com/ec2/pricing/on-demand/">
-        <xsl:text>offers</xsl:text>
+        <xsl:text>charges</xsl:text>
       </a>
       <xsl:text> for the type of servers we provide (8 CPUs, 6Gb RAM). </xsl:text>
       <xsl:text> You get 25 hours free for each new script.</xsl:text>
       <xsl:text> You have to top up a script only once for $5.00 and then </xsl:text>
       <xsl:text> we automatically re-charge your card for another $5.00 when you're running out of funds.</xsl:text>
-      <xsl:text> To cancel, just delete the script.</xsl:text>
+      <xsl:text> To cancel, you just delete the script.</xsl:text>
       <xsl:text> There are no refunds here.</xsl:text>
     </p>
     <p>
@@ -85,8 +85,8 @@ software.
       <a href="https://github.com/yegor256/threecopies">
         <xsl:text>GitHub repository</xsl:text>
       </a>
-      <xsl:text>. Feel free to inspect it, find bugs, suggest improvements,</xsl:text>
-      <xsl:text> and contribute with a pull request.</xsl:text>
+      <xsl:text>. Feel free to inspect it, report bugs, suggest improvements,</xsl:text>
+      <xsl:text> or contribute with a pull request.</xsl:text>
       <xsl:text> It is written in Java&#160;8 and hosted by </xsl:text>
       <a href="https://www.heroku.com">
         <xsl:text>Heroku</xsl:text>
