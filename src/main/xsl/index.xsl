@@ -39,10 +39,10 @@ software.
       <a href="https://en.wikipedia.org/wiki/Bash_(Unix_shell)">
         <xsl:text>bash script</xsl:text>
       </a>
-      <xsl:text>, which grabs your
-        valuable data from your data sources, packages it,
+      <xsl:text>, which grabs some
+        valuable data from the data sources, packages it,
         and uploads somewhere where it will be safe.
-        We start that script every hour, every day, and
+        We start the script every hour, every day, and
         every week (inside </xsl:text>
       <a href="https://github.com/yegor256/threecopies/blob/master/src/docker/Dockerfile">
         <xsl:text>Docker container</xsl:text>
@@ -73,12 +73,12 @@ software.
       <a href="https://aws.amazon.com/ec2/pricing/on-demand/">
         <xsl:text>offers</xsl:text>
       </a>
-      <xsl:text> for the servers we give you (8 CPUs, 6Gb RAM). </xsl:text>
-      <xsl:text> You get 25 hours free for each new script you create.</xsl:text>
-      <xsl:text> You have to top up your script only once for $5.00 and then </xsl:text>
-      <xsl:text> we automatically re-charge your credit card for another $5.00 when you're running out of funds.</xsl:text>
+      <xsl:text> for the type of servers we provide (8 CPUs, 6Gb RAM). </xsl:text>
+      <xsl:text> You get 25 hours free for each new script.</xsl:text>
+      <xsl:text> You have to top up a script only once for $5.00 and then </xsl:text>
+      <xsl:text> we automatically re-charge your card for another $5.00 when you're running out of funds.</xsl:text>
       <xsl:text> To cancel, just delete the script.</xsl:text>
-      <xsl:text> There are no refunds here, sorry.</xsl:text>
+      <xsl:text> There are no refunds here.</xsl:text>
     </p>
     <p>
       <xsl:text>The source code of the system is available in its </xsl:text>
