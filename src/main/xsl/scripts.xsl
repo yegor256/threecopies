@@ -52,7 +52,7 @@ software.
             $('#form').submit();
           }
         });
-        $('.pay').on('click', function (e) {
+        $('a.pay').on('click', function (e) {
           var script = $(this).attr('data-name');
           $('#script').val(script);
           $('#cents').val(stripe_cents);
@@ -158,13 +158,9 @@ software.
             <xsl:text>color:red</xsl:text>
           </xsl:attribute>
         </xsl:if>
-        <xsl:call-template name="sec">
-          <xsl:with-param name="sec" select="used"/>
-        </xsl:call-template>
+        <xsl:value-of select="format-number(used div (60 * 60), '0')"/>
         <xsl:text>/</xsl:text>
-        <xsl:call-template name="sec">
-          <xsl:with-param name="sec" select="paid"/>
-        </xsl:call-template>
+        <xsl:value-of select="format-number(paid div (60 * 60), '0')"/>
       </td>
       <td>
         <a href="/script?name={name}">
