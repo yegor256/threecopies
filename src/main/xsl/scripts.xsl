@@ -30,45 +30,7 @@ software.
     <title>
       <xsl:text>scripts</xsl:text>
     </title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"/>
-    <script src="https://checkout.stripe.com/checkout.js"/>
-    <script type="text/javascript">
-      <xsl:text>var stripe_key='</xsl:text>
-      <xsl:value-of select="stripe_key"/>
-      <xsl:text>';</xsl:text>
-      <xsl:text>var stripe_cents=</xsl:text>
-      <xsl:value-of select="stripe_cents"/>
-      <xsl:text>;</xsl:text>
-    </script>
-    <script type="text/javascript">
-      // <![CDATA[
-      $(function() {
-        var handler = StripeCheckout.configure({
-          key: stripe_key,
-          image: '/images/logo.png',
-          token: function (token) {
-            $('#token').val(token.id);
-            $('#email').val(token.email);
-            $('#form').submit();
-          }
-        });
-        $('a.pay').on('click', function (e) {
-          var script = $(this).attr('data-name');
-          $('#script').val(script);
-          $('#cents').val(stripe_cents);
-          handler.open({
-            name: 'Add funds to the script',
-            description: script,
-            amount: stripe_cents
-          });
-          e.preventDefault();
-        });
-        $(window).on('popstate', function () {
-          handler.close();
-        });
-      });
-      // ]]>
-    </script>
+    <xsl:apply-templates select="." mode="js"/>
   </xsl:template>
   <xsl:template match="page" mode="body">
     <p>
@@ -215,5 +177,46 @@ software.
         <xsl:text> ago</xsl:text>
       </xsl:otherwise>
     </xsl:choose>
+  </xsl:template>
+  <xsl:template match="page" mode="js">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"/>
+    <script src="https://checkout.stripe.com/checkout.js"/>
+    <script type="text/javascript">
+      <xsl:text>var stripe_key='</xsl:text>
+      <xsl:value-of select="stripe_key"/>
+      <xsl:text>';</xsl:text>
+      <xsl:text>var stripe_cents=</xsl:text>
+      <xsl:value-of select="stripe_cents"/>
+      <xsl:text>;</xsl:text>
+    </script>
+    <script type="text/javascript">
+      // <![CDATA[
+      $(function() {
+        var handler = StripeCheckout.configure({
+          key: stripe_key,
+          image: '/images/logo.png',
+          token: function (token) {
+            $('#token').val(token.id);
+            $('#email').val(token.email);
+            $('#form').submit();
+          }
+        });
+        $('a.pay').on('click', function (e) {
+          var script = $(this).attr('data-name');
+          $('#script').val(script);
+          $('#cents').val(stripe_cents);
+          handler.open({
+            name: 'Add funds to the script',
+            description: script,
+            amount: stripe_cents
+          });
+          e.preventDefault();
+        });
+        $(window).on('popstate', function () {
+          handler.close();
+        });
+      });
+      // ]]>
+    </script>
   </xsl:template>
 </xsl:stylesheet>
