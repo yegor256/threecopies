@@ -80,5 +80,26 @@ software.
       <xsl:text> To cancel, just delete the script.</xsl:text>
       <xsl:text> There are no refunds here, sorry.</xsl:text>
     </p>
+    <p>
+      <xsl:text>The source code of the system is available in </xsl:text>
+      <a href="https://github.com/yegor256/threecopies">
+        <xsl:text>GitHub repository</xsl:text>
+      </a>
+      <xsl:text>. Feel free to inspect it, find bugs, suggest improvements</xsl:text>
+      <xsl:text> and contribute with a pull request.</xsl:text>
+      <xsl:text> It is written in Java and hosted by </xsl:text>
+      <a href="https://www.heroku.com">
+        <xsl:text>Heroku</xsl:text>
+      </a>
+      <xsl:text>. The servers that run your scripts are hosted by </xsl:text>
+      <a href="http://www.contabo.com">
+        <xsl:text>Contabo</xsl:text>
+      </a>
+      <xsl:text>. The system was developed and is maintained by </xsl:text>
+      <a href="http://www.yegor256.com">
+        <xsl:text>Yegor Bugayenko</xsl:text>
+      </a>
+      <xsl:text>.</xsl:text>
+    </p>
   </xsl:template>
 </xsl:stylesheet>
