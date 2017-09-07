@@ -119,7 +119,8 @@ public final class Routine implements Func<Void, Integer> {
 
     @Override
     public Integer apply(final Void none) throws Exception {
-        int total = 0;
+        int scripts = 0;
+        int items = 0;
         for (final Script script : this.base.scripts()) {
             for (final Item item : script.open()) {
                 if (item.has("container")) {
@@ -128,11 +129,12 @@ public final class Routine implements Func<Void, Integer> {
                 } else {
                     this.start(script, item);
                 }
-                ++total;
+                ++items;
             }
+            ++scripts;
         }
-        Logger.info(this, "%d log items seen", total);
-        return total;
+        Logger.info(this, "%d log items seen in %d scripts", items, scripts);
+        return items;
     }
 
     /**
