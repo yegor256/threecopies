@@ -125,7 +125,7 @@ public final class Routine implements Func<Void, Integer> {
             for (final Item item : script.open()) {
                 if (item.has("container")) {
                     this.kill(item);
-                    this.finish(item);
+                    this.finish(script, item);
                 } else {
                     this.start(script, item);
                 }
@@ -206,10 +206,12 @@ public final class Routine implements Func<Void, Integer> {
 
     /**
      * Finish already running Docker container.
+     * @param script The script
      * @param log The log
      * @throws IOException If fails
      */
-    private void finish(final Item log) throws IOException {
+    private void finish(final Script script, final Item log)
+        throws IOException {
         this.upload("finish.sh");
         final String container = log.get("container").getS();
         final ByteArrayOutputStream stdout = new ByteArrayOutputStream();
@@ -247,6 +249,11 @@ public final class Routine implements Func<Void, Integer> {
                             new AttributeValue().withN(Integer.toString(exit))
                         ).withAction(AttributeAction.PUT)
                     )
+            );
+            script.track(
+                (System.currentTimeMillis()
+                    - Long.parseLong(log.get("start").getN()))
+                    / TimeUnit.SECONDS.toMillis(1L)
             );
             Logger.info(
                 this, "Finished %s with %s and %d log bytes",

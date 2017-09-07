@@ -39,7 +39,7 @@ If you don't want your script to be executed too frequently, you may put
 this code in front of it (to skip hourly executions, for example):
 
 ```bash
-if [ "${period}" -eq "hour" ]; then exit 0; fi
+if [ "${period}" == "hour" ]; then exit 0; fi
 ```
 
 ### 1. Input
