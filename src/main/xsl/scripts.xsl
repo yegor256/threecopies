@@ -36,9 +36,9 @@ software.
       <xsl:text>var stripe_key='</xsl:text>
       <xsl:value-of select="stripe_key"/>
       <xsl:text>';</xsl:text>
-      <xsl:text>var stripe_cents='</xsl:text>
+      <xsl:text>var stripe_cents=</xsl:text>
       <xsl:value-of select="stripe_cents"/>
-      <xsl:text>';</xsl:text>
+      <xsl:text>;</xsl:text>
     </script>
     <script type="text/javascript">
       // <![CDATA[
