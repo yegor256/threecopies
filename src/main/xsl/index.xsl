@@ -81,13 +81,13 @@ software.
       <xsl:text> There are no refunds here, sorry.</xsl:text>
     </p>
     <p>
-      <xsl:text>The source code of the system is available in </xsl:text>
+      <xsl:text>The source code of the system is available in its </xsl:text>
       <a href="https://github.com/yegor256/threecopies">
         <xsl:text>GitHub repository</xsl:text>
       </a>
-      <xsl:text>. Feel free to inspect it, find bugs, suggest improvements</xsl:text>
+      <xsl:text>. Feel free to inspect it, find bugs, suggest improvements,</xsl:text>
       <xsl:text> and contribute with a pull request.</xsl:text>
-      <xsl:text> It is written in Java and hosted by </xsl:text>
+      <xsl:text> It is written in Java&#160;8 and hosted by </xsl:text>
       <a href="https://www.heroku.com">
         <xsl:text>Heroku</xsl:text>
       </a>
