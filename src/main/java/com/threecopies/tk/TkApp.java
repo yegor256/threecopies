@@ -45,6 +45,7 @@ import org.takes.facets.auth.codecs.CcSafe;
 import org.takes.facets.auth.codecs.CcSalted;
 import org.takes.facets.auth.codecs.CcXor;
 import org.takes.facets.auth.social.PsGithub;
+import org.takes.facets.fallback.Fallback;
 import org.takes.facets.fallback.FbChain;
 import org.takes.facets.fallback.FbStatus;
 import org.takes.facets.fallback.RqFallback;
@@ -235,16 +236,20 @@ public final class TkApp extends TkWrap {
             new FbChain(
                 new FbStatus(
                     HttpURLConnection.HTTP_NOT_FOUND,
-                    new RsWithStatus(
-                        new RsText("Page not found"),
-                        HttpURLConnection.HTTP_NOT_FOUND
+                    (Fallback) req -> new Opt.Single<>(
+                        new RsWithStatus(
+                            new RsText(req.throwable().getLocalizedMessage()),
+                            HttpURLConnection.HTTP_NOT_FOUND
+                        )
                     )
                 ),
                 new FbStatus(
                     HttpURLConnection.HTTP_BAD_REQUEST,
-                    new RsWithStatus(
-                        new RsText("Bad request"),
-                        HttpURLConnection.HTTP_BAD_REQUEST
+                    (Fallback) req -> new Opt.Single<>(
+                        new RsWithStatus(
+                            new RsText(req.throwable().getLocalizedMessage()),
+                            HttpURLConnection.HTTP_BAD_REQUEST
+                        )
                     )
                 ),
                 req -> {

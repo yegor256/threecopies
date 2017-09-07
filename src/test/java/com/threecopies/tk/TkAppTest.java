@@ -103,7 +103,7 @@ public final class TkAppTest {
             new RsPrint(
                 take.act(new RqFake("HEAD", "/not-found"))
             ).printBody(),
-            Matchers.equalTo("Page not found")
+            Matchers.containsString("not-found")
         );
     }
 
