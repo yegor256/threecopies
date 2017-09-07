@@ -129,6 +129,20 @@ software.
             <nav>
               <ul>
                 <li>
+                  <a href="http://www.zerocracy.com">
+                    <img src="http://www.zerocracy.com/badge.svg"/>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+            <nav>
+              <ul>
+                <li>
+                  <a href="http://www.sixnines.io/h/9d56">
+                    <img src="http://www.sixnines.io/b/9d56?style=flat"/>
+                  </a>
+                </li>
+                <li>
                   <a href="https://github.com/yegor256/threecopies/stargazers">
                     <img src="https://img.shields.io/github/stars/yegor256/threecopies.svg?style=flat-square" alt="github stars"/>
                   </a>
