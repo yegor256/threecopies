@@ -194,7 +194,10 @@ final class DyScript implements Script {
                 new StickyMap<String, Object>(
                     new MapEntry<>("email", email),
                     new MapEntry<>("source", token)
-                )
+                ),
+                new RequestOptions.RequestOptionsBuilder().setApiKey(
+                    Manifests.read("ThreeCopies-StripeSecret")
+                ).build()
             ).getId();
         } catch (final APIException | APIConnectionException
             | AuthenticationException | CardException
@@ -409,7 +412,7 @@ final class DyScript implements Script {
                     .with("login", this.login)
                     .with("name", this.name)
                     // @checkstyle MagicNumber (1 line)
-                    .with("paid", TimeUnit.HOURS.toSeconds(100L))
+                    .with("paid", TimeUnit.HOURS.toSeconds(25L))
                     .with("used", 0L)
                     .with("hour", 0L)
                     .with("day", 0L)

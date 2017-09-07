@@ -153,14 +153,16 @@ software.
         </xsl:call-template>
       </td>
       <td>
-        <xsl:if test="used &gt; paid">
-          <xsl:attribute name="style">
-            <xsl:text>color:red</xsl:text>
-          </xsl:attribute>
-        </xsl:if>
-        <xsl:value-of select="format-number(used div (60 * 60), '0')"/>
-        <xsl:text>/</xsl:text>
-        <xsl:value-of select="format-number(paid div (60 * 60), '0')"/>
+        <span title="{used}/{paid}">
+          <xsl:if test="used &gt; paid">
+            <xsl:attribute name="style">
+              <xsl:text>color:red</xsl:text>
+            </xsl:attribute>
+          </xsl:if>
+          <xsl:value-of select="format-number(used div (60 * 60), '0')"/>
+          <xsl:text>/</xsl:text>
+          <xsl:value-of select="format-number(paid div (60 * 60), '0')"/>
+        </span>
       </td>
       <td>
         <a href="/script?name={name}">
