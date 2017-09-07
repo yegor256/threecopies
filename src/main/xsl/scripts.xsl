@@ -135,7 +135,19 @@ software.
   <xsl:template match="script">
     <tr>
       <td>
-        <xsl:value-of select="name"/>
+        <span>
+          <xsl:if test="used &gt; paid">
+            <xsl:attribute name="style">
+              <xsl:text>color:red</xsl:text>
+            </xsl:attribute>
+          </xsl:if>
+          <xsl:value-of select="name"/>
+        </span>
+        <xsl:if test="used &gt; paid">
+          <div style="color:red;font-size:0.8em;">
+            <xsl:text>You are out of funds</xsl:text>
+          </div>
+        </xsl:if>
       </td>
       <td>
         <xsl:call-template name="when">
