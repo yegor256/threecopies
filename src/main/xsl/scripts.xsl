@@ -134,10 +134,11 @@ software.
               <xsl:when test="used &gt; paid">
                 <xsl:text>red</xsl:text>
               </xsl:when>
-            <xsl:otherwise>
-              <xsl:text>green</xsl:text>
-            </xsl:otherwise>
-          </xsl:choose>
+              <xsl:otherwise>
+                <xsl:text>green</xsl:text>
+              </xsl:otherwise>
+            </xsl:choose>
+          </xsl:attribute>
           <xsl:value-of select="format-number(used div (60 * 60), '0')"/>
           <xsl:text>/</xsl:text>
           <xsl:value-of select="format-number(paid div (60 * 60), '0')"/>
