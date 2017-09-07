@@ -179,44 +179,60 @@ software.
     </xsl:choose>
   </xsl:template>
   <xsl:template match="page" mode="js">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"/>
-    <script src="https://checkout.stripe.com/checkout.js"/>
-    <script type="text/javascript">
+    <xsl:element name="script">
+      <xsl:attribute name="src">
+        <xsl:text>https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js</xsl:text>
+      </xsl:attribute>
+    </xsl:element>
+    <xsl:element name="script">
+      <xsl:attribute name="src">
+        <xsl:text>https://checkout.stripe.com/checkout.js</xsl:text>
+      </xsl:attribute>
+    </xsl:element>
+    <xsl:element name="script">
+      <xsl:attribute name="type">
+        <xsl:text>text/javascript</xsl:text>
+      </xsl:attribute>
       <xsl:text>var stripe_key='</xsl:text>
       <xsl:value-of select="stripe_key"/>
       <xsl:text>';</xsl:text>
       <xsl:text>var stripe_cents=</xsl:text>
       <xsl:value-of select="stripe_cents"/>
       <xsl:text>;</xsl:text>
-    </script>
-    <script type="text/javascript">
-      // <![CDATA[
-      $(function() {
-        var handler = StripeCheckout.configure({
-          key: stripe_key,
-          image: '/images/logo.png',
-          token: function (token) {
-            $('#token').val(token.id);
-            $('#email').val(token.email);
-            $('#form').submit();
-          }
-        });
-        $('a.pay').on('click', function (e) {
-          var script = $(this).attr('data-name');
-          $('#script').val(script);
-          $('#cents').val(stripe_cents);
-          handler.open({
-            name: 'Add funds to the script',
-            description: script,
-            amount: stripe_cents
+    </xsl:element>
+    <xsl:element name="script">
+      <xsl:attribute name="type">
+        <xsl:text>text/javascript</xsl:text>
+      </xsl:attribute>
+      <xsl:text>
+        // <![CDATA[
+        $(function() {
+          var handler = StripeCheckout.configure({
+            key: stripe_key,
+            image: '/images/logo.png',
+            token: function (token) {
+              $('#token').val(token.id);
+              $('#email').val(token.email);
+              $('#form').submit();
+            }
           });
-          e.preventDefault();
+          $('a.pay').on('click', function (e) {
+            var script = $(this).attr('data-name');
+            $('#script').val(script);
+            $('#cents').val(stripe_cents);
+            handler.open({
+              name: 'Add funds to the script',
+              description: script,
+              amount: stripe_cents
+            });
+            e.preventDefault();
+          });
+          $(window).on('popstate', function () {
+            handler.close();
+          });
         });
-        $(window).on('popstate', function () {
-          handler.close();
-        });
-      });
-      // ]]>
-    </script>
+        // ]]>
+      </xsl:text>
+    </xsl:element>
   </xsl:template>
 </xsl:stylesheet>
