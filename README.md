@@ -35,6 +35,13 @@ Docker container,
 here is the
 [`Dockerfile`](https://github.com/yegor256/threecopies/blob/master/src/docker/Dockerfile).
 
+If you don't want your script to be executed too frequently, you may put
+this code in front of it (to skip hourly executions, for example):
+
+```bash
+if [ "${period}" -eq "hour" ]; then exit 0; fi
+```
+
 ### 1. Input
 
 To retrieve the data from a MySQL database use [mysqldump](https://dev.mysql.com/doc/refman/5.7/en/mysqldump.html):

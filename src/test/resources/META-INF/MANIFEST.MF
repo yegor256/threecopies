@@ -9,3 +9,5 @@ ThreeCopies-S3Secret: test
 ThreeCopies-GithubId: ${failsafe.github.id}
 ThreeCopies-GithubSecret: ${failsafe.github.secret}
 ThreeCopies-SecurityKey: ${failsafe.security.key}
+ThreeCopies-StripeKey: ${stripe.test.key}
+ThreeCopies-StripeSecret: ${stripe.test.secret}

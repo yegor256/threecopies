@@ -34,12 +34,23 @@ import com.jcabi.dynamo.Item;
 import com.jcabi.dynamo.QueryValve;
 import com.jcabi.dynamo.Region;
 import com.jcabi.dynamo.Table;
+import com.jcabi.manifests.Manifests;
+import com.stripe.exception.APIConnectionException;
+import com.stripe.exception.APIException;
+import com.stripe.exception.AuthenticationException;
+import com.stripe.exception.CardException;
+import com.stripe.exception.InvalidRequestException;
+import com.stripe.model.Charge;
+import com.stripe.model.Customer;
+import com.stripe.net.RequestOptions;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.concurrent.TimeUnit;
+import org.cactoos.map.MapEntry;
+import org.cactoos.map.StickyMap;
 import org.xembly.Directive;
 import org.xembly.Directives;
 
@@ -51,7 +62,13 @@ import org.xembly.Directives;
  * @since 1.0
  * @checkstyle ClassDataAbstractionCouplingCheck (500 lines)
  */
-@SuppressWarnings("PMD.AvoidDuplicateLiterals")
+@SuppressWarnings(
+    {
+        "PMD.AvoidDuplicateLiterals",
+        "PMD.TooManyMethods",
+        "PMD.ExcessiveImports"
+    }
+)
 final class DyScript implements Script {
 
     /**
@@ -113,31 +130,33 @@ final class DyScript implements Script {
 
     @Override
     public Iterable<Item> open() throws IOException {
-        final Table table = this.region.table("logs");
         final Collection<Item> open = new LinkedList<>();
-        open.addAll(
-            table.frame()
-                .through(
-                    new QueryValve()
-                        .withLimit(1)
-                        .withIndexName("open")
-                        .withSelect(Select.ALL_ATTRIBUTES)
-                        .withConsistentRead(false)
-                )
-                .where("group", this.group())
-                .where(
-                    "finish",
-                    new Condition()
-                        .withComparisonOperator(ComparisonOperator.EQ)
-                        .withAttributeValueList(
-                            new AttributeValue().withN(
-                                Long.toString(Long.MAX_VALUE)
+        if (!this.overdue()) {
+            final Table table = this.region.table("logs");
+            open.addAll(
+                table.frame()
+                    .through(
+                        new QueryValve()
+                            .withLimit(1)
+                            .withIndexName("open")
+                            .withSelect(Select.ALL_ATTRIBUTES)
+                            .withConsistentRead(false)
+                    )
+                    .where("group", this.group())
+                    .where(
+                        "finish",
+                        new Condition()
+                            .withComparisonOperator(ComparisonOperator.EQ)
+                            .withAttributeValueList(
+                                new AttributeValue().withN(
+                                    Long.toString(Long.MAX_VALUE)
+                                )
                             )
                     )
-                )
-        );
-        if (open.isEmpty()) {
-            open.addAll(this.create());
+            );
+            if (open.isEmpty()) {
+                open.addAll(this.create());
+            }
         }
         return open;
     }
@@ -149,6 +168,103 @@ final class DyScript implements Script {
             new AttributeValueUpdate().withValue(
                 new AttributeValue().withN("0")
             ).withAction(AttributeAction.PUT)
+        );
+    }
+
+    @Override
+    public void track(final long seconds) throws IOException {
+        final Item item = this.item();
+        item.put(
+            "used",
+            new AttributeValueUpdate().withValue(
+                new AttributeValue().withN(Long.toString(seconds))
+            ).withAction(AttributeAction.ADD)
+        );
+        if (this.overdue() && item.has("stripe_customer")) {
+            this.rebill();
+        }
+    }
+
+    @Override
+    public void pay(final long cents, final String token, final String email)
+        throws IOException {
+        final String customer;
+        try {
+            customer = Customer.create(
+                new StickyMap<String, Object>(
+                    new MapEntry<>("email", email),
+                    new MapEntry<>("source", token)
+                )
+            ).getId();
+        } catch (final APIException | APIConnectionException
+            | AuthenticationException | CardException
+            | InvalidRequestException ex) {
+            throw new IOException(ex);
+        }
+        this.item().put(
+            new AttributeUpdates()
+                .with(
+                    "stripe_cents",
+                    new AttributeValueUpdate().withValue(
+                        new AttributeValue().withN(Long.toString(cents))
+                    ).withAction(AttributeAction.PUT)
+                )
+                .with(
+                    "stripe_customer",
+                    new AttributeValueUpdate().withValue(
+                        new AttributeValue().withS(customer)
+                    ).withAction(AttributeAction.PUT)
+                )
+        );
+        this.rebill();
+    }
+
+    /**
+     * It's overdue?
+     * @return TRUE if there is not enough funds
+     * @throws IOException If fails
+     */
+    private boolean overdue() throws IOException {
+        final Item item = this.item();
+        return Long.parseLong(item.get("used").getN())
+            > Long.parseLong(item.get("paid").getN());
+    }
+
+    /**
+     * Charge him again.
+     * @throws IOException If fails
+     */
+    private void rebill() throws IOException {
+        final Item item = this.item();
+        final Long cents = Long.parseLong(item.get("stripe_cents").getN());
+        final String customer = item.get("stripe_customer").getS();
+        try {
+            Charge.create(
+                new StickyMap<String, Object>(
+                    new MapEntry<>("amount", cents),
+                    new MapEntry<>("currency", "usd"),
+                    new MapEntry<>(
+                        "description",
+                        String.format("ThreeCopies: %s", this.name)
+                    ),
+                    new MapEntry<>("customer", customer)
+                ),
+                new RequestOptions.RequestOptionsBuilder().setApiKey(
+                    Manifests.read("ThreeCopies-StripeSecret")
+                ).build()
+            );
+        } catch (final APIException | APIConnectionException
+            | AuthenticationException | CardException
+            | InvalidRequestException ex) {
+            throw new IOException(ex);
+        }
+        this.item().put(
+            "paid",
+            new AttributeValueUpdate().withValue(
+                new AttributeValue().withN(
+                    Long.toString(cents * TimeUnit.HOURS.toSeconds(1L))
+                )
+            ).withAction(AttributeAction.ADD)
         );
     }
 
@@ -292,6 +408,9 @@ final class DyScript implements Script {
                 new Attributes()
                     .with("login", this.login)
                     .with("name", this.name)
+                    // @checkstyle MagicNumber (1 line)
+                    .with("paid", TimeUnit.HOURS.toSeconds(100L))
+                    .with("used", 0L)
                     .with("hour", 0L)
                     .with("day", 0L)
                     .with("week", 0L)

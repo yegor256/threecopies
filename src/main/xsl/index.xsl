@@ -65,9 +65,20 @@ software.
       </a>
     </p>
     <p>
-      <xsl:text>
-        At the moment the system is free, please don't abuse it.
-      </xsl:text>
+      <xsl:text>We charge </xsl:text>
+      <strong>
+        <xsl:text>$0.01 per hour</xsl:text>
+      </strong>
+      <xsl:text>. This is at least five times cheaper than what Amazon EC2 </xsl:text>
+      <a href="https://aws.amazon.com/ec2/pricing/on-demand/">
+        <xsl:text>offers</xsl:text>
+      </a>
+      <xsl:text> for the servers we give you (8 CPUs, 6Gb RAM). </xsl:text>
+      <xsl:text> You get 25 hours free for each new script you create.</xsl:text>
+      <xsl:text> You have to top up your script only once for $5.00 and then </xsl:text>
+      <xsl:text> we automatically re-charge your credit card for another $5.00 when you're running out of funds.</xsl:text>
+      <xsl:text> To cancel, just delete the script.</xsl:text>
+      <xsl:text> There are no refunds here, sorry.</xsl:text>
     </p>
   </xsl:template>
 </xsl:stylesheet>

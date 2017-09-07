@@ -173,6 +173,11 @@ software.
       <version>0.22</version>
     </dependency>
     <dependency>
+      <groupId>com.stripe</groupId>
+      <artifactId>stripe-java</artifactId>
+      <version>5.8.0</version>
+    </dependency>
+    <dependency>
       <groupId>org.cactoos</groupId>
       <artifactId>cactoos</artifactId>
       <version>0.16</version>

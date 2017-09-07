@@ -30,6 +30,45 @@ software.
     <title>
       <xsl:text>scripts</xsl:text>
     </title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"/>
+    <script src="https://checkout.stripe.com/checkout.js"/>
+    <script type="text/javascript">
+      <xsl:text>var stripe_key='</xsl:text>
+      <xsl:value-of select="stripe_key"/>
+      <xsl:text>';</xsl:text>
+      <xsl:text>var stripe_key='</xsl:text>
+      <xsl:value-of select="stripe_amount"/>
+      <xsl:text>';</xsl:text>
+    </script>
+    <script type="text/javascript">
+      // <![CDATA[
+      $(function() {
+        var handler = StripeCheckout.configure({
+          key: stripe_key,
+          image: '/images/logo.png',
+          token: function (token) {
+            $('#token').val(token.id);
+            $('#email').val(token.email);
+            $('#form').submit();
+          }
+        });
+        $('.pay').on('click', function (e) {
+          var script = $(this).attr('data-name');
+          $('#script').val(script);
+          $('#cents').val(stripe_cents);
+          handler.open({
+            name: 'Add funds to the script',
+            description: script,
+            amount: stripe_cents
+          });
+          e.preventDefault();
+        });
+        $(window).on('popstate', function () {
+          handler.close();
+        });
+      });
+      // ]]>
+    </script>
   </xsl:template>
   <xsl:template match="page" mode="body">
     <p>
@@ -44,6 +83,13 @@ software.
     </p>
   </xsl:template>
   <xsl:template match="scripts[script]">
+    <form id="form" style="display:none" action="/pay" method="post">
+      <input name="cents" id="cents" type="hidden"/>
+      <input name="token" id="token" type="hidden"/>
+      <input name="email" id="email" type="hidden"/>
+      <input name="script" id="script" type="hidden"/>
+      <input type="submit"/>
+    </form>
     <p>
       <xsl:text>There </xsl:text>
       <xsl:choose>
@@ -72,6 +118,9 @@ software.
           </th>
           <th>
             <xsl:text>Week</xsl:text>
+          </th>
+          <th>
+            <xsl:text>Time</xsl:text>
           </th>
           <th>
             <xsl:text>Options</xsl:text>
@@ -104,8 +153,26 @@ software.
         </xsl:call-template>
       </td>
       <td>
+        <xsl:if test="used &gt; paid">
+          <xsl:attribute name="style">
+            <xsl:text>color:red</xsl:text>
+          </xsl:attribute>
+        </xsl:if>
+        <xsl:call-template name="sec">
+          <xsl:with-param name="sec" select="used"/>
+        </xsl:call-template>
+        <xsl:text>/</xsl:text>
+        <xsl:call-template name="sec">
+          <xsl:with-param name="sec" select="paid"/>
+        </xsl:call-template>
+      </td>
+      <td>
         <a href="/script?name={name}">
           <xsl:text>Edit</xsl:text>
+        </a>
+        <xsl:text> | </xsl:text>
+        <a href="/pay" class="pay" data-name="{name}">
+          <xsl:text>Pay</xsl:text>
         </a>
         <xsl:text> | </xsl:text>
         <a href="/flush?name={name}">

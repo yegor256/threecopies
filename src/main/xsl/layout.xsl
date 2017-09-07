@@ -101,7 +101,7 @@ software.
           </article>
           <footer>
             <nav>
-              <ul style="color:gray;">
+              <ul class="bottom">
                 <li title="Currently deployed version">
                   <xsl:text>v</xsl:text>
                   <xsl:value-of select="version/name"/>
@@ -150,7 +150,7 @@ software.
               </ul>
             </nav>
             <nav>
-              <ul style="color:gray;">
+              <ul class="bottom">
                 <li>
                   <xsl:text>The logo is made by </xsl:text>
                   <a href="http://www.freepik.com/">

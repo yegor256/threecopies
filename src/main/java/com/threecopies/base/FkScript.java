@@ -57,6 +57,16 @@ public final class FkScript implements Script {
     }
 
     @Override
+    public void track(final long seconds) {
+        // nothing
+    }
+
+    @Override
+    public void pay(final long cents, final String token, final String email) {
+        // nothing
+    }
+
+    @Override
     public void delete() {
         // nothing
     }

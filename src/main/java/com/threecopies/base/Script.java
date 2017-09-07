@@ -68,4 +68,20 @@ public interface Script {
      */
     void flush() throws IOException;
 
+    /**
+     * Track usage.
+     * @param seconds Seconds just used
+     * @throws IOException If fails
+     */
+    void track(long seconds) throws IOException;
+
+    /**
+     * Pay for the seconds.
+     * @param cents Amount in cents
+     * @param token Stripe token
+     * @param email The email
+     * @throws IOException If fails
+     */
+    void pay(long cents, String token, String email) throws IOException;
+
 }

@@ -22,24 +22,25 @@
  */
 package com.threecopies.tk;
 
-import com.jcabi.manifests.Manifests;
 import com.threecopies.base.Base;
+import com.threecopies.base.User;
 import java.io.IOException;
-import org.cactoos.list.StickyList;
 import org.takes.Request;
 import org.takes.Response;
 import org.takes.Take;
-import org.takes.rs.xe.XeAppend;
-import org.takes.rs.xe.XeDirectives;
+import org.takes.facets.flash.RsFlash;
+import org.takes.facets.forward.RsForward;
+import org.takes.rq.RqGreedy;
+import org.takes.rq.form.RqFormSmart;
 
 /**
- * Scripts.
+ * Pay.
  *
  * @author Yegor Bugayenko (yegor256@gmail.com)
  * @version $Id$
  * @since 1.0
  */
-final class TkScripts implements Take {
+final class TkPay implements Take {
 
     /**
      * Base.
@@ -50,24 +51,32 @@ final class TkScripts implements Take {
      * Ctor.
      * @param bse Base
      */
-    TkScripts(final Base bse) {
+    TkPay(final Base bse) {
         this.base = bse;
     }
 
     @Override
     public Response act(final Request request) throws IOException {
-        return new RsPage(
-            "/xsl/scripts.xsl",
-            request,
-            () -> new StickyList<>(
-                new XeAppend("menu", "scripts"),
-                new XeAppend("stripe_cents", "500"),
-                new XeAppend(
-                    "stripe_key",
-                    Manifests.read("ThreeCopies-StripeKey")
-                ),
-                new XeDirectives(new RqUser(this.base, request).scripts())
-            )
+        final User user = new RqUser(this.base, request);
+        final RqFormSmart form = new RqFormSmart(new RqGreedy(request));
+        final String name = form.single("script");
+        final long cents = Long.parseLong(form.single("cents"));
+        try {
+            user.script(name).pay(
+                cents, form.single("token"), form.single("email")
+            );
+        } catch (final IOException ex) {
+            throw new RsForward(new RsFlash(ex));
+        }
+        return new RsForward(
+            new RsFlash(
+                String.format(
+                    "Script \"%s\" funded for $%.2f.",
+                    // @checkstyle MagicNumber (1 line)
+                    name, (double) cents / 100.0d
+                )
+            ),
+            "/scripts"
         );
     }
 }

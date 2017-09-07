@@ -9,3 +9,5 @@ ThreeCopies-S3Secret: ${s3.secret}
 ThreeCopies-GithubId: ${github.id}
 ThreeCopies-GithubSecret: ${github.secret}
 ThreeCopies-SecurityKey: ${security.key}
+ThreeCopies-StripeKey: ${stripe.test.key}
+ThreeCopies-StripeSecret: ${stripe.test.secret}
