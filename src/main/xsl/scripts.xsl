@@ -36,8 +36,8 @@ software.
       <xsl:text>var stripe_key='</xsl:text>
       <xsl:value-of select="stripe_key"/>
       <xsl:text>';</xsl:text>
-      <xsl:text>var stripe_key='</xsl:text>
-      <xsl:value-of select="stripe_amount"/>
+      <xsl:text>var stripe_cents='</xsl:text>
+      <xsl:value-of select="stripe_cents"/>
       <xsl:text>';</xsl:text>
     </script>
     <script type="text/javascript">
@@ -167,7 +167,7 @@ software.
           <xsl:text>Edit</xsl:text>
         </a>
         <xsl:text> | </xsl:text>
-        <a href="/pay" class="pay" data-name="{name}">
+        <a href="#" class="pay" data-name="{name}">
           <xsl:text>Pay</xsl:text>
         </a>
         <xsl:text> | </xsl:text>
