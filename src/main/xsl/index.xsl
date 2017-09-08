@@ -63,6 +63,7 @@ software.
       <a href="https://github.com/yegor256/threecopies#how-to-configure">
         <xsl:text>How to configure</xsl:text>
       </a>
+      <xsl:text>.</xsl:text>
     </p>
     <p>
       <xsl:text>We charge </xsl:text>
