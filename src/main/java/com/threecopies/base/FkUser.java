@@ -22,8 +22,8 @@
  */
 package com.threecopies.base;
 
+import java.util.Collections;
 import org.xembly.Directive;
-import org.xembly.Directives;
 
 /**
  * Fake user.
@@ -35,13 +35,13 @@ import org.xembly.Directives;
 public final class FkUser implements User {
 
     @Override
-    public Iterable<Directive> scripts() {
-        return new Directives();
+    public Iterable<Iterable<Directive>> scripts() {
+        return Collections.emptyList();
     }
 
     @Override
-    public Iterable<Directive> logs() {
-        return new Directives();
+    public Iterable<Iterable<Directive>> logs() {
+        return Collections.emptyList();
     }
 
     @Override

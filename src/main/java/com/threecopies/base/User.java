@@ -45,14 +45,14 @@ public interface User {
      * @return All scripts
      * @throws IOException If fails
      */
-    Iterable<Directive> scripts() throws IOException;
+    Iterable<Iterable<Directive>> scripts() throws IOException;
 
     /**
      * Get all recent logs.
      * @return All scripts
      * @throws IOException If fails
      */
-    Iterable<Directive> logs() throws IOException;
+    Iterable<Iterable<Directive>> logs() throws IOException;
 
     /**
      * Get script by name.

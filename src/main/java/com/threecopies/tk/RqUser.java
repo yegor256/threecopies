@@ -64,12 +64,12 @@ final class RqUser implements User {
     }
 
     @Override
-    public Iterable<Directive> scripts() throws IOException {
+    public Iterable<Iterable<Directive>> scripts() throws IOException {
         return this.base.user(this.name()).scripts();
     }
 
     @Override
-    public Iterable<Directive> logs() throws IOException {
+    public Iterable<Iterable<Directive>> logs() throws IOException {
         return this.base.user(this.name()).logs();
     }
 

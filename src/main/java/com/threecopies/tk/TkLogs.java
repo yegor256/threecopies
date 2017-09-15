@@ -24,12 +24,14 @@ package com.threecopies.tk;
 
 import com.threecopies.base.Base;
 import java.io.IOException;
+import org.cactoos.iterable.Joined;
 import org.cactoos.list.StickyList;
 import org.takes.Request;
 import org.takes.Response;
 import org.takes.Take;
 import org.takes.rs.xe.XeAppend;
 import org.takes.rs.xe.XeDirectives;
+import org.xembly.Directives;
 
 /**
  * Logs.
@@ -38,6 +40,7 @@ import org.takes.rs.xe.XeDirectives;
  * @version $Id$
  * @since 1.0
  */
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 final class TkLogs implements Take {
 
     /**
@@ -60,7 +63,13 @@ final class TkLogs implements Take {
             request,
             () -> new StickyList<>(
                 new XeAppend("menu", "logs"),
-                new XeDirectives(new RqUser(this.base, request).logs())
+                new XeDirectives(
+                    new Directives().add("logs").append(
+                        new Joined<>(
+                            new RqUser(this.base, request).logs()
+                        )
+                    )
+                )
             )
         );
     }

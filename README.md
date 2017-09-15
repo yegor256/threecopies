@@ -20,7 +20,7 @@ a truly object-orented programming language.
 The logo is made by [Freepik](http://www.freepik.com) from [flaticon.com](http://www.flaticon.com),
 licensed by [CC 3.0 BY](http://creativecommons.org/licenses/by/3.0/).
 
-## How to configure?
+## How to configure
 
 Each script is a bash scenario, which you design yourself. ThreeCopies
 just starts it regularly and records its output. These are some

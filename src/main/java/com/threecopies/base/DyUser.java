@@ -28,7 +28,6 @@ import com.jcabi.dynamo.Item;
 import com.jcabi.dynamo.QueryValve;
 import com.jcabi.dynamo.Region;
 import java.io.IOException;
-import org.cactoos.iterable.Joined;
 import org.cactoos.iterable.Mapped;
 import org.xembly.Directive;
 import org.xembly.Directives;
@@ -64,62 +63,54 @@ final class DyUser implements User {
     }
 
     @Override
-    public Iterable<Directive> scripts() throws IOException {
-        return new Directives().add("scripts").append(
-            new Joined<>(
-                new Mapped<Item, Iterable<Directive>>(
-                    this.region.table("scripts")
-                        .frame()
-                        .through(
-                            new QueryValve()
-                                // @checkstyle MagicNumber (1 line)
-                                .withLimit(10)
-                                .withSelect(Select.ALL_ATTRIBUTES)
-                        )
-                        .where("login", this.login),
-                    item -> new Directives()
-                        .add("script")
-                        .add("name").set(item.get("name").getS()).up()
-                        .add("bash").set(item.get("bash").getS()).up()
-                        .add("paid").set(item.get("paid").getN()).up()
-                        .add("used").set(item.get("used").getN()).up()
-                        .add("hour").set(item.get("hour").getN()).up()
-                        .add("day").set(item.get("day").getN()).up()
-                        .add("week").set(item.get("week").getN()).up()
-                        .up()
+    public Iterable<Iterable<Directive>> scripts() {
+        return new Mapped<Item, Iterable<Directive>>(
+            this.region.table("scripts")
+                .frame()
+                .through(
+                    new QueryValve()
+                        // @checkstyle MagicNumber (1 line)
+                        .withLimit(10)
+                        .withSelect(Select.ALL_ATTRIBUTES)
                 )
-            )
+                .where("login", this.login),
+            item -> new Directives()
+                .add("script")
+                .add("name").set(item.get("name").getS()).up()
+                .add("bash").set(item.get("bash").getS()).up()
+                .add("paid").set(item.get("paid").getN()).up()
+                .add("used").set(item.get("used").getN()).up()
+                .add("hour").set(item.get("hour").getN()).up()
+                .add("day").set(item.get("day").getN()).up()
+                .add("week").set(item.get("week").getN()).up()
+                .up()
         );
     }
 
     @Override
-    public Iterable<Directive> logs() throws IOException {
-        return new Directives().add("logs").append(
-            new Joined<>(
-                new Mapped<Item, Iterable<Directive>>(
-                    this.region.table("logs")
-                        .frame()
-                        .through(
-                            new QueryValve()
-                                .withIndexName("mine")
-                                // @checkstyle MagicNumber (1 line)
-                                .withLimit(20)
-                                .withConsistentRead(false)
-                                .withScanIndexForward(false)
-                                .withSelect(Select.ALL_ATTRIBUTES)
-                        )
-                        .where("login", this.login),
-                    item -> new Directives()
-                        .add("log")
-                        .add("group").set(item.get("group").getS()).up()
-                        .add("start").set(item.get("start").getN()).up()
-                        .add("finish").set(item.get("finish").getN()).up()
-                        .add("period").set(item.get("period").getS()).up()
-                        .add("ocket").set(item.get("ocket").getS()).up()
-                        .add("exit").set(item.get("exit").getN()).up()
-                        .up()
+    public Iterable<Iterable<Directive>> logs() {
+        return new Mapped<Item, Iterable<Directive>>(
+            this.region.table("logs")
+                .frame()
+                .through(
+                    new QueryValve()
+                        .withIndexName("mine")
+                        // @checkstyle MagicNumber (1 line)
+                        .withLimit(20)
+                        .withConsistentRead(false)
+                        .withScanIndexForward(false)
+                        .withSelect(Select.ALL_ATTRIBUTES)
                 )
-            )
+                .where("login", this.login),
+            item -> new Directives()
+                .add("log")
+                .add("group").set(item.get("group").getS()).up()
+                .add("start").set(item.get("start").getN()).up()
+                .add("finish").set(item.get("finish").getN()).up()
+                .add("period").set(item.get("period").getS()).up()
+                .add("ocket").set(item.get("ocket").getS()).up()
+                .add("exit").set(item.get("exit").getN()).up()
+                .up()
         );
     }
 

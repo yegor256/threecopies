@@ -25,12 +25,14 @@ package com.threecopies.tk;
 import com.jcabi.manifests.Manifests;
 import com.threecopies.base.Base;
 import java.io.IOException;
+import org.cactoos.iterable.Joined;
 import org.cactoos.list.StickyList;
 import org.takes.Request;
 import org.takes.Response;
 import org.takes.Take;
 import org.takes.rs.xe.XeAppend;
 import org.takes.rs.xe.XeDirectives;
+import org.xembly.Directives;
 
 /**
  * Scripts.
@@ -39,6 +41,7 @@ import org.takes.rs.xe.XeDirectives;
  * @version $Id$
  * @since 1.0
  */
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 final class TkScripts implements Take {
 
     /**
@@ -66,7 +69,13 @@ final class TkScripts implements Take {
                     "stripe_key",
                     Manifests.read("ThreeCopies-StripeKey")
                 ),
-                new XeDirectives(new RqUser(this.base, request).scripts())
+                new XeDirectives(
+                    new Directives().add("scripts").append(
+                        new Joined<>(
+                            new RqUser(this.base, request).scripts()
+                        )
+                    )
+                )
             )
         );
     }
