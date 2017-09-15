@@ -12,5 +12,6 @@ if [ -e "${container}" ]; then
     fi
 else
     echo 1
+    echo "Internal application error"
     echo "${container} directory is absent"
 fi
