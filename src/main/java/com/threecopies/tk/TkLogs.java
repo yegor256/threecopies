@@ -22,15 +22,18 @@
  */
 package com.threecopies.tk;
 
+import com.jcabi.aspects.Tv;
 import com.threecopies.base.Base;
 import java.io.IOException;
 import org.cactoos.iterable.Joined;
+import org.cactoos.iterable.Limited;
 import org.cactoos.list.StickyList;
 import org.takes.Request;
 import org.takes.Response;
 import org.takes.Take;
 import org.takes.rs.xe.XeAppend;
 import org.takes.rs.xe.XeDirectives;
+import org.xembly.Directive;
 import org.xembly.Directives;
 
 /**
@@ -39,6 +42,7 @@ import org.xembly.Directives;
  * @author Yegor Bugayenko (yegor256@gmail.com)
  * @version $Id$
  * @since 1.0
+ * @checkstyle ClassDataAbstractionCouplingCheck (500 lines)
  */
 @SuppressWarnings("PMD.AvoidDuplicateLiterals")
 final class TkLogs implements Take {
@@ -66,7 +70,10 @@ final class TkLogs implements Take {
                 new XeDirectives(
                     new Directives().add("logs").append(
                         new Joined<>(
-                            new RqUser(this.base, request).logs()
+                            new Limited<Iterable<Directive>>(
+                                new RqUser(this.base, request).logs(),
+                                Tv.TWENTY
+                            )
                         )
                     )
                 )
