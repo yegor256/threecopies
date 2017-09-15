@@ -87,7 +87,7 @@ software.
       </a>
       <xsl:text>. Feel free to inspect it, find bugs, suggest improvements,</xsl:text>
       <xsl:text> and contribute with a pull request.</xsl:text>
-      <xsl:text> It is written in Java&#160;8 and hosted by </xsl:text>
+      <xsl:text> It is written in Java&#xA0;8 and hosted by </xsl:text>
       <a href="https://www.heroku.com">
         <xsl:text>Heroku</xsl:text>
       </a>
