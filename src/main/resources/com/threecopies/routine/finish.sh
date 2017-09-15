@@ -2,10 +2,15 @@
 
 container=$1
 
-cd "${container}"
-if [ -e exit ]; then
-    cat exit
-    cat log
-    cd ..
-    rm -rf "${container}"
+if [ -e "${container}" ]; then
+    cd "${container}"
+    if [ -e exit ]; then
+        cat exit
+        cat log
+        cd ..
+        rm -rf "${container}"
+    fi
+else
+    echo 1
+    echo "${container} directory is absent"
 fi
