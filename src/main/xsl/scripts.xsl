@@ -97,7 +97,7 @@ software.
   <xsl:template match="script">
     <tr>
       <td>
-        <a href="/script?name={name}">
+        <a href="/script?name={name}" title="Edit this script">
           <xsl:value-of select="name"/>
         </a>
         <xsl:if test="used &gt; paid">

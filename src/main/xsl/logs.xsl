@@ -90,10 +90,12 @@ software.
             </span>
           </xsl:when>
           <xsl:otherwise>
-            <xsl:call-template name="sec">
-              <xsl:with-param name="sec" select="(/page/epoch - finish) div 1000"/>
-            </xsl:call-template>
-            <xsl:text> ago</xsl:text>
+            <a href="/log?name={ocket}" title="See the log">
+              <xsl:call-template name="sec">
+                <xsl:with-param name="sec" select="(/page/epoch - finish) div 1000"/>
+              </xsl:call-template>
+              <xsl:text> ago</xsl:text>
+            </a>
           </xsl:otherwise>
         </xsl:choose>
       </td>
@@ -133,19 +135,11 @@ software.
         </xsl:if>
       </td>
       <td>
-        <xsl:choose>
-          <xsl:when test="finish = 9223372036854775807">
-          </xsl:when>
-          <xsl:otherwise>
-            <a href="/log?name={ocket}">
-              <xsl:text>View</xsl:text>
-            </a>
-            <xsl:text> | </xsl:text>
-            <a href="/delete-log?group={group}&amp;start={start}" onclick="return confirm('Are you sure?');">
-              <xsl:text>Del</xsl:text>
-            </a>
-          </xsl:otherwise>
-        </xsl:choose>
+        <xsl:if test="finish != 9223372036854775807">
+          <a href="/delete-log?group={group}&amp;start={start}" onclick="return confirm('Are you sure?');">
+            <xsl:text>Delete</xsl:text>
+          </a>
+        </xsl:if>
       </td>
     </tr>
   </xsl:template>
