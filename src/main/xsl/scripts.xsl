@@ -106,23 +106,27 @@ software.
         </xsl:if>
       </td>
       <td>
-        <a href="/flush?name={name}" title="Reset the counter and run the script right now!">
-          <xsl:text>Hour</xsl:text>
-        </a>
-        <xsl:text>: </xsl:text>
-        <xsl:call-template name="when">
-          <xsl:with-param name="time" select="hour"/>
-        </xsl:call-template>
-        <br/>
-        <xsl:text>Day: </xsl:text>
-        <xsl:call-template name="when">
-          <xsl:with-param name="time" select="day"/>
-        </xsl:call-template>
-        <br/>
-        <xsl:text>Week: </xsl:text>
-        <xsl:call-template name="when">
-          <xsl:with-param name="time" select="week"/>
-        </xsl:call-template>
+        <span style="display: block;">
+          <a href="/flush?name={name}" title="Reset the counter and run the script right now!">
+            <xsl:text>Hour</xsl:text>
+          </a>
+          <xsl:text>: </xsl:text>
+          <xsl:call-template name="when">
+            <xsl:with-param name="time" select="hour"/>
+          </xsl:call-template>
+        </span>
+        <span style="display: block;">
+          <xsl:text>Day: </xsl:text>
+          <xsl:call-template name="when">
+            <xsl:with-param name="time" select="day"/>
+          </xsl:call-template>
+        </span>
+        <span style="display: block;">
+          <xsl:text>Week: </xsl:text>
+          <xsl:call-template name="when">
+            <xsl:with-param name="time" select="week"/>
+          </xsl:call-template>
+        </span>
       </td>
       <td>
         <span title="{used}/{paid} seconds">
