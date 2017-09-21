@@ -77,7 +77,7 @@ software.
   <xsl:template match="log">
     <tr>
       <td>
-        <xsl:variable name="script" select="substring-after(group, '/')"
+        <xsl:variable name="script" select="substring-after(group, '/')"/>
         <a href="/script?name={$script}" title="Edit this script">
           <xsl:value-of select="$script"/>
         </a>
