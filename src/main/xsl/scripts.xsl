@@ -73,13 +73,7 @@ software.
             <xsl:text>Name</xsl:text>
           </th>
           <th>
-            <xsl:text>Hour</xsl:text>
-          </th>
-          <th>
-            <xsl:text>Day</xsl:text>
-          </th>
-          <th>
-            <xsl:text>Week</xsl:text>
+            <xsl:text>Copies</xsl:text>
           </th>
           <th>
             <xsl:text>Time</xsl:text>
@@ -112,53 +106,51 @@ software.
         </xsl:if>
       </td>
       <td>
+        <a href="/flush?name={name}" title="Reset the counter and run the script right now!">
+          <xsl:text>Hour</xsl:text>
+        </a>
+        <xsl:text>: </xsl:text>
         <xsl:call-template name="when">
           <xsl:with-param name="time" select="hour"/>
         </xsl:call-template>
-      </td>
-      <td>
+        <br/>
+        <xsl:text>Day: </xsl:text>
         <xsl:call-template name="when">
           <xsl:with-param name="time" select="day"/>
         </xsl:call-template>
-      </td>
-      <td>
+        <br/>
+        <xsl:text>Week: </xsl:text>
         <xsl:call-template name="when">
           <xsl:with-param name="time" select="week"/>
         </xsl:call-template>
       </td>
       <td>
-        <span title="{used}/{paid} seconds">
-          <xsl:attribute name="style">
-            <xsl:text>color:</xsl:text>
-            <xsl:choose>
-              <xsl:when test="used &gt; paid">
-                <xsl:text>red</xsl:text>
-              </xsl:when>
-              <xsl:otherwise>
-                <xsl:text>green</xsl:text>
-              </xsl:otherwise>
-            </xsl:choose>
-          </xsl:attribute>
-          <xsl:value-of select="format-number(used div (60 * 60), '0')"/>
-          <xsl:text>/</xsl:text>
-          <xsl:value-of select="format-number(paid div (60 * 60), '0')"/>
-        </span>
+        <a href="#" class="pay" data-name="{name}" title="Add funds for this script">
+          <span title="{used}/{paid} seconds">
+            <xsl:attribute name="style">
+              <xsl:text>color:</xsl:text>
+              <xsl:choose>
+                <xsl:when test="used &gt; paid">
+                  <xsl:text>red</xsl:text>
+                </xsl:when>
+                <xsl:otherwise>
+                  <xsl:text>green</xsl:text>
+                </xsl:otherwise>
+              </xsl:choose>
+            </xsl:attribute>
+            <xsl:value-of select="format-number(used div (60 * 60), '0')"/>
+            <xsl:text>/</xsl:text>
+            <xsl:value-of select="format-number(paid div (60 * 60), '0')"/>
+          </span>
+        </a>
       </td>
       <td>
         <a href="/script?name={name}">
           <xsl:text>Edit</xsl:text>
         </a>
         <xsl:text> | </xsl:text>
-        <a href="#" class="pay" data-name="{name}">
-          <xsl:text>Pay</xsl:text>
-        </a>
-        <xsl:text> | </xsl:text>
-        <a href="/flush?name={name}">
-          <xsl:text>Flush</xsl:text>
-        </a>
-        <xsl:text> | </xsl:text>
         <a href="/delete?name={name}" onclick="return confirm('Are you sure?');">
-          <xsl:text>Del</xsl:text>
+          <xsl:text>Delete</xsl:text>
         </a>
       </td>
     </tr>
