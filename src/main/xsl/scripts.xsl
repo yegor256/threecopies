@@ -69,7 +69,7 @@ software.
     <table style="width:100%">
       <thead>
         <tr>
-          <th style="widows:50%;">
+          <th style="width:50%;">
             <xsl:text>Name</xsl:text>
           </th>
           <th>
@@ -91,14 +91,9 @@ software.
   <xsl:template match="script">
     <tr>
       <td>
-        <span>
-          <xsl:if test="used &gt; paid">
-            <xsl:attribute name="style">
-              <xsl:text>color:red</xsl:text>
-            </xsl:attribute>
-          </xsl:if>
+        <a href="/script?name={name}">
           <xsl:value-of select="name"/>
-        </span>
+        </a>
         <xsl:if test="used &gt; paid">
           <div style="color:red;font-size:0.8em;">
             <xsl:text>You are out of funds</xsl:text>
@@ -149,10 +144,6 @@ software.
         </a>
       </td>
       <td>
-        <a href="/script?name={name}">
-          <xsl:text>Edit</xsl:text>
-        </a>
-        <xsl:text> | </xsl:text>
         <a href="/delete?name={name}" onclick="return confirm('Are you sure?');">
           <xsl:text>Delete</xsl:text>
         </a>
