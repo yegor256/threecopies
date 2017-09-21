@@ -69,7 +69,7 @@ software.
     <table style="width:100%">
       <thead>
         <tr>
-          <th>
+          <th style="widows:50%;">
             <xsl:text>Name</xsl:text>
           </th>
           <th>
@@ -130,23 +130,23 @@ software.
       </td>
       <td>
         <span title="{used}/{paid} seconds">
-          <a href="#" class="pay" data-name="{name}" title="Add funds for this script">
-            <xsl:attribute name="style">
-              <xsl:text>color:</xsl:text>
-              <xsl:choose>
-                <xsl:when test="used &gt; paid">
-                  <xsl:text>red</xsl:text>
-                </xsl:when>
-                <xsl:otherwise>
-                  <xsl:text>green</xsl:text>
-                </xsl:otherwise>
-              </xsl:choose>
-            </xsl:attribute>
-            <xsl:value-of select="format-number(used div (60 * 60), '0')"/>
-            <xsl:text>/</xsl:text>
-            <xsl:value-of select="format-number(paid div (60 * 60), '0')"/>
-          </a>
+          <xsl:attribute name="style">
+            <xsl:text>color:</xsl:text>
+            <xsl:choose>
+              <xsl:when test="used &gt; paid">
+                <xsl:text>red</xsl:text>
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:text>green</xsl:text>
+              </xsl:otherwise>
+            </xsl:choose>
+          </xsl:attribute>
+          <xsl:value-of select="format-number(used div (60 * 60), '0')"/>
         </span>
+        <xsl:text>/</xsl:text>
+        <a href="#" class="pay" data-name="{name}" title="Add funds for this script">
+          <xsl:value-of select="format-number(paid div (60 * 60), '0')"/>
+        </a>
       </td>
       <td>
         <a href="/script?name={name}">
