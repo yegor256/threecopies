@@ -66,7 +66,7 @@ software.
       </xsl:choose>
       <xsl:text>:</xsl:text>
     </p>
-    <table>
+    <table style="width:100%">
       <thead>
         <tr>
           <th>
@@ -125,8 +125,8 @@ software.
         </xsl:call-template>
       </td>
       <td>
-        <a href="#" class="pay" data-name="{name}" title="Add funds for this script">
-          <span title="{used}/{paid} seconds">
+        <span title="{used}/{paid} seconds">
+          <a href="#" class="pay" data-name="{name}" title="Add funds for this script">
             <xsl:attribute name="style">
               <xsl:text>color:</xsl:text>
               <xsl:choose>
@@ -141,8 +141,8 @@ software.
             <xsl:value-of select="format-number(used div (60 * 60), '0')"/>
             <xsl:text>/</xsl:text>
             <xsl:value-of select="format-number(paid div (60 * 60), '0')"/>
-          </span>
-        </a>
+          </a>
+        </span>
       </td>
       <td>
         <a href="/script?name={name}">
