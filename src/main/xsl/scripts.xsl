@@ -67,9 +67,15 @@ software.
       <xsl:text>:</xsl:text>
     </p>
     <table style="width:100%">
+      <colgroup>
+        <col style="width:40%;"/>
+        <col style="width:30%;"/>
+        <col style="width:20%;"/>
+        <col style="width:10%;"/>
+      </colgroup>
       <thead>
         <tr>
-          <th style="width:50%;">
+          <th>
             <xsl:text>Name</xsl:text>
           </th>
           <th>

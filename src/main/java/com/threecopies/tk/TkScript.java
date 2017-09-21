@@ -31,6 +31,7 @@ import org.takes.Request;
 import org.takes.Response;
 import org.takes.Take;
 import org.takes.rq.RqHref;
+import org.takes.rs.xe.XeAppend;
 import org.takes.rs.xe.XeDirectives;
 import org.takes.rs.xe.XeWhen;
 
@@ -65,6 +66,7 @@ final class TkScript implements Take {
             "/xsl/script.xsl",
             request,
             () -> new StickyList<>(
+                new XeAppend("menu", "scripts"),
                 new XeWhen(
                     name.hasNext(),
                     () -> new XeDirectives(
