@@ -32,7 +32,7 @@ software.
   </xsl:template>
   <xsl:template match="page" mode="body">
     <p>
-      <xsl:text>We help you backup your server-side data.</xsl:text>
+      <xsl:text>We help you back up your server-side data.</xsl:text>
     </p>
     <p>
       <xsl:text>You create a </xsl:text>
