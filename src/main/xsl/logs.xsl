@@ -83,7 +83,9 @@ software.
         </a>
       </td>
       <td>
-        <xsl:value-of select="period"/>
+        <code>
+          <xsl:value-of select="period"/>
+        </code>
       </td>
       <td>
         <xsl:choose>
