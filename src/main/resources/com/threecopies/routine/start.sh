@@ -11,7 +11,7 @@ fi
 
 cd "$(dirname "$0")"
 cd "${container}"
-date --iso-8601=seconds > log
+echo "start:$(date --iso-8601=seconds)" > log
 chmod a+x script.sh
 docker pull "${image}"
 docker run -t --rm --name "${container}" \
