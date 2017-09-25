@@ -113,9 +113,19 @@ software.
             </span>
           </xsl:when>
           <xsl:otherwise>
-            <xsl:call-template name="sec">
-              <xsl:with-param name="sec" select="(finish - start) div 1000"/>
-            </xsl:call-template>
+            <xsl:variable name="sec" select="(finish - start) div 1000"/>
+            <xsl:choose>
+              <xsl:when test="$sec &lt; 120">
+                <span style="color:gray;" title="{$sec} seconds">
+                  <xsl:text>&lt;2m</xsl:text>
+                </span>
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:call-template name="sec">
+                  <xsl:with-param name="sec" select="$sec"/>
+                </xsl:call-template>
+              </xsl:otherwise>
+            </xsl:choose>
           </xsl:otherwise>
         </xsl:choose>
       </td>
