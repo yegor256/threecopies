@@ -11,6 +11,7 @@ fi
 
 cd "$(dirname "$0")"
 cd "${container}"
+date --iso-8601=seconds > log
 chmod a+x script.sh
 docker pull "${image}"
 docker run -t --rm --name "${container}" \
@@ -20,4 +21,4 @@ docker run -t --rm --name "${container}" \
     -e="period=${period}" \
     -w="/root" \
     "${image}" /main/script.sh \
-    > log 2>&1; echo $? > exit
+    >> log 2>&1; echo $? > exit

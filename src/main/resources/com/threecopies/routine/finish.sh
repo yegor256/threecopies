@@ -6,6 +6,7 @@ if [ -e "${container}" ]; then
     cd "${container}"
     if [ -e exit ]; then
         cat exit
+        date --iso-8601=seconds >> log
         cat log
         cd ..
         rm -rf "${container}"
