@@ -81,7 +81,7 @@ software.
           <th>
             <xsl:text>Copies</xsl:text>
           </th>
-          <th>
+          <th style="text-align: right;">
             <xsl:text>Time</xsl:text>
           </th>
           <th>
@@ -129,7 +129,7 @@ software.
           </xsl:call-template>
         </span>
       </td>
-      <td>
+      <td style="text-align: right;">
         <span title="{used}/{paid} seconds">
           <xsl:attribute name="style">
             <xsl:text>color:</xsl:text>
