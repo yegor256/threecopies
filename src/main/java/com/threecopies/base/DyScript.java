@@ -173,15 +173,17 @@ final class DyScript implements Script {
 
     @Override
     public void track(final long seconds) throws IOException {
-        final Item item = this.item();
-        item.put(
-            "used",
-            new AttributeValueUpdate().withValue(
-                new AttributeValue().withN(Long.toString(seconds))
-            ).withAction(AttributeAction.ADD)
-        );
-        if (this.overdue() && item.has("stripe_customer")) {
-            this.rebill();
+        if (seconds > TimeUnit.MINUTES.toSeconds(2L)) {
+            final Item item = this.item();
+            item.put(
+                "used",
+                new AttributeValueUpdate().withValue(
+                    new AttributeValue().withN(Long.toString(seconds))
+                ).withAction(AttributeAction.ADD)
+            );
+            if (this.overdue() && item.has("stripe_customer")) {
+                this.rebill();
+            }
         }
     }
 

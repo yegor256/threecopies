@@ -70,7 +70,8 @@ software.
       <strong>
         <xsl:text>$0.01 per hour</xsl:text>
       </strong>
-      <xsl:text>. This is at least five times cheaper than Amazon EC2 </xsl:text>
+      <xsl:text> (only if the script takes longer than 120 seconds, otherwise it's free).</xsl:text>
+      <xsl:text> This is at least five times cheaper than Amazon EC2 </xsl:text>
       <a href="https://aws.amazon.com/ec2/pricing/on-demand/">
         <xsl:text>charges</xsl:text>
       </a>
