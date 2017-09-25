@@ -51,6 +51,8 @@ import java.util.LinkedList;
 import java.util.concurrent.TimeUnit;
 import org.cactoos.map.MapEntry;
 import org.cactoos.map.StickyMap;
+import org.takes.facets.flash.RsFlash;
+import org.takes.facets.forward.RsForward;
 import org.xembly.Directive;
 import org.xembly.Directives;
 
@@ -163,7 +165,7 @@ final class DyScript implements Script {
 
     @Override
     public String ocket(final long time) throws IOException {
-        return this.region.table("logs")
+        final Iterator<Item> items = this.region.table("logs")
             .frame()
             .through(new QueryValve().withLimit(1))
             .where("group", this.group())
@@ -175,10 +177,14 @@ final class DyScript implements Script {
                         new AttributeValue().withN(Long.toString(time))
                     )
             )
-            .iterator()
-            .next()
-            .get("ocket")
-            .getS();
+            .iterator();
+        if (!items.hasNext()) {
+            throw new RsForward(
+                new RsFlash("Can't find log"),
+                "/scripts"
+            );
+        }
+        return items.next().get("ocket").getS();
     }
 
     @Override
