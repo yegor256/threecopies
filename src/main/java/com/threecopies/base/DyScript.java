@@ -162,6 +162,26 @@ final class DyScript implements Script {
     }
 
     @Override
+    public String ocket(final long time) throws IOException {
+        return this.region.table("logs")
+            .frame()
+            .through(new QueryValve().withLimit(1))
+            .where("group", this.group())
+            .where(
+                "start",
+                new Condition()
+                    .withComparisonOperator(ComparisonOperator.EQ)
+                    .withAttributeValueList(
+                        new AttributeValue().withN(Long.toString(time))
+                    )
+            )
+            .iterator()
+            .next()
+            .get("ocket")
+            .getS();
+    }
+
+    @Override
     public void flush() throws IOException {
         this.item().put(
             "hour",
@@ -303,14 +323,13 @@ final class DyScript implements Script {
         final Collection<Item> created = new LinkedList<>();
         if (!item.has(period)
             || DyScript.expired(item.get(period).getN(), period)) {
+            final long start = System.currentTimeMillis();
             item.put(
                 new AttributeUpdates()
                     .with(
                         period,
                         new AttributeValueUpdate().withValue(
-                            new AttributeValue().withN(
-                                Long.toString(System.currentTimeMillis())
-                            )
+                            new AttributeValue().withN(Long.toString(start))
                         ).withAction(AttributeAction.PUT)
                     )
             );
@@ -320,9 +339,7 @@ final class DyScript implements Script {
                         .with("group", new AttributeValue().withS(this.group()))
                         .with(
                             "start",
-                            new AttributeValue().withN(
-                                Long.toString(System.currentTimeMillis())
-                            )
+                            new AttributeValue().withN(Long.toString(start))
                         )
                         .with("login", new AttributeValue().withS(this.login))
                         .with("period", new AttributeValue().withS(period))

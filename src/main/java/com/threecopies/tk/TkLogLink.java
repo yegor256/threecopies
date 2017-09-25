@@ -20,60 +20,55 @@
  * in connection with the software or  the  use  or other dealings in the
  * software.
  */
-package com.threecopies.base;
+package com.threecopies.tk;
 
-import com.jcabi.dynamo.Item;
-import java.util.Collections;
-import org.xembly.Directive;
-import org.xembly.Directives;
+import com.threecopies.base.Base;
+import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import org.takes.Request;
+import org.takes.Response;
+import org.takes.Take;
+import org.takes.facets.forward.RsForward;
+import org.takes.rq.RqHref;
 
 /**
- * Fake script.
+ * Link to log.
  *
  * @author Yegor Bugayenko (yegor256@gmail.com)
  * @version $Id$
  * @since 1.0
  */
-public final class FkScript implements Script {
+final class TkLogLink implements Take {
 
-    @Override
-    public Iterable<Directive> toXembly() {
-        return new Directives();
+    /**
+     * Base.
+     */
+    private final Base base;
+
+    /**
+     * Ctor.
+     * @param bse Base
+     */
+    TkLogLink(final Base bse) {
+        this.base = bse;
     }
 
     @Override
-    public void update(final String bash) {
-        // nothing here
+    public Response act(final Request request) throws IOException {
+        final String name = new RqHref.Smart(request).single("script");
+        return new RsForward(
+            String.format(
+                "/log?name=%s",
+                URLEncoder.encode(
+                    new RqUser(this.base, request).script(name).ocket(
+                        Long.parseLong(
+                            new RqHref.Smart(request).single("time")
+                        )
+                    ),
+                    StandardCharsets.UTF_8.displayName()
+                )
+            )
+        );
     }
-
-    @Override
-    public Iterable<Item> open() {
-        return Collections.emptyList();
-    }
-
-    @Override
-    public String ocket(final long time) {
-        return "something";
-    }
-
-    @Override
-    public void flush() {
-        // nothing
-    }
-
-    @Override
-    public void track(final long seconds) {
-        // nothing
-    }
-
-    @Override
-    public void pay(final long cents, final String token, final String email) {
-        // nothing
-    }
-
-    @Override
-    public void delete() {
-        // nothing
-    }
-
 }

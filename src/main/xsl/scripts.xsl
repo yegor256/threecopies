@@ -113,18 +113,21 @@ software.
           </a>
           <xsl:text>: </xsl:text>
           <xsl:call-template name="when">
+            <xsl:with-param name="script" select="name"/>
             <xsl:with-param name="time" select="hour"/>
           </xsl:call-template>
         </span>
         <span style="display: block;">
           <xsl:text>Day: </xsl:text>
           <xsl:call-template name="when">
+            <xsl:with-param name="script" select="name"/>
             <xsl:with-param name="time" select="day"/>
           </xsl:call-template>
         </span>
         <span style="display: block;">
           <xsl:text>Week: </xsl:text>
           <xsl:call-template name="when">
+            <xsl:with-param name="script" select="name"/>
             <xsl:with-param name="time" select="week"/>
           </xsl:call-template>
         </span>
@@ -157,6 +160,7 @@ software.
     </tr>
   </xsl:template>
   <xsl:template name="when">
+    <xsl:param name="script"/>
     <xsl:param name="time"/>
     <xsl:choose>
       <xsl:when test="$time = 0">
@@ -165,10 +169,12 @@ software.
         </span>
       </xsl:when>
       <xsl:otherwise>
-        <xsl:call-template name="sec">
-          <xsl:with-param name="sec" select="(/page/epoch - $time) div 1000"/>
-        </xsl:call-template>
-        <xsl:text> ago</xsl:text>
+        <a href="/log-link?script={$script}&amp;time={$time}">
+          <xsl:call-template name="sec">
+            <xsl:with-param name="sec" select="(/page/epoch - $time) div 1000"/>
+          </xsl:call-template>
+          <xsl:text> ago</xsl:text>
+        </a>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>

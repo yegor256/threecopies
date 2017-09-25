@@ -90,4 +90,17 @@ public final class DyScriptITCase {
         );
     }
 
+    @Test
+    public void retrievesOcket() throws Exception {
+        final User user = new DyUser(new Dynamo(), "yegor256");
+        final Script script = user.script("test99");
+        final long time = Long.parseLong(
+            script.open().iterator().next().get("start").getN()
+        );
+        MatcherAssert.assertThat(
+            script.ocket(time),
+            Matchers.startsWith("yegor256_")
+        );
+    }
+
 }

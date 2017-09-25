@@ -63,6 +63,14 @@ public interface Script {
     Iterable<Item> open() throws IOException;
 
     /**
+     * Find ocket by time.
+     * @param time Time
+     * @return Ocket name
+     * @throws IOException If fails
+     */
+    String ocket(long time) throws IOException;
+
+    /**
      * Drop the hourly execution, to start right now.
      * @throws IOException If fails
      */
