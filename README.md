@@ -51,6 +51,23 @@ mysqldump --lock-tables=false --host=www.example.com \
   --user=username --password=password \
   --databases dbname > mysql.sql
 ```
+Since this would require to open your mysql port to the internet, which is not advisable from a security perspective, you should probably use a ssh tunnel:
+
+```bash
+cat > file.key <<EOT
+-----BEGIN RSA PRIVATE KEY-----
+<your ssh private key here>
+-----END RSA PRIVATE KEY-----
+EOT
+chmod 700 file.key
+ssh -Nf -i file.key -L3306:localhost:3306 your_user@www.example.com
+rm file.key
+```
+and then connect with the above script:
+
+```bash
+mysqldump --lock-tables=false --host=localhost ...same as above
+```
 
 To download an entire FTP directory use [wget](https://www.gnu.org/software/wget/):
 
