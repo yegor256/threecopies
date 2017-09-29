@@ -34,7 +34,7 @@ ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US.UTF-8
 
 RUN apt-get update \
-    # Basic Linux tools
+    && echo "Installation: Basic Linux tools" \
     && apt-get install -y wget bcrypt curl \
     && apt-get install -y unzip zip \
     && apt-get install -y gnupg gnupg2 \
@@ -42,12 +42,12 @@ RUN apt-get update \
     && apt-get install -y libxml2-utils \
     && apt-get install -y build-essential \
     && apt-get install -y automake autoconf \
-    # Git 2.0
+    && echo "Installation: Git 2.0" \
     && apt-get install -y software-properties-common python-software-properties \
     && add-apt-repository ppa:git-core/ppa \
     && apt-get update \
     && apt-get install -y git git-core \
-    # Ruby
+    && echo "Installation: Ruby" \
     && apt-get update \
     && apt-get install -y ruby-dev libmagic-dev=1:5.14-2ubuntu3.3 zlib1g-dev=1:1.2.8.dfsg-1ubuntu1 \
     && gpg2 --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3 \
@@ -55,18 +55,18 @@ RUN apt-get update \
     && /bin/bash -l -c "rvm requirements" \
     && /bin/bash -l -c "rvm install 2.3.3" \
     && /bin/bash -l -c "gem update && gem install --no-ri --no-rdoc nokogiri:1.6.7.2 bundler:1.11.2" \
-    # PHP
+    && echo "Installation: PHP" \
     && apt-get install -y php5 php5-dev php-pear \
-    # Java
+    && echo "Installation: Java" \
     && apt-get install -y default-jdk \
-    # S3cmd for AWS S3 integration
+    && echo "Installation: S3cmd for AWS S3 integration" \
     && apt-get install -y s3cmd \
-    # MySQL client
+    && echo "Installation: MySQL client" \
     && apt-get install -y mysql-client \
-    # NodeJS
+    && echo "Installation: NodeJS" \
     && rm -rf /usr/lib/node_modules \
     && curl -sL https://deb.nodesource.com/setup_6.x | bash - \
     && apt-get install -y nodejs \
-    # Clean up
+    && echo "Installation: Clean up" \
     && apt-get clean \
     && rm -rf /tmp/* /root/.ssh /var/lib/apt/lists/* /var/tmp/*
