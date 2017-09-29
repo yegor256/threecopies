@@ -68,5 +68,5 @@ RUN apt-get update \
     && curl -sL https://deb.nodesource.com/setup_6.x | bash - \
     && apt-get install -y nodejs \
     # Clean up
-    && rm -rf /tmp/* \
-    && rm -rf /root/.ssh
+    && apt-get clean \
+    && rm -rf /tmp/* /root/.ssh /var/lib/apt/lists/* /var/tmp/*
