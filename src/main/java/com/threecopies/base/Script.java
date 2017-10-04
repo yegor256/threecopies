@@ -27,7 +27,7 @@ import java.io.IOException;
 import org.xembly.Directive;
 
 /**
- * Script.
+ * One single bash cript.
  *
  * @author Yegor Bugayenko (yegor256@gmail.com)
  * @version $Id$

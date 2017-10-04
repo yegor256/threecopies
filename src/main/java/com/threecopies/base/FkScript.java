@@ -43,7 +43,7 @@ public final class FkScript implements Script {
 
     @Override
     public void update(final String bash) {
-        // nothing here
+        // nothing to do here
     }
 
     @Override
@@ -58,22 +58,22 @@ public final class FkScript implements Script {
 
     @Override
     public void flush() {
-        // nothing
+        // nothing to do here
     }
 
     @Override
     public void track(final long seconds) {
-        // nothing
+        // nothing to do here
     }
 
     @Override
     public void pay(final long cents, final String token, final String email) {
-        // nothing
+        // nothing to do here
     }
 
     @Override
     public void delete() {
-        // nothing
+        // nothing to do here
     }
 
 }
