@@ -64,6 +64,12 @@ RUN apt-get install -y php5 php5-dev php-pear
 # Java
 RUN apt-get install -y default-jdk
 
+# MongoDB
+RUN sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 0C49F3730359A14518585931BC711F9BA15703C6 \
+  && echo "deb [ arch=amd64 ] http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.4.list \
+  && sudo apt-get update \
+  && sudo apt-get install -y mongodb-org
+
 # S3cmd for AWS S3 integration
 RUN apt-get install -y s3cmd
 
