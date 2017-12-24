@@ -1,5 +1,6 @@
 <img src="http://www.threecopies.com/images/logo.png" width="64px" height="64px"/>
 
+[![Managed by Zerocracy](http://www.0crat.com/badge/C3RFVLU72.svg)](http://www.0crat.com/p/C3RFVLU72)
 [![DevOps By Rultor.com](http://www.rultor.com/b/yegor256/threecopies)](http://www.rultor.com/p/yegor256/threecopies)
 
 [![Availability at SixNines](http://www.sixnines.io/b/9d56)](http://www.sixnines.io/h/9d56)

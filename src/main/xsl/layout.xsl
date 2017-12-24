@@ -129,8 +129,8 @@ software.
             <nav>
               <ul>
                 <li>
-                  <a href="http://www.zerocracy.com">
-                    <img src="http://www.zerocracy.com/badge.svg"/>
+                  <a href="http://www.0crat.com/p/C3RFVLU72">
+                    <img src="http://www.0crat.com/badge/C3RFVLU72.svg"/>
                   </a>
                 </li>
               </ul>
