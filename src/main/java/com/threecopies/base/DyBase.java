@@ -64,12 +64,12 @@ public final class DyBase implements Base {
     @Override
     public Iterable<Script> scripts() {
         return new Mapped<>(
-            this.table().frame(),
             item -> new DyScript(
                 this.region,
                 item.get("login").getS(),
                 item.get("name").getS()
-            )
+            ),
+            this.table().frame()
         );
     }
 

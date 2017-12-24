@@ -81,12 +81,12 @@ software.
     <dependency>
       <groupId>org.takes</groupId>
       <artifactId>takes</artifactId>
-      <version>1.6.1</version>
+      <version>1.7.1</version>
     </dependency>
     <dependency>
       <groupId>io.sentry</groupId>
       <artifactId>sentry</artifactId>
-      <version>1.5.2</version>
+      <version>1.6.3</version>
     </dependency>
     <dependency>
       <groupId>com.jcabi</groupId>
@@ -108,7 +108,7 @@ software.
     <dependency>
       <groupId>com.jcabi</groupId>
       <artifactId>jcabi-s3</artifactId>
-      <version>0.17</version>
+      <version>0.18</version>
     </dependency>
     <dependency>
       <groupId>com.jcabi</groupId>
@@ -148,24 +148,24 @@ software.
     <dependency>
       <groupId>com.amazonaws</groupId>
       <artifactId>aws-java-sdk-core</artifactId>
-      <version>1.11.188</version>
+      <version>1.11.255</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>com.amazonaws</groupId>
       <artifactId>aws-java-sdk-s3</artifactId>
-      <version>1.11.188</version>
+      <version>1.11.255</version>
       <scope>runtime</scope>
     </dependency>
     <dependency>
       <groupId>com.amazonaws</groupId>
       <artifactId>aws-java-sdk-dynamodb</artifactId>
-      <version>1.11.188</version>
+      <version>1.11.255</version>
     </dependency>
     <dependency>
       <groupId>com.jcabi</groupId>
       <artifactId>jcabi-dynamo</artifactId>
-      <version>0.21.4</version>
+      <version>0.21.5</version>
     </dependency>
     <dependency>
       <groupId>com.jcabi.incubator</groupId>
@@ -175,12 +175,12 @@ software.
     <dependency>
       <groupId>com.stripe</groupId>
       <artifactId>stripe-java</artifactId>
-      <version>5.8.0</version>
+      <version>5.27.0</version>
     </dependency>
     <dependency>
       <groupId>org.cactoos</groupId>
       <artifactId>cactoos</artifactId>
-      <version>0.16</version>
+      <version>0.27</version>
     </dependency>
     <dependency>
       <groupId>log4j</groupId>
