@@ -33,7 +33,7 @@ software.
         <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1"/>
         <link rel="shortcut icon" href="/images/logo.png"/>
         <link rel="stylesheet" href="/css/main.css"/>
-        <link rel="stylesheet" href="http://yegor256.github.io/tacit/tacit.min.css"/>
+        <link rel="stylesheet" href="//yegor256.github.io/tacit/tacit.min.css"/>
         <xsl:apply-templates select="." mode="head"/>
       </head>
       <body>
