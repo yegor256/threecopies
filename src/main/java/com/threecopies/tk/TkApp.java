@@ -39,11 +39,11 @@ import org.takes.facets.auth.PsCookie;
 import org.takes.facets.auth.PsFake;
 import org.takes.facets.auth.PsLogout;
 import org.takes.facets.auth.TkAuth;
+import org.takes.facets.auth.codecs.CcAes;
 import org.takes.facets.auth.codecs.CcCompact;
 import org.takes.facets.auth.codecs.CcHex;
 import org.takes.facets.auth.codecs.CcSafe;
 import org.takes.facets.auth.codecs.CcSalted;
-import org.takes.facets.auth.codecs.CcXor;
 import org.takes.facets.auth.social.PsGithub;
 import org.takes.facets.fallback.Fallback;
 import org.takes.facets.fallback.FbChain;
@@ -68,6 +68,7 @@ import org.takes.tk.TkFiles;
 import org.takes.tk.TkGzip;
 import org.takes.tk.TkMeasured;
 import org.takes.tk.TkRedirect;
+import org.takes.tk.TkSslOnly;
 import org.takes.tk.TkVersioned;
 import org.takes.tk.TkWithHeaders;
 import org.takes.tk.TkWithType;
@@ -114,69 +115,71 @@ public final class TkApp extends TkWrap {
      * @throws IOException If fails
      */
     private static Take app(final Base base) throws IOException {
-        return new TkWithHeaders(
-            new TkVersioned(
-                new TkMeasured(
-                    new TkFlash(
-                        TkApp.auth(
-                            TkApp.safe(
-                                new TkForward(
-                                    new TkGzip(
-                                        new TkFork(
-                                            new FkRegex("/robots.txt", ""),
-                                            new FkRegex(
-                                                "/org/takes/.+\\.xsl",
-                                                new TkClasspath()
-                                            ),
-                                            new FkRegex(
-                                                "/xsl/[a-z\\-]+\\.xsl",
-                                                new TkWithType(
-                                                    TkApp.refresh("./src/main/xsl"),
-                                                    "text/xsl"
-                                                )
-                                            ),
-                                            new FkRegex(
-                                                "/css/[a-z]+\\.css",
-                                                new TkWithType(
-                                                    TkApp.refresh("./src/main/scss"),
-                                                    "text/css"
-                                                )
-                                            ),
-                                            new FkRegex(
-                                                "/images/[a-z]+\\.svg",
-                                                new TkWithType(
-                                                    TkApp.refresh("./src/main/resources"),
-                                                    "image/svg+xml"
-                                                )
-                                            ),
-                                            new FkRegex(
-                                                "/images/[a-z]+\\.png",
-                                                new TkWithType(
-                                                    TkApp.refresh("./src/main/resources"),
-                                                    "image/png"
-                                                )
-                                            ),
-                                            new FkRegex("/", new TkIndex()),
-                                            new FkRegex("/scripts", new TkScripts(base)),
-                                            new FkRegex("/script", new TkScript(base)),
-                                            new FkRegex("/save", new TkSave(base)),
-                                            new FkRegex("/delete", new TkDelete(base)),
-                                            new FkRegex("/flush", new TkFlush(base)),
-                                            new FkRegex("/pay", new TkPay(base)),
-                                            new FkRegex("/delete-log", new TkDeleteLog(base)),
-                                            new FkRegex("/logs", new TkLogs(base)),
-                                            new FkRegex("/log", new TkLog()),
-                                            new FkRegex("/log-link", new TkLogLink(base))
+        return new TkSslOnly(
+            new TkWithHeaders(
+                new TkVersioned(
+                    new TkMeasured(
+                        new TkFlash(
+                            TkApp.auth(
+                                TkApp.safe(
+                                    new TkForward(
+                                        new TkGzip(
+                                            new TkFork(
+                                                new FkRegex("/robots.txt", ""),
+                                                new FkRegex(
+                                                    "/org/takes/.+\\.xsl",
+                                                    new TkClasspath()
+                                                ),
+                                                new FkRegex(
+                                                    "/xsl/[a-z\\-]+\\.xsl",
+                                                    new TkWithType(
+                                                        TkApp.refresh("./src/main/xsl"),
+                                                        "text/xsl"
+                                                    )
+                                                ),
+                                                new FkRegex(
+                                                    "/css/[a-z]+\\.css",
+                                                    new TkWithType(
+                                                        TkApp.refresh("./src/main/scss"),
+                                                        "text/css"
+                                                    )
+                                                ),
+                                                new FkRegex(
+                                                    "/images/[a-z]+\\.svg",
+                                                    new TkWithType(
+                                                        TkApp.refresh("./src/main/resources"),
+                                                        "image/svg+xml"
+                                                    )
+                                                ),
+                                                new FkRegex(
+                                                    "/images/[a-z]+\\.png",
+                                                    new TkWithType(
+                                                        TkApp.refresh("./src/main/resources"),
+                                                        "image/png"
+                                                    )
+                                                ),
+                                                new FkRegex("/", new TkIndex()),
+                                                new FkRegex("/scripts", new TkScripts(base)),
+                                                new FkRegex("/script", new TkScript(base)),
+                                                new FkRegex("/save", new TkSave(base)),
+                                                new FkRegex("/delete", new TkDelete(base)),
+                                                new FkRegex("/flush", new TkFlush(base)),
+                                                new FkRegex("/pay", new TkPay(base)),
+                                                new FkRegex("/delete-log", new TkDeleteLog(base)),
+                                                new FkRegex("/logs", new TkLogs(base)),
+                                                new FkRegex("/log", new TkLog()),
+                                                new FkRegex("/log-link", new TkLogLink(base))
+                                            )
                                         )
                                     )
                                 )
                             )
                         )
                     )
-                )
-            ),
-            new Sprintf("X-ThreeCopies-Revision: %s", TkApp.REV).toString(),
-            "Vary: Cookie"
+                ),
+                new Sprintf("X-ThreeCopies-Revision: %s", TkApp.REV).toString(),
+                "Vary: Cookie"
+            )
         );
     }
 
@@ -215,7 +218,7 @@ public final class TkApp extends TkWrap {
                 new PsCookie(
                     new CcSafe(
                         new CcHex(
-                            new CcXor(
+                            new CcAes(
                                 new CcSalted(new CcCompact()),
                                 Manifests.read("ThreeCopies-SecurityKey")
                             )

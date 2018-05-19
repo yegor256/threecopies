@@ -51,7 +51,7 @@ public final class FkUser implements User {
 
     @Override
     public void delete(final String group, final long start) {
-        // nothing
+        // nothing really to do here
     }
 
 }

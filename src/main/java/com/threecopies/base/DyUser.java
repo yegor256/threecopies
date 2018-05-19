@@ -65,15 +65,6 @@ final class DyUser implements User {
     @Override
     public Iterable<Iterable<Directive>> scripts() {
         return new Mapped<Item, Iterable<Directive>>(
-            this.region.table("scripts")
-                .frame()
-                .through(
-                    new QueryValve()
-                        // @checkstyle MagicNumber (1 line)
-                        .withLimit(10)
-                        .withSelect(Select.ALL_ATTRIBUTES)
-                )
-                .where("login", this.login),
             item -> new Directives()
                 .add("script")
                 .add("name").set(item.get("name").getS()).up()
@@ -83,13 +74,31 @@ final class DyUser implements User {
                 .add("hour").set(item.get("hour").getN()).up()
                 .add("day").set(item.get("day").getN()).up()
                 .add("week").set(item.get("week").getN()).up()
-                .up()
-        );
+                .up(),
+            this.region.table("scripts")
+                .frame()
+                .through(
+                    new QueryValve()
+                        // @checkstyle MagicNumber (1 line)
+                        .withLimit(10)
+                        .withSelect(Select.ALL_ATTRIBUTES)
+                )
+                .where("login", this.login)
+            );
     }
 
     @Override
     public Iterable<Iterable<Directive>> logs() {
         return new Mapped<Item, Iterable<Directive>>(
+            item -> new Directives()
+                .add("log")
+                .add("group").set(item.get("group").getS()).up()
+                .add("start").set(item.get("start").getN()).up()
+                .add("finish").set(item.get("finish").getN()).up()
+                .add("period").set(item.get("period").getS()).up()
+                .add("ocket").set(item.get("ocket").getS()).up()
+                .add("exit").set(item.get("exit").getN()).up()
+                .up(),
             this.region.table("logs")
                 .frame()
                 .through(
@@ -101,16 +110,7 @@ final class DyUser implements User {
                         .withScanIndexForward(false)
                         .withSelect(Select.ALL_ATTRIBUTES)
                 )
-                .where("login", this.login),
-            item -> new Directives()
-                .add("log")
-                .add("group").set(item.get("group").getS()).up()
-                .add("start").set(item.get("start").getN()).up()
-                .add("finish").set(item.get("finish").getN()).up()
-                .add("period").set(item.get("period").getS()).up()
-                .add("ocket").set(item.get("ocket").getS()).up()
-                .add("exit").set(item.get("exit").getN()).up()
-                .up()
+                .where("login", this.login)
         );
     }
 

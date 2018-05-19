@@ -71,8 +71,8 @@ final class TkLogs implements Take {
                     new Directives().add("logs").append(
                         new Joined<>(
                             new Limited<Iterable<Directive>>(
-                                new RqUser(this.base, request).logs(),
-                                Tv.TWENTY
+                                Tv.TWENTY,
+                                new RqUser(this.base, request).logs()
                             )
                         )
                     )

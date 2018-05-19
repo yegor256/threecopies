@@ -1,5 +1,6 @@
 <img src="http://www.threecopies.com/images/logo.png" width="64px" height="64px"/>
 
+[![Managed by Zerocracy](http://www.0crat.com/badge/C3RFVLU72.svg)](http://www.0crat.com/p/C3RFVLU72)
 [![DevOps By Rultor.com](http://www.rultor.com/b/yegor256/threecopies)](http://www.rultor.com/p/yegor256/threecopies)
 
 [![Availability at SixNines](http://www.sixnines.io/b/9d56)](http://www.sixnines.io/h/9d56)
@@ -50,6 +51,23 @@ To retrieve the data from a MySQL database use [mysqldump](https://dev.mysql.com
 mysqldump --lock-tables=false --host=www.example.com \
   --user=username --password=password \
   --databases dbname > mysql.sql
+```
+Since this would require to open your mysql port to the internet, which is not advisable from a security perspective, you should probably use a ssh tunnel:
+
+```bash
+cat > file.key <<EOT
+-----BEGIN RSA PRIVATE KEY-----
+<your ssh private key here>
+-----END RSA PRIVATE KEY-----
+EOT
+chmod 700 file.key
+ssh -Nf -i file.key -L3306:localhost:3306 your_user@www.example.com
+rm file.key
+```
+and then connect with the above script:
+
+```bash
+mysqldump --lock-tables=false --host=localhost ...same as above
 ```
 
 To download an entire FTP directory use [wget](https://www.gnu.org/software/wget/):

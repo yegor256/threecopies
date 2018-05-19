@@ -65,38 +65,40 @@ final class RqUser implements User {
 
     @Override
     public Iterable<Iterable<Directive>> scripts() throws IOException {
-        return this.base.user(this.name()).scripts();
+        return this.user().scripts();
     }
 
     @Override
     public Iterable<Iterable<Directive>> logs() throws IOException {
-        return this.base.user(this.name()).logs();
+        return this.user().logs();
     }
 
     @Override
     public Script script(final String name) throws IOException {
-        return this.base.user(this.name()).script(name);
+        return this.user().script(name);
     }
 
     @Override
     public void delete(final String group, final long start)
         throws IOException {
-        this.base.user(this.name()).delete(group, start);
+        this.user().delete(group, start);
     }
 
     /**
      * Get user name (GitHub handle).
-     * @return Name
+     * @return The user found
      * @throws IOException If fails
      */
-    private String name() throws IOException {
+    private User user() throws IOException {
         final Identity identity = new RqAuth(this.request).identity();
         if (identity.equals(Identity.ANONYMOUS)) {
             throw new RsForward(
                 new RsFlash("You must be logged in.")
             );
         }
-        return identity.properties().get("login").toLowerCase(Locale.ENGLISH);
+        return this.base.user(
+            identity.properties().get("login").toLowerCase(Locale.ENGLISH)
+        );
     }
 
 }
