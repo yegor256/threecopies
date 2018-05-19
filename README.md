@@ -120,6 +120,11 @@ mine (index):
 
 Just submit a pull request. Make sure `mvn` passes.
 
+## Contributors
+
+  - [@yegor256](https://github.com/yegor256) as Yegor Bugayenko ([Blog](http://www.yegor256.com))
+  - [@dgroup](https://github.com/yegor256) as Yurii Dubinka (yurii.dubinka@gmail.com)
+
 ## License
 
 (The MIT License)
