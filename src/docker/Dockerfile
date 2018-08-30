@@ -76,6 +76,9 @@ RUN apt-get install -y s3cmd
 # MySQL client
 RUN apt-get install -y mysql-client
 
+# PostgreSQL client
+RUN apt-get install -y postgresql
+
 # NodeJS
 RUN rm -rf /usr/lib/node_modules
 RUN curl -sL https://deb.nodesource.com/setup_6.x | bash -
