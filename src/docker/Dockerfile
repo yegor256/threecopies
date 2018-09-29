@@ -88,3 +88,4 @@ RUN /bin/bash -l -c ". /etc/profile.d/rvm.sh && rvm install 2.3.3 && gem update 
 RUN rm -rf /tmp/*
 RUN rm -rf /root/.ssh
 
+ENTRYPOINT ["/bin/bash", "-l", "-c"]
