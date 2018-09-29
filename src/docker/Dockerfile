@@ -82,10 +82,7 @@ RUN apt-get install -y nodejs
 RUN apt-get update && apt-get install -y ruby-dev libmagic-dev zlib1g-dev
 RUN gpg2 --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3
 RUN curl -L https://get.rvm.io | bash -s stable
-RUN /bin/bash -c "source /etc/profile.d/rvm.sh"
-RUN rvm requirements
-RUN rvm install 2.3.3
-RUN gem update && gem install --no-ri --no-rdoc nokogiri bundler
+RUN /bin/bash -l -c ". /etc/profile.d/rvm.sh && rvm install 2.3.3 && gem update && gem install --no-ri --no-rdoc nokogiri bundler"
 
 # Clean up
 RUN rm -rf /tmp/*
