@@ -19,7 +19,7 @@
 # in connection with the software or  the  use  or other dealings in the
 # software.
 
-FROM ubuntu:14.04
+FROM ubuntu:16.04
 MAINTAINER Yegor Bugayenko <yegor256@gmail.com>
 LABEL Description="This is the default image for ThreeCopies.com" Vendor="ThreeCopies.com" Version="1.0"
 WORKDIR /root
@@ -68,7 +68,8 @@ RUN apt-get install -y s3cmd
 RUN apt-get install -y mysql-client
 
 # PostgreSQL client
-RUN wget -q https://www.postgresql.org/media/keys/ACCC4CF8.asc -O - | sudo apt-key add - \
+RUN apt-get install wget ca-certificates \
+  && wget -q https://www.postgresql.org/media/keys/ACCC4CF8.asc -O - | sudo apt-key add - \
   && echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" >> /etc/apt/sources.list.d/pgdg.list \
   && sudo apt-get update \
   && apt-get install -y postgresql postgresql-contrib
