@@ -74,15 +74,17 @@ RUN apt-get install wget ca-certificates \
   && apt-get install -y postgresql postgresql-contrib
 
 # NodeJS
-RUN rm -rf /usr/lib/node_modules
-RUN curl -sL https://deb.nodesource.com/setup_6.x | bash -
-RUN apt-get install -y nodejs
+RUN rm -rf /usr/lib/node_modules \
+  && curl -sL https://deb.nodesource.com/setup_6.x | bash - \
+  && apt-get install -y nodejs
 
 # Ruby
-RUN apt-get update && apt-get install -y ruby-dev libmagic-dev zlib1g-dev
-RUN gpg2 --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3
-RUN curl -L https://get.rvm.io | bash -s stable
-RUN /bin/bash -l -c ". /etc/profile.d/rvm.sh && rvm install 2.3.3 && gem update && gem install --no-ri --no-rdoc nokogiri bundler"
+RUN apt-get update \
+  && apt-get install -y ruby-dev libmagic-dev zlib1g-dev \\
+  && gpg --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3 \
+  && gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB \
+  && curl -L https://get.rvm.io | bash -s stable \
+  && /bin/bash -l -c ". /etc/profile.d/rvm.sh && rvm install 2.3.3 && gem update && gem install --no-ri --no-rdoc nokogiri bundler"
 
 # Clean up
 RUN rm -rf /tmp/*
