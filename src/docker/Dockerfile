@@ -26,6 +26,11 @@ WORKDIR /root
 
 ENV DEBIAN_FRONTEND=noninteractive
 
+# Unicode
+ENV LC_ALL en_US.UTF-8
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US.UTF-8
+
 # Basic Linux tools
 RUN apt-get update
 RUN apt-get install -y wget bcrypt curl
