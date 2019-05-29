@@ -43,7 +43,8 @@ RUN apt-get update
 RUN apt-get install -y git git-core
 
 # PHP
-RUN apt-get install -y php7.2 php7.2-cli php7.2-common
+RUN add-apt-repository ppa:ondrej/php \
+  && apt-get install -y php7.2
 
 # Java
 RUN apt-get install -y default-jdk
