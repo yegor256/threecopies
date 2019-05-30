@@ -153,15 +153,15 @@ software.
               <ul class="bottom">
                 <li>
                   <xsl:text>The logo is made by </xsl:text>
-                  <a href="http://www.freepik.com/">
+                  <a href="https://www.freepik.com/">
                     <xsl:text>Freepik</xsl:text>
                   </a>
                   <xsl:text> from </xsl:text>
-                  <a href="http://www.flaticon.com/">
+                  <a href="https://www.flaticon.com/">
                     <xsl:text>flaticon.com</xsl:text>
                   </a>
                   <xsl:text>, licensed by </xsl:text>
-                  <a href="http://creativecommons.org/licenses/by/3.0/">
+                  <a href="https://creativecommons.org/licenses/by/3.0/">
                     <xsl:text>CC 3.0 BY</xsl:text>
                   </a>
                   <xsl:text>.</xsl:text>
