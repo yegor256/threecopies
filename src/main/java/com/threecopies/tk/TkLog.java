@@ -24,6 +24,7 @@ package com.threecopies.tk;
 
 import com.jcabi.manifests.Manifests;
 import com.jcabi.s3.Bucket;
+import com.jcabi.s3.Ocket;
 import com.jcabi.s3.Region;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -90,8 +91,20 @@ final class TkLog implements Take {
                 )
             );
         }
+        final Ocket ocket = this.bucket.ocket(name);
+        if (!ocket.exists()) {
+            throw new RsForward(
+                new RsFlash(
+                    String.format(
+                        // @checkstyle LineLength (1 line)
+                        "The log of \"%s\" doesn't exist, maybe the backup job is still in progress, please wait and check the Logs tab",
+                        name
+                    )
+                )
+            );
+        }
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        this.bucket.ocket(name).read(baos);
+        ocket.read(baos);
         return new RsText(baos.toByteArray());
     }
 }
