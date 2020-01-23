@@ -66,105 +66,87 @@ software.
       </xsl:choose>
       <xsl:text>:</xsl:text>
     </p>
-    <table style="width:100%">
-      <colgroup>
-        <col style="width:40%;"/>
-        <col style="width:30%;"/>
-        <col style="width:20%;"/>
-        <col style="width:10%;"/>
-      </colgroup>
-      <thead>
-        <tr>
-          <th>
-            <xsl:text>Name</xsl:text>
-          </th>
-          <th>
-            <xsl:text>Copies</xsl:text>
-          </th>
-          <th style="text-align: right;">
-            <xsl:text>Time</xsl:text>
-          </th>
-          <th>
-            <xsl:text>Options</xsl:text>
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <xsl:apply-templates select="script"/>
-      </tbody>
-    </table>
+    <xsl:apply-templates select="script"/>
   </xsl:template>
   <xsl:template match="script">
-    <tr>
-      <td>
-        <a href="/script?name={name}" title="Edit this script">
-          <xsl:value-of select="name"/>
-        </a>
-        <xsl:if test="used &gt; paid">
-          <div style="color:red;font-size:0.8em;">
-            <xsl:text>You are out of funds</xsl:text>
-          </div>
-        </xsl:if>
-      </td>
-      <td>
-        <span style="display: block;">
-          <a href="/flush?name={name}" title="Reset the counter and run the script right now!">
-            <xsl:text>Hour</xsl:text>
-          </a>
-          <xsl:text>: </xsl:text>
-          <xsl:call-template name="when">
-            <xsl:with-param name="script" select="name"/>
-            <xsl:with-param name="time" select="hour"/>
-          </xsl:call-template>
+    <p>
+      <a href="/script?name={name}" title="Edit this script">
+        <xsl:value-of select="name"/>
+      </a>
+      <xsl:if test="used &gt; paid">
+        <br/>
+        <span class="firebrick">
+          <xsl:text>You are out of funds</xsl:text>
         </span>
-        <span style="display: block;">
-          <xsl:text>Day: </xsl:text>
-          <xsl:call-template name="when">
-            <xsl:with-param name="script" select="name"/>
-            <xsl:with-param name="time" select="day"/>
-          </xsl:call-template>
-        </span>
-        <span style="display: block;">
-          <xsl:text>Week: </xsl:text>
-          <xsl:call-template name="when">
-            <xsl:with-param name="script" select="name"/>
-            <xsl:with-param name="time" select="week"/>
-          </xsl:call-template>
-        </span>
-      </td>
-      <td style="text-align: right;">
-        <span title="{used}/{paid} seconds">
-          <xsl:attribute name="style">
-            <xsl:text>color:</xsl:text>
-            <xsl:choose>
-              <xsl:when test="used &gt; paid">
-                <xsl:text>red</xsl:text>
-              </xsl:when>
-              <xsl:otherwise>
-                <xsl:text>green</xsl:text>
-              </xsl:otherwise>
-            </xsl:choose>
-          </xsl:attribute>
-          <xsl:value-of select="format-number(used div (60 * 60), '0')"/>
-        </span>
-        <xsl:text>/</xsl:text>
+      </xsl:if>
+      <br/>
+      <span class="item">
+        <xsl:text>Hour</xsl:text>
+        <xsl:text>: </xsl:text>
+        <xsl:call-template name="when">
+          <xsl:with-param name="script" select="name"/>
+          <xsl:with-param name="time" select="hour"/>
+        </xsl:call-template>
+      </span>
+      <span class="item">
+        <xsl:text>Day: </xsl:text>
+        <xsl:call-template name="when">
+          <xsl:with-param name="script" select="name"/>
+          <xsl:with-param name="time" select="day"/>
+        </xsl:call-template>
+      </span>
+      <span class="item">
+        <xsl:text>Week: </xsl:text>
+        <xsl:call-template name="when">
+          <xsl:with-param name="script" select="name"/>
+          <xsl:with-param name="time" select="week"/>
+        </xsl:call-template>
+      </span>
+      <br/>
+      <span class="item">
+        <xsl:text>Used: </xsl:text>
+        <xsl:attribute name="class">
+          <xsl:choose>
+            <xsl:when test="used &gt; paid">
+              <xsl:text>firebrick</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:text>seagreen</xsl:text>
+            </xsl:otherwise>
+          </xsl:choose>
+        </xsl:attribute>
+        <xsl:value-of select="format-number(used div (60 * 60), '0')"/>
+        <xsl:text>s</xsl:text>
+      </span>
+      <span class="item">
+        <xsl:text>Paid: </xsl:text>
+        <xsl:value-of select="format-number(paid div (60 * 60), '0')"/>
+        <xsl:text>s</xsl:text>
+      </span>
+      <br/>
+      <span class="item">
         <a href="#" class="pay" data-name="{name}" title="Add funds for this script">
-          <xsl:value-of select="format-number(paid div (60 * 60), '0')"/>
+          <xsl:text>Add funds</xsl:text>
         </a>
-      </td>
-      <td>
+      </span>
+      <span class="item">
+        <a href="/flush?name={name}" title="Reset the counter and run the script right now!">
+          <xsl:text>Flush</xsl:text>
+        </a>
+      </span>
+      <span class="item">
         <a href="/delete?name={name}" onclick="return confirm('Are you sure?');">
           <xsl:text>Delete</xsl:text>
         </a>
-      </td>
-    </tr>
+      </span>
+    </p>
   </xsl:template>
   <xsl:template name="when">
     <xsl:param name="script"/>
     <xsl:param name="time"/>
     <xsl:choose>
       <xsl:when test="$time = 0">
-        <span style="color:red">
+        <span class="firebrick">
           <xsl:text>never</xsl:text>
         </span>
       </xsl:when>

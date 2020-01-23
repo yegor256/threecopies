@@ -33,7 +33,8 @@ software.
         <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1"/>
         <link rel="shortcut icon" href="/images/logo.png"/>
         <link rel="stylesheet" href="/css/main.css"/>
-        <link rel="stylesheet" href="//yegor256.github.io/tacit/tacit.min.css"/>
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/yegor256/tacit@gh-pages/tacit-css.min.css"/>
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/yegor256/drops@gh-pages/drops.min.css"/>
         <xsl:apply-templates select="." mode="head"/>
       </head>
       <body>
@@ -138,8 +139,8 @@ software.
             <nav>
               <ul>
                 <li>
-                  <a href="http://www.sixnines.io/h/9d56">
-                    <img src="//www.sixnines.io/b/9d56?style=flat"/>
+                  <a href="https://www.sixnines.io/h/5c94">
+                    <img src="//www.sixnines.io/b/5c94?style=flat"/>
                   </a>
                 </li>
                 <li>
