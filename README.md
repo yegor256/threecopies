@@ -31,10 +31,10 @@ sources (input). Then, you compress and encrypt the data (package). Finally,
 you store the package somewhere (output).
 
 We start your script inside
-[yegor256/threecopies](https://hub.docker.com/r/yegor256/threecopies/)
+[yegor256/threecopies](https://hub.docker.com/r/yegor256/threecopies-image/)
 Docker container,
 here is the
-[`Dockerfile`](https://github.com/yegor256/threecopies/blob/master/src/docker/Dockerfile).
+[`Dockerfile`](https://github.com/yegor256/threecopies-image/blob/master/Dockerfile).
 
 If you don't want your script to be executed too frequently, you may put
 this code in front of it (to skip hourly executions, for example):
