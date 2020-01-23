@@ -104,18 +104,20 @@ software.
       <br/>
       <span class="item">
         <xsl:text>Used: </xsl:text>
-        <xsl:attribute name="class">
-          <xsl:choose>
-            <xsl:when test="used &gt; paid">
-              <xsl:text>firebrick</xsl:text>
-            </xsl:when>
-            <xsl:otherwise>
-              <xsl:text>seagreen</xsl:text>
-            </xsl:otherwise>
-          </xsl:choose>
-        </xsl:attribute>
-        <xsl:value-of select="format-number(used div (60 * 60), '0')"/>
-        <xsl:text>s</xsl:text>
+        <span>
+          <xsl:attribute name="class">
+            <xsl:choose>
+              <xsl:when test="used &gt; paid">
+                <xsl:text>firebrick</xsl:text>
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:text>seagreen</xsl:text>
+              </xsl:otherwise>
+            </xsl:choose>
+          </xsl:attribute>
+          <xsl:value-of select="format-number(used div (60 * 60), '0')"/>
+          <xsl:text>s</xsl:text>
+        </span>
       </span>
       <span class="item">
         <xsl:text>Paid: </xsl:text>

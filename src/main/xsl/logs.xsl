@@ -90,7 +90,7 @@ software.
       <td>
         <xsl:choose>
           <xsl:when test="finish = 9223372036854775807">
-            <span style="color:gray;" title="In Docker container {ocket}">
+            <span class="gray" title="In Docker container {ocket}">
               <xsl:text>running...</xsl:text>
             </span>
           </xsl:when>
@@ -107,7 +107,7 @@ software.
       <td>
         <xsl:choose>
           <xsl:when test="finish = 9223372036854775807">
-            <span style="color:gray;">
+            <span class="gray">
               <xsl:text>~</xsl:text>
               <xsl:call-template name="sec">
                 <xsl:with-param name="sec" select="(/page/epoch - start) div 1000"/>
@@ -118,7 +118,7 @@ software.
             <xsl:variable name="sec" select="(finish - start) div 1000"/>
             <xsl:choose>
               <xsl:when test="$sec &lt; 120">
-                <span style="color:gray;" title="{$sec} seconds">
+                <span class="gray" title="{$sec} seconds">
                   <xsl:text>&lt;2m</xsl:text>
                 </span>
               </xsl:when>

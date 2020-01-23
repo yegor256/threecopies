@@ -35,6 +35,9 @@ software.
         <link rel="stylesheet" href="/css/main.css"/>
         <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/yegor256/tacit@gh-pages/tacit-css.min.css"/>
         <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/yegor256/drops@gh-pages/drops.min.css"/>
+        <style>
+          .item { margin-right: 1em; }
+        </style>
         <xsl:apply-templates select="." mode="head"/>
       </head>
       <body>
