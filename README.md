@@ -3,7 +3,7 @@
 [![Managed by Zerocracy](https://www.0crat.com/badge/C3RFVLU72.svg)](https://www.0crat.com/p/C3RFVLU72)
 [![DevOps By Rultor.com](http://www.rultor.com/b/yegor256/threecopies)](http://www.rultor.com/p/yegor256/threecopies)
 
-[![Availability at SixNines](https://www.sixnines.io/b/9d56)](https://www.sixnines.io/h/9d56)
+[![Availability at SixNines](https://www.sixnines.io/b/5c94)](https://www.sixnines.io/h/5c94)
 
 [![Build Status](https://travis-ci.org/yegor256/threecopies.svg)](https://travis-ci.org/yegor256/threecopies)
 [![PDD status](http://www.0pdd.com/svg?name=yegor256/threecopies)](http://www.0pdd.com/p?name=yegor256/threecopies)
@@ -142,7 +142,7 @@ Just submit a pull request. Make sure `mvn` passes.
 
 (The MIT License)
 
-Copyright (c) 2017 Yegor Bugayenko
+Copyright (c) 2017-2020 Yegor Bugayenko
 
 Permission is hereby granted, free of charge,  to any person obtaining
 a copy  of  this  software  and  associated  documentation files  (the
