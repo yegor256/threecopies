@@ -35,7 +35,6 @@ software.
   <xsl:template match="page" mode="body">
     <p>
       <a href="/script">Create new script</a>
-      <xsl:text>.</xsl:text>
     </p>
     <xsl:apply-templates select="scripts"/>
   </xsl:template>
