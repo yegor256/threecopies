@@ -79,7 +79,7 @@ software.
           </span>
         </div>
       </xsl:if>
-      <div>
+      <span style="display:block;">
         <span class="item">
           <xsl:text>Hour</xsl:text>
           <xsl:text>: </xsl:text>
@@ -102,8 +102,8 @@ software.
             <xsl:with-param name="time" select="week"/>
           </xsl:call-template>
         </span>
-      </div>
-      <div>
+      </span>
+      <span style="display:block;">
         <span class="item">
           <xsl:text>Used: </xsl:text>
           <span>
@@ -126,8 +126,8 @@ software.
           <xsl:value-of select="format-number(paid div (60 * 60), '0')"/>
           <xsl:text>s</xsl:text>
         </span>
-      </div>
-      <div>
+      </span>
+      <span style="display:block;" class="smaller">
         <span class="item">
           <a href="/script?name={name}" title="Edit this script">
             <xsl:text>Edit</xsl:text>
@@ -148,7 +148,7 @@ software.
             <xsl:text>Delete</xsl:text>
           </a>
         </span>
-      </div>
+      </span>
     </p>
   </xsl:template>
   <xsl:template name="when">
