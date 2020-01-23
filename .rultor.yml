@@ -1,7 +1,5 @@
 readers:
   - "urn:github:526301"
-docker:
-  image: yegor256/java8
 assets:
   settings.xml: yegor256/home#assets/threecopies/settings.xml
   id_rsa: yegor256/home#assets/heroku-key
