@@ -111,9 +111,9 @@ fields:
   login/H: GitHub login of the owner
   name/R: Unique name of the script
   bash: Bash script
-  hour: Epoch-sec when it recent hourly log was scheduled
-  day: Epoch-sec when it recent daily log was scheduled
-  week: Epoch-sec when it recent weekly log was scheduled
+  hour: Epoch-sec when its recent hourly log was scheduled
+  day: Epoch-sec when its recent daily log was scheduled
+  week: Epoch-sec when its recent weekly log was scheduled
 ```
 
 The `tc-logs` table contains all recent logs:
