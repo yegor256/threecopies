@@ -4,7 +4,7 @@
 [![DevOps By Rultor.com](http://www.rultor.com/b/yegor256/threecopies)](http://www.rultor.com/p/yegor256/threecopies)
 
 [![Availability at SixNines](https://www.sixnines.io/b/5c94)](https://www.sixnines.io/h/5c94)
-[![Build Status](https://travis-ci.org/yegor256/threecopies.svg)](https://travis-ci.org/yegor256/threecopies)
+[![mvn](https://github.com/yegor256/threecopies/actions/workflows/mvn.yml/badge.svg)](https://github.com/yegor256/threecopies/actions/workflows/mvn.yml)
 [![PDD status](http://www.0pdd.com/svg?name=yegor256/threecopies)](http://www.0pdd.com/p?name=yegor256/threecopies)
 [![codecov](https://codecov.io/gh/yegor256/threecopies/branch/master/graph/badge.svg)](https://codecov.io/gh/yegor256/threecopies)
 
