@@ -35,11 +35,7 @@ import com.jcabi.dynamo.QueryValve;
 import com.jcabi.dynamo.Region;
 import com.jcabi.dynamo.Table;
 import com.jcabi.manifests.Manifests;
-import com.stripe.exception.APIConnectionException;
-import com.stripe.exception.APIException;
-import com.stripe.exception.AuthenticationException;
-import com.stripe.exception.CardException;
-import com.stripe.exception.InvalidRequestException;
+import com.stripe.exception.StripeException;
 import com.stripe.model.Charge;
 import com.stripe.model.Customer;
 import com.stripe.net.RequestOptions;
@@ -50,7 +46,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.concurrent.TimeUnit;
 import org.cactoos.map.MapEntry;
-import org.cactoos.map.StickyMap;
+import org.cactoos.map.MapOf;
 import org.takes.facets.flash.RsFlash;
 import org.takes.facets.forward.RsForward;
 import org.xembly.Directive;
@@ -219,7 +215,7 @@ final class DyScript implements Script {
         final String customer;
         try {
             customer = Customer.create(
-                new StickyMap<String, Object>(
+                new MapOf<String, Object>(
                     new MapEntry<>("email", email),
                     new MapEntry<>("source", token)
                 ),
@@ -227,9 +223,7 @@ final class DyScript implements Script {
                     Manifests.read("ThreeCopies-StripeSecret")
                 ).build()
             ).getId();
-        } catch (final APIException | APIConnectionException
-            | AuthenticationException | CardException
-            | InvalidRequestException ex) {
+        } catch (final StripeException ex) {
             throw new IOException(ex);
         }
         this.item().put(
@@ -271,7 +265,7 @@ final class DyScript implements Script {
         final String customer = item.get("stripe_customer").getS();
         try {
             Charge.create(
-                new StickyMap<String, Object>(
+                new MapOf<>(
                     new MapEntry<>("amount", cents),
                     new MapEntry<>("currency", "usd"),
                     new MapEntry<>(
@@ -284,9 +278,7 @@ final class DyScript implements Script {
                     Manifests.read("ThreeCopies-StripeSecret")
                 ).build()
             );
-        } catch (final APIException | APIConnectionException
-            | AuthenticationException | CardException
-            | InvalidRequestException ex) {
+        } catch (final StripeException ex) {
             throw new IOException(ex);
         }
         this.item().put(

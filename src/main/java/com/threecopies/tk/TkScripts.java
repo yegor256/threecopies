@@ -26,7 +26,7 @@ import com.jcabi.manifests.Manifests;
 import com.threecopies.base.Base;
 import java.io.IOException;
 import org.cactoos.iterable.Joined;
-import org.cactoos.list.StickyList;
+import org.cactoos.list.ListOf;
 import org.takes.Request;
 import org.takes.Response;
 import org.takes.Take;
@@ -62,7 +62,7 @@ final class TkScripts implements Take {
         return new RsPage(
             "/xsl/scripts.xsl",
             request,
-            () -> new StickyList<>(
+            () -> new ListOf<>(
                 new XeAppend("menu", "scripts"),
                 new XeAppend("stripe_cents", "500"),
                 new XeAppend(

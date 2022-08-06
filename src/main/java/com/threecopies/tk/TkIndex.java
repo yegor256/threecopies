@@ -23,7 +23,7 @@
 package com.threecopies.tk;
 
 import java.io.IOException;
-import org.cactoos.list.StickyList;
+import org.cactoos.list.ListOf;
 import org.takes.Request;
 import org.takes.Response;
 import org.takes.Take;
@@ -43,7 +43,7 @@ final class TkIndex implements Take {
         return new RsPage(
             "/xsl/index.xsl",
             request,
-            () -> new StickyList<>(
+            () -> new ListOf<>(
                 new XeAppend("menu", "index")
             )
         );

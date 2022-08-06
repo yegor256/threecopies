@@ -24,7 +24,6 @@ package com.threecopies.base;
 
 import com.amazonaws.services.dynamodbv2.model.Select;
 import com.jcabi.dynamo.Attributes;
-import com.jcabi.dynamo.Item;
 import com.jcabi.dynamo.QueryValve;
 import com.jcabi.dynamo.Region;
 import java.io.IOException;
@@ -64,7 +63,7 @@ final class DyUser implements User {
 
     @Override
     public Iterable<Iterable<Directive>> scripts() {
-        return new Mapped<Item, Iterable<Directive>>(
+        return new Mapped<>(
             item -> new Directives()
                 .add("script")
                 .add("name").set(item.get("name").getS()).up()
@@ -89,7 +88,7 @@ final class DyUser implements User {
 
     @Override
     public Iterable<Iterable<Directive>> logs() {
-        return new Mapped<Item, Iterable<Directive>>(
+        return new Mapped<>(
             item -> new Directives()
                 .add("log")
                 .add("group").set(item.get("group").getS()).up()

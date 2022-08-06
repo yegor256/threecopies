@@ -34,6 +34,7 @@ import com.threecopies.tk.TkApp;
 import io.sentry.Sentry;
 import java.io.IOException;
 import org.cactoos.io.ResourceOf;
+import org.cactoos.text.IoCheckedText;
 import org.cactoos.text.TextOf;
 import org.takes.http.Exit;
 import org.takes.http.FtCli;
@@ -70,8 +71,10 @@ public final class Entrance {
                     "d1.threecopies.com",
                     Ssh.PORT,
                     "threecopies",
-                    new TextOf(
-                        new ResourceOf("com/threecopies/routine/ssh.key")
+                    new IoCheckedText(
+                        new TextOf(
+                            new ResourceOf("com/threecopies/routine/ssh.key")
+                        )
                     ).asString()
                 )
             ),

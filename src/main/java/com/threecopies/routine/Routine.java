@@ -44,11 +44,11 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import org.cactoos.Func;
-import org.cactoos.func.RunnableOf;
 import org.cactoos.io.DeadInputStream;
 import org.cactoos.io.DeadOutputStream;
 import org.cactoos.io.InputOf;
 import org.cactoos.io.ResourceOf;
+import org.cactoos.io.UncheckedInput;
 import org.xembly.Xembler;
 
 /**
@@ -110,9 +110,20 @@ public final class Routine implements Func<Void, Integer> {
     /**
      * Start it.
      */
+    @SuppressWarnings("PMD.AvoidCatchingGenericException")
     public void start() {
         this.service.scheduleWithFixedDelay(
-            new VerboseRunnable(new RunnableOf<>(this), true, true),
+            new VerboseRunnable(
+                () -> {
+                    try {
+                        this.apply(null);
+                        // @checkstyle IllegalCatchCheck (1 line)
+                    } catch (final Exception ex) {
+                        throw new IllegalStateException(ex);
+                    }
+                },
+                true, true
+            ),
             1L, 1L, TimeUnit.MINUTES
         );
     }
@@ -158,8 +169,12 @@ public final class Routine implements Func<Void, Integer> {
                 String.format("mkdir -p %s/%s", Routine.DIR, container),
                 String.format("cat > %s/%s/script.sh", Routine.DIR, container)
             ),
-            new InputOf(
-                xml.xpath("/script/bash/text()").get(0).replace("\r\n", "\n")
+            new UncheckedInput(
+                new InputOf(
+                    xml.xpath(
+                        "/script/bash/text()"
+                    ).get(0).replace("\r\n", "\n")
+                )
             ).stream(),
             new DeadOutputStream(),
             new DeadOutputStream()
@@ -275,9 +290,11 @@ public final class Routine implements Func<Void, Integer> {
                 String.format("cat > %s/%s", Routine.DIR, res),
                 String.format("chmod a+x %s/%s", Routine.DIR, res)
             ),
-            new ResourceOf(
-                String.format(
-                    "com/threecopies/routine/%s", res
+            new UncheckedInput(
+                new ResourceOf(
+                    String.format(
+                        "com/threecopies/routine/%s", res
+                    )
                 )
             ).stream(),
             new DeadOutputStream(),

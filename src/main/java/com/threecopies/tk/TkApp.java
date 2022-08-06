@@ -30,6 +30,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.util.regex.Pattern;
+import org.cactoos.text.IoCheckedText;
 import org.cactoos.text.TextOf;
 import org.takes.Response;
 import org.takes.Take;
@@ -58,7 +59,6 @@ import org.takes.facets.fork.FkRegex;
 import org.takes.facets.fork.TkFork;
 import org.takes.facets.forward.TkForward;
 import org.takes.misc.Opt;
-import org.takes.misc.Sprintf;
 import org.takes.rs.RsHtml;
 import org.takes.rs.RsText;
 import org.takes.rs.RsVelocity;
@@ -177,7 +177,7 @@ public final class TkApp extends TkWrap {
                         )
                     )
                 ),
-                new Sprintf("X-ThreeCopies-Revision: %s", TkApp.REV).toString(),
+                String.format("X-ThreeCopies-Revision: %s", TkApp.REV),
                 "Vary: Cookie"
             )
         );
@@ -257,7 +257,7 @@ public final class TkApp extends TkWrap {
                     )
                 ),
                 req -> {
-                    Sentry.capture(req.throwable());
+                    Sentry.captureException(req.throwable());
                     return new Opt.Empty<>();
                 },
                 req -> new Opt.Single<>(TkApp.fatal(req))
@@ -278,7 +278,9 @@ public final class TkApp extends TkWrap {
                     TkApp.class.getResource("error.html.vm"),
                     new RsVelocity.Pair(
                         "err",
-                        new TextOf(req.throwable()).asString()
+                        new IoCheckedText(
+                            new TextOf(req.throwable())
+                        ).asString()
                     ),
                     new RsVelocity.Pair("rev", TkApp.REV)
                 )
@@ -291,9 +293,8 @@ public final class TkApp extends TkWrap {
      * Ctor.
      * @param path Path of files
      * @return Take
-     * @throws IOException If fails
      */
-    private static Take refresh(final String path) throws IOException {
+    private static Take refresh(final String path) {
         return new TkFork(
             new FkHitRefresh(
                 new File(path),

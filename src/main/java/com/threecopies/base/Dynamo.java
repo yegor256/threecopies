@@ -61,7 +61,7 @@ public final class Dynamo implements Region {
      */
     private static Region connect() {
         final String key = Manifests.read("ThreeCopies-DynamoKey");
-        final Credentials creds = new Credentials.Simple(
+        final Credentials.Simple creds = new Credentials.Simple(
             key, Manifests.read("ThreeCopies-DynamoSecret")
         );
         final Region region;

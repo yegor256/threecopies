@@ -26,7 +26,7 @@ import com.threecopies.base.Base;
 import com.threecopies.base.User;
 import java.io.IOException;
 import java.util.Iterator;
-import org.cactoos.list.StickyList;
+import org.cactoos.list.ListOf;
 import org.takes.Request;
 import org.takes.Response;
 import org.takes.Take;
@@ -65,7 +65,7 @@ final class TkScript implements Take {
         return new RsPage(
             "/xsl/script.xsl",
             request,
-            () -> new StickyList<>(
+            () -> new ListOf<>(
                 new XeAppend("menu", "scripts"),
                 new XeWhen(
                     name.hasNext(),
