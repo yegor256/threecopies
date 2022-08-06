@@ -8,8 +8,9 @@ assets:
   id_rsa.pub: yegor256/home#assets/heroku-key.pub
   s3cfg: yegor256/home#assets/s3cfg
 install: |-
-  sudo gem install pdd -v 0.20.5
+  pdd --source=$(pwd) --verbose --file=/dev/null
 release:
+  pre: false
   sensitive:
     - settings.xml
   script: |
@@ -25,10 +26,7 @@ release:
     git add settings.xml
     git fetch
     git commit -m 'settings.xml' && git push -f dokku $(git symbolic-ref --short HEAD):master && git reset HEAD~1
-    curl -f --connect-timeout 15 --retry 5 --retry-delay 30 http://www.threecopies.com > /dev/null
-    # mvn clean site-deploy -Psite --batch-mode --settings ../settings.xml
+    curl -f --connect-timeout 15 --retry 5 --retry-delay 30 https://www.threecopies.com > /dev/null
 merge:
   script: |-
-    pdd --source=$(pwd) --verbose --file=/dev/null
     mvn help:system clean install -Pqulice --settings ../settings.xml
-    mvn clean site -Psite --settings ../settings.xml

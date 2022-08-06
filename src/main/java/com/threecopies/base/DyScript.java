@@ -259,6 +259,7 @@ final class DyScript implements Script {
      * Charge him again.
      * @throws IOException If fails
      */
+    @SuppressWarnings("unchecked")
     private void rebill() throws IOException {
         final Item item = this.item();
         final Long cents = Long.parseLong(item.get("stripe_cents").getN());
