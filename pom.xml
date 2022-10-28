@@ -26,7 +26,7 @@ software.
   <parent>
     <groupId>com.jcabi</groupId>
     <artifactId>parent</artifactId>
-    <version>0.60.0</version>
+    <version>0.63.2</version>
   </parent>
   <groupId>com.threecopies</groupId>
   <artifactId>threecopies</artifactId>
