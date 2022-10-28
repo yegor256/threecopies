@@ -181,7 +181,7 @@ public final class Routine implements Func<Void, Integer> {
         );
         this.shell.exec(
             String.format(
-                "%s/start.sh %s %s &",
+                "%s/start.sh %s %s >/dev/null 2>&1 &",
                 Routine.DIR, container, period
             ),
             new DeadInputStream(),
