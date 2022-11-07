@@ -174,7 +174,7 @@ software.
     <dependency>
       <groupId>com.amazonaws</groupId>
       <artifactId>aws-java-sdk-core</artifactId>
-      <version>1.12.336</version>
+      <version>1.12.337</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
@@ -186,7 +186,7 @@ software.
     <dependency>
       <groupId>com.amazonaws</groupId>
       <artifactId>aws-java-sdk-dynamodb</artifactId>
-      <version>1.12.336</version>
+      <version>1.12.337</version>
     </dependency>
     <dependency>
       <groupId>com.jcabi</groupId>
