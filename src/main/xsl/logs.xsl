@@ -70,8 +70,24 @@ software.
         <xsl:apply-templates select="log"/>
       </tbody>
     </table>
+    <xsl:apply-templates select="/page/paging"/>
+  </xsl:template>
+  <xsl:template match="paging">
     <p>
-      <xsl:text>Most probably there is more, but paging is not implemented yet :(</xsl:text>
+      <xsl:if test="prev">
+        <a href="?page={prev}">
+          <xsl:text>&lt; prev</xsl:text>
+        </a>
+        <xsl:text> </xsl:text>
+      </xsl:if>
+      <xsl:text>page </xsl:text>
+      <xsl:value-of select="current"/>
+      <xsl:if test="next">
+        <xsl:text> </xsl:text>
+        <a href="?page={next}">
+          <xsl:text>next &gt;</xsl:text>
+        </a>
+      </xsl:if>
     </p>
   </xsl:template>
   <xsl:template match="log">
